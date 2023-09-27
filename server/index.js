@@ -13,36 +13,32 @@ const defaultCount = 10;
 const defaultDebitOrCredit = "debit";
 const defaultType = "description";
 
+// filter out transactions without transactionDates
+const getValidTransactions = ( transactions ) => {
+  return transactions.filter((transaction) => transaction.hasOwnProperty('transactionDate'))
+}
 
 // API Endpoints
 app.get('/transactions', (req, res) => {
+  // elected NOT to filter for "valid" transactions here
   res.status(200).contentType('application/json').send(transactions);
 })
 
 // based on frequence, not debit or credit amount
 app.get('/transactions/top-merchants/:count?', (req, res) => {
   const count = req.params.count || defaultCount;
-  const topMerchants = getTopMerchants(JSON.parse(transactions), count);
+  const validTransactions = getValidTransactions(transactions);
+  const topMerchants = getTopMerchants(JSON.parse(validTransactions), count);
   res.status(200).contentType('application/json').send(topMerchants);
 })
 
-/*
-  handles merchants and categories for debits and credits with optional quantity 
-  valid endpoints:
-    http://localhost:3000/transactions/top-by-amount/description/debit/5
-    http://localhost:3000/transactions/top-by-amount/description/credit/10
-    http://localhost:3000/transactions/top-by-amount/category/debit/2
-    http://localhost:3000/transactions/top-by-amount/category/debit/3
-    http://localhost:3000/transactions/top-by-amount/category/debit
-    http://localhost:3000/transactions/top-by-amount/description
-    http://localhost:3000/transactions/top-by-amount
-*/
+// handles merchants and categories for debits and credits with optional quantity 
 app.get('/transactions/top-by-amount/:type?/:debitOrCredit?/:count?', (req, res) => {
   const debitOrCredit = req.params.debitOrCredit || defaultDebitOrCredit;
   const count = req.params.count || defaultCount;
   const type = req.params.type || defaultType;
-
-  const top = getTopByAmount(JSON.parse(transactions), type, debitOrCredit, count );
+  const validTransactions = getValidTransactions(transactions);
+  const top = getTopByAmount(JSON.parse(validTransactions), type, debitOrCredit, count );
   res.status(200).contentType('application/json').send(top);
 })
 
