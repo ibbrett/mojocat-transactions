@@ -1,0 +1,18 @@
+  const getTop10Merchants = () => {
+    // const clone = [...transactions];
+    const merchants = {};
+    transactions.forEach((transaction) => {
+      /*
+      if(merchants.hasOwnProperty(transaction.description)){
+        const val = merchants[transaction.description];
+        merchants[transaction.description] =  val + 1;
+      } else {
+        merchants[transaction.description] = 1;
+      }
+      */
+      console.log(JSON.stringify(transaction,null,2))
+    })
+    //console.log([...merchants.entries()])
+    //console.log(JSON.stringify(merchants,null,2))
+    //return merchants;
+  }

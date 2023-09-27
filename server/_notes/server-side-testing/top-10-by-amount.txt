@@ -1,0 +1,8 @@
+app.get('/transactions/top-10-by-amount', (req, res) => {
+  let top 
+  //top = getTopTenByAmount(JSON.parse(transactions),'description', 'debit');
+  //top = getTopTenByAmount(JSON.parse(transactions),'description', 'credit');
+  top = getTopTenByAmount(JSON.parse(transactions),'category', 'debit');
+  //top = getTopTenByAmount(JSON.parse(transactions),'category', 'credit');
+  res.status(200).contentType('application/json').send(top);
+})

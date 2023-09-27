@@ -1,8 +1,6 @@
 import React from "react";
 import {AiFillCloseCircle} from  "react-icons/ai";  // 'react-icons/fa'
 
-
-
 const Modal = ({ children, showModal, closeModal, label }) => {
   return showModal ? (
     <div className="modal-container">

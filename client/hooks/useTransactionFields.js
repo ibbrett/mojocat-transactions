@@ -1,7 +1,6 @@
 const transactionFields = [
   "transactionDate",
   "description",
-  "category",
   "debit",
   "credit"
 ];

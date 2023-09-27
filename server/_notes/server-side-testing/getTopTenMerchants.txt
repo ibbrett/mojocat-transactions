@@ -1,0 +1,23 @@
+const getTopTenMerchants = ( transactions ) => {
+  const merchants = new Map();
+  transactions.forEach((transaction) => {
+    if(merchants.has(transaction.description)){
+      const val = merchants.get(transaction.description);
+      merchants.set(transaction.description, val + 1);
+    } else {
+      merchants.set(transaction.description, 1);
+    }
+  })
+
+  // sort descending
+  const sortedEntries =[...merchants.entries()].sort((a,b) => b[1] - a[1]);
+
+  // find 10th-place merchant, get value 
+  // this is to handle the use case of a tie for 10th place 
+  // if so, we will include other merchants with same value
+  const tenthPlaceValue = sortedEntries[9][1];
+  const topTenList = sortedEntries.filter(entry => entry[1] >= tenthPlaceValue)
+  // console.log(topTenList)
+
+  return topTenList;
+}

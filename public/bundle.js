@@ -19400,7 +19400,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   const transactionFields = [
     "transactionDate",
     "description",
-    "category",
     "debit",
     "credit"
   ];
@@ -19691,19 +19690,47 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         setShowModal(false);
       }
     }, [selectedTransaction]);
+    react3.useEffect(() => {
+      if (transactions.length) {
+        getTopTenCategoriesByAmount("debit");
+        getTopTenCategoriesByAmount("credit");
+      }
+    }, [transactions]);
     const openModal = (id) => {
       setSelectedId(id);
     };
     const closeModal = () => {
       setSelectedId(stateDefaults.selectedId);
     };
-    return /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("h1", null, "TRANSACTIONS"), /* @__PURE__ */ react3.default.createElement("pre", null, "state selectedId: ", selectedId, "showModal: ", showModal, "selectedTransaction: ", JSON.stringify(selectedTransaction)), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, {
+    const getTopTenCategoriesByAmount = (debitOrCredit) => {
+      console.log("getTopTenMerchantsByDebitAmount");
+      const merchants = new Map();
+      transactions.forEach((transaction) => {
+        let amount = transaction[debitOrCredit] === null ? 0 : transaction[debitOrCredit];
+        if (merchants.has(transaction.category)) {
+          const val = merchants.get(transaction.category);
+          amount = parseFloat((parseFloat(val) + parseFloat(amount)).toFixed(2));
+          merchants.set(transaction.category, amount);
+        } else {
+          merchants.set(transaction.category, amount);
+        }
+      });
+      const sortedEntries = [...merchants.entries()].sort((a, b) => b[1] - a[1]);
+      let topNList = sortedEntries.filter((entry) => entry[1] > 0);
+      if (topNList.length >= 10) {
+        const tenthPlaceValue = topNList[9][1];
+        topNList = topNList.filter((entry) => entry[1] >= tenthPlaceValue);
+      }
+      console.log(debitOrCredit, topNList);
+      return merchants;
+    };
+    return /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("pre", null, "state selectedId: ", selectedId, "showModal: ", showModal, "selectedTransaction: ", JSON.stringify(selectedTransaction), "## top 10 merchants"), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, {
       msg: "Loading",
       margin: "20px",
       color: "#61dafb"
-    }) : /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("table", {
-      className: "transactions-table"
-    }, /* @__PURE__ */ react3.default.createElement("thead", null, /* @__PURE__ */ react3.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react3.default.createElement("th", {
+    }) : /* @__PURE__ */ react3.default.createElement("div", {
+      className: "transactions"
+    }, /* @__PURE__ */ react3.default.createElement("h2", null, "Card Transactions"), /* @__PURE__ */ react3.default.createElement("table", null, /* @__PURE__ */ react3.default.createElement("thead", null, /* @__PURE__ */ react3.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react3.default.createElement("th", {
       key: field + 0
     }, field)))), /* @__PURE__ */ react3.default.createElement("tbody", null, transactions.map((trans) => {
       return /* @__PURE__ */ react3.default.createElement("tr", {

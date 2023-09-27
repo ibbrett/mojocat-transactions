@@ -39,28 +39,95 @@ pre {
   color: #61dafb;
 }
 
-.transactions-table {
-  border: 1px solid rgb(255, 203, 9);
-  border-radius: 5px;
+/* transactions table */
+
+/*
+.transactions {
+  border-radius: 16px;
+  background-color: rgba(238,238,238,.5);
+  display: inline-block;
+  padding: 0 16px 16px 16px;
+  margin: 16px 0;
+}*/
+
+
+/*
+@media (max-width: 767px) {
+  .transactions {
+    color: red;
+    margin: 0;
+    border-radius: 0;
+  }
+  .transactions tr td {
+    padding: 5px;
+  }
+}*/
+
+.transactions {
+  border-radius: 0;
+  background-color: rgba(238,238,238,.5);
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.transactions tr td {
+  padding: 5px;
+}
+
+/* added media queries to expand layout/readability for tablet and above */
+@media (min-width: 768px) {
+  .transactions {
+    margin: 16px 0;
+    border-radius: 16px;
+    padding: 0 16px 16px 16px;
+    width: auto;
+  }
+  .transactions tr td {
+    
+    padding: 10px 30px;
+  }
+}
+
+.transactions table {
+  /*border: 1px solid rgb(255, 203, 9);*/
   margin: auto;
+  border-collapse: collapse;
 }
 
-.transactions-table thead tr {
-  background-color: black;
-  color: white;
+/*
+.transactions tr td {
+  padding: 10px 30px;
+}*/
+
+.transactions thead tr th {
+  /*background-color: black;
+  color: white;*/
+  color: #999;
+  padding-bottom: 12px;
 }
 
-.transactions-table tbody tr {
+
+
+
+.transactions tbody tr {
+  color: #999;
   cursor: pointer;
+  &:hover td {
+    background-color: #eee;
+  }
 }
 
+/*
 .transactions-table tbody tr:nth-child(even) {
   background-color: rgba(255, 203, 9, .3);
 }
 
 .transactions-table tbody tr:nth-child(odd) {
-  background-color: rgba(16, 122, 204, .3);
+  background-color: rgba(16, 122, 204, .3); 
 }
+*/
 
 .modal-container {
   position: fixed;
@@ -107,10 +174,12 @@ pre {
   margin: auto 0;
 }
 
+/*
 .transaction-detail {
   color: red;
-}
+}*/
 
+/* transaction detail */
 .transaction-detail hr {
   border-top: 1px solid #ddd;
 }
