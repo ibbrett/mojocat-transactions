@@ -37,7 +37,7 @@ interpreted this to mean top 10 merchants by number of transactions
 
 #### valid endpoints 
 
-```javascript
+```bash
 http://localhost:3000/transactions/top-by-amount/description/debit/5
 ```
 
