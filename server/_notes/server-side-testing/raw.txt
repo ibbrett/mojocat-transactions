@@ -1,0 +1,62 @@
+const getMerchantsByAmount = ( transactions, type, debitOrCredit, count ) => {
+
+  /*
+  const merchants = new Map()
+  transactions.forEach((transaction) => {
+    let amount = transaction[debitOrCredit] === null ? 0 : transaction[debitOrCredit]
+    if(merchants.has(transaction[type])){
+      const val = merchants.get(transaction[type]);
+      // converting to float for adding, then fixing to 2 decimal numbers, then converting back to number
+      amount = parseFloat((parseFloat(val) + parseFloat(amount)).toFixed(2))
+      merchants.set(transaction[type], amount);
+    } else {
+     merchants.set(transaction[type], amount);
+    }
+  })
+
+  return getTopList(merchants, count);
+  */
+
+  return getTopByAmount( transactions, type, debitOrCredit, count )
+
+}
+
+const getCategoriesByAmount = ( transactions, type, debitOrCredit, count ) => {
+
+  const merchants = new Map()
+  transactions.forEach((transaction) => {
+    let amount = transaction[debitOrCredit] === null ? 0 : transaction[debitOrCredit]
+    if(merchants.has(transaction[type])){
+      const val = merchants.get(transaction[type]);
+      // converting to float for adding, then fixing to 2 decimal numbers, then converting back to number
+      amount = parseFloat((parseFloat(val) + parseFloat(amount)).toFixed(2))
+      merchants.set(transaction[type], amount);
+    } else {
+     merchants.set(transaction[type], amount);
+    }
+  })
+
+  return getTopList(merchants, count);
+}
+
+
+
+/*
+const getTopTenByAmount = ( transactions, type, debitOrCredit, count ) => {
+
+  const merchants = new Map()
+  transactions.forEach((transaction) => {
+    let amount = transaction[debitOrCredit] === null ? 0 : transaction[debitOrCredit]
+    if(merchants.has(transaction[type])){
+      const val = merchants.get(transaction[type]);
+      // converting to float for adding, then fixing to 2 decimal numbers, then converting back to number
+      amount = parseFloat((parseFloat(val) + parseFloat(amount)).toFixed(2))
+      merchants.set(transaction[type], amount);
+    } else {
+     merchants.set(transaction[type], amount);
+    }
+  })
+
+  const quantity = count;
+  return getTopList(merchants, quantity);
+}*/

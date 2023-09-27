@@ -19,6 +19,7 @@ http://localhost:3000/transactions/top-merchants/
 ```
 
 otherwise, a count can be specified for number of top merchants
+
 ```bash
 http://localhost:3000/transactions/top-merchants/5
 ```
@@ -29,6 +30,7 @@ http://localhost:3000/transactions/top-merchants/5
 - defaults to top 10
 - defaults to debit
 
+### valid sample endpoints
 
 ```bash
 http://localhost:3000/transactions/top-by-amount
@@ -39,11 +41,13 @@ http://localhost:3000/transactions/top-by-amount/description/debit/5
 http://localhost:3000/transactions/top-by-amount/description/credit/5
 ```
 
-### server data source: Top categories by amount
+## server data source: Top categories by amount
 
 - interpreted this to mean top categoories by sum of debit or credit amounts 
 - defaults to top 10
 - defaults to debit
+
+### valid sample endpoints
 
 ```bash
 http://localhost:3000/transactions/top-by-amount/category

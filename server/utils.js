@@ -49,7 +49,5 @@ const getTopByAmount = ( transactions, type, debitOrCredit, count ) => {
   return getTopList(merchants, count);
 }
 
-//exports.getTopTenMerchants = getTopTenMerchants;
-//exports.getTopTenByAmount = getTopTenByAmount;
 exports.getTopMerchants = getTopMerchants;
 exports.getTopByAmount = getTopByAmount;
