@@ -1,3 +1,20 @@
+/* all transaction fields
+const allTransactionFields = [
+  "id",
+  "transactionDate",
+  "description",
+  "category",
+  "debit",
+  "credit",
+  "merchantStreetAddress",
+  "merchantCity",
+  "merchantState",
+  "merchantCountry",
+  "currency"
+];
+*/
+
+// used by droplist - object of droplist labels and API endpoint paths
 const views = {
   "all": "/transactions", 
   "top merchants by transactions": "/transactions/top-merchants", 
@@ -7,6 +24,7 @@ const views = {
   "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
 };
 
+// used to control transaction field display
 const transactionFields = {
   "all": [
     "transactionDate",
@@ -42,22 +60,6 @@ const transactionFields = {
     "credit"
   ],
 };
-
-/*
-const transactionFields = [
-  "id",
-  "transactionDate",
-  "description",
-  "category",
-  "debit",
-  "credit",
-  "merchantStreetAddress",
-  "merchantCity",
-  "merchantState",
-  "merchantCountry",
-  "currency"
-];
-*/
 
 const useTransactionFields = () => {
 
