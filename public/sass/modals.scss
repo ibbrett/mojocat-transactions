@@ -1,4 +1,4 @@
-.modal-container {
+.modal {
   position: fixed;
   left: 0;
   right: 0;
@@ -10,19 +10,19 @@
   background-color: $modal-container-bg;
 }
 
-.modal-window {
+.modal .window {
   background-color: $modal-window-bg;
   position: relative;
   border-radius: 16px;
 }
 
-.modal-header {
+.modal header {
   margin: 16px 42px;
   display: flex;
   justify-content: space-between;
 }
 
-.modal-exit {
+.modal .exit {
   border: 1px solid $gray-light-alpha;
   &:hover {
     border: 1px solid $gray-light;
@@ -36,7 +36,7 @@
   color: $modal-exit-icon;
 }
 
-.modal-label {
+.modal label {
   font-size: $modal-label-font-size;
   text-align: left;
   margin: auto 0;

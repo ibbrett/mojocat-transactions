@@ -22,9 +22,6 @@ const TransactionList = () => {
     selectedOption: "all",
     transactionFields: []
   };
-
-  const views = getViews();
-
   const [selectedId, setSelectedId] = useState(stateDefaults.selectedId);
   const [selectedTransaction, setSelectedTransaction] = useState(stateDefaults.selectedTransaction);
   const [showModal, setShowModal] = useState(stateDefaults.showModal);
@@ -32,11 +29,14 @@ const TransactionList = () => {
   const [selectedOption, setSelectedOption] = useState(stateDefaults.selectedOption);
   const [transactionFields, setTransactionFields] = useState(stateDefaults.transactionFields);
 
+  // views are used by the droplist as labels and API endpoint paths
+  const views = getViews();
+
+  // effect to manage fetching data on load and when the droplist option is changd
   useEffect(() => {
     console.log('useEffect', 'doFetch')
     async function doFetch() {
-      await sleep(1000);
-      // const transactions = await fetchTransactions("/transactions");
+      await sleep(1500);
       const transactions = await fetchTransactions(views[selectedOption]);
       setTransactionFields(getFields(selectedOption));
       setTransactions(transactions);
@@ -44,17 +44,7 @@ const TransactionList = () => {
     doFetch();
   }, [selectedOption]);
 
-  /*
-  useEffect(() => {
-    async function doFetch(url) {
-      await sleep(1000);
-      const transactions = await fetchTransactions(url);
-      setTransactions(transactions);
-    }
-    doFetch("/transactions");
-  }, []);
-  */
-
+  // effect to manage selected transaction record
   useEffect(() => {
     if(selectedId === 0){
       setSelectedTransaction(stateDefaults.selectedTransaction);
@@ -65,6 +55,7 @@ const TransactionList = () => {
 
   }, [selectedId]);
 
+  // effect to manage displaying/hiding transaction detail modal
   useEffect(() => {
     // has items
     if(selectedTransaction.id === selectedId){
@@ -75,34 +66,28 @@ const TransactionList = () => {
 
   }, [selectedTransaction]);
 
-  const openModal = (id) => { 
-    setSelectedId(id);
-  };
-
-  const closeModal = () => { 
-    setSelectedId(stateDefaults.selectedId);
-  };
+  // these functions manage opening/closing modal by setting the selected transaction id
+  // modal closes when this id is set to 0, otherwise it opens with detail data associated with the selected id
+  const openModal = (id) => { setSelectedId(id);};
+  const closeModal = () => { setSelectedId(stateDefaults.selectedId);};
 
   return (
     <>
-      {/*<pre>
-        state 
-        selectedId: {selectedId}
-        showModal: {showModal}
-        selectedTransaction: {JSON.stringify(selectedTransaction)}
-        transaction count: {transactions.length}
-  </pre>*/}
       <div className="transactions">
-      <h2>Card Transactions</h2>
+      { transactions.length ? <img src="/logo.jpg" className="client-icon" /> : null }
+        <h2>Card Transactions</h2>
       { !transactions.length ? <Loading />
       :
       <>
-        
         <select
           name="view"
           value={selectedOption}
           className="droplist"
-          onChange={e => setSelectedOption(e.target.value)}
+          onChange={e => { 
+            setTransactions(stateDefaults.transactions)
+            setSelectedOption(e.target.value)
+          }
+        }
         >
           {Object.keys(views).map((item, index) => (
             <option key={index} value={item}>
@@ -110,7 +95,6 @@ const TransactionList = () => {
             </option>
           ))}
         </select>
-
         <table>
           <thead>
             <tr>
@@ -134,7 +118,6 @@ const TransactionList = () => {
         <Modal showModal={showModal} closeModal={closeModal} label="Transaction Detail">
           <TransactionDetail transaction={selectedTransaction} />
         </Modal>
-
         </>
         }
         </div>

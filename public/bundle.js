@@ -19610,15 +19610,11 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   const react5 = __toModule(require_react());
   const Modal2 = ({children, showModal, closeModal, label}) => {
     return showModal ? /* @__PURE__ */ react5.default.createElement("div", {
-      className: "modal-container"
+      className: "modal"
     }, /* @__PURE__ */ react5.default.createElement("div", {
-      className: "modal-window"
-    }, /* @__PURE__ */ react5.default.createElement("div", {
-      className: "modal-header"
-    }, /* @__PURE__ */ react5.default.createElement("label", {
-      className: "modal-label"
-    }, label), /* @__PURE__ */ react5.default.createElement("div", {
-      className: "modal-exit",
+      className: "window"
+    }, /* @__PURE__ */ react5.default.createElement("header", null, /* @__PURE__ */ react5.default.createElement("label", null, label), /* @__PURE__ */ react5.default.createElement("div", {
+      className: "exit",
       onClick: closeModal
     }, /* @__PURE__ */ react5.default.createElement(AiFillCloseCircle, null))), children)) : null;
   };
@@ -19703,17 +19699,17 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       selectedOption: "all",
       transactionFields: []
     };
-    const views2 = getViews();
     const [selectedId, setSelectedId] = react3.useState(stateDefaults.selectedId);
     const [selectedTransaction, setSelectedTransaction] = react3.useState(stateDefaults.selectedTransaction);
     const [showModal, setShowModal] = react3.useState(stateDefaults.showModal);
     const [transactions, setTransactions] = react3.useState(stateDefaults.transactions);
     const [selectedOption, setSelectedOption] = react3.useState(stateDefaults.selectedOption);
     const [transactionFields2, setTransactionFields] = react3.useState(stateDefaults.transactionFields);
+    const views2 = getViews();
     react3.useEffect(() => {
       console.log("useEffect", "doFetch");
       async function doFetch() {
-        await sleep(1e3);
+        await sleep(1500);
         const transactions2 = await fetchTransactions(views2[selectedOption]);
         setTransactionFields(getFields(selectedOption));
         setTransactions(transactions2);
@@ -19743,11 +19739,17 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     };
     return /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("div", {
       className: "transactions"
-    }, /* @__PURE__ */ react3.default.createElement("h2", null, "Card Transactions"), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, null) : /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("select", {
+    }, transactions.length ? /* @__PURE__ */ react3.default.createElement("img", {
+      src: "/logo.jpg",
+      className: "client-icon"
+    }) : null, /* @__PURE__ */ react3.default.createElement("h2", null, "Card Transactions"), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, null) : /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("select", {
       name: "view",
       value: selectedOption,
       className: "droplist",
-      onChange: (e) => setSelectedOption(e.target.value)
+      onChange: (e) => {
+        setTransactions(stateDefaults.transactions);
+        setSelectedOption(e.target.value);
+      }
     }, Object.keys(views2).map((item, index) => /* @__PURE__ */ react3.default.createElement("option", {
       key: index,
       value: item
