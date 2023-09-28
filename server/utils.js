@@ -49,5 +49,31 @@ const getTopByAmount = ( transactions, type, debitOrCredit, count ) => {
   return getTopList(merchants, count);
 }
 
+const getTransactionsFromRankings = ( transactions, rankings, type, debitOrCredit ) => {
+  const topList = rankings.map(item => item[0])
+  let filteredTransactions;
+  const forkFilterOutNullRecords = true;
+  if(forkFilterOutNullRecords){
+    if( debitOrCredit === "debit" || debitOrCredit === "credit"){
+      filteredTransactions = transactions.filter(transaction => {
+        return topList.indexOf(transaction[type]) >= 0 && transaction[debitOrCredit] !== null; 
+      })
+    } else {
+      
+      filteredTransactions = transactions.filter(transaction => {
+        return topList.indexOf(transaction[type]) >= 0; 
+      })
+    }
+  } else {
+    filteredTransactions = transactions.filter(transaction => {
+      return topList.indexOf(transaction[type]) >= 0; 
+    })
+  }
+  
+  
+  return filteredTransactions;
+}
+
 exports.getTopMerchants = getTopMerchants;
 exports.getTopByAmount = getTopByAmount;
+exports.getTransactionsFromRankings = getTransactionsFromRankings;

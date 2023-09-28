@@ -1,12 +1,12 @@
 import React from "react";
 import {Spinner} from './Spinner'
 
-export const Loading = ({msg, margin, color}) => {
+export const Loading = () => {
 
   return (
     <>
-      <h3 style={{color: color}}>{msg}</h3>
-      <Spinner color={color} margin={margin} />
+      <h3 className="loading">Loading Transactions</h3>
+      <Spinner />
     </>
   )
   

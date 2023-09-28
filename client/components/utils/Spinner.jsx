@@ -1,8 +1,8 @@
 import React from "react";
 
-export const Spinner = ({color, margin}) => {
+export const Spinner = () => {
   return (
-    <div style={{marginTop: margin}}>
+    <div className="spinner">
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +10,7 @@ export const Spinner = ({color, margin}) => {
           height="50"
           viewBox="0 0 200 200"
           fill="none"
-          color={color}
+          className="loading"
         >
           <defs>
             <linearGradient id="spinner-secondHalf">

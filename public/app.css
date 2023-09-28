@@ -1,16 +1,12 @@
+/*#61dafb;*/
 body {
-	margin: 0;
-	padding: 0;
-  font-family: sans-serif;
-}
-
-pre {
   margin: 0;
+  padding: 0;
 }
 
- .App {
+.App {
   text-align: center;
-  /*font-family: monospace;*/
+  font-family: monospace;
 }
 
 .App-logo {
@@ -23,7 +19,6 @@ pre {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -39,44 +34,60 @@ pre {
   color: #61dafb;
 }
 
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+pre {
+  margin: 0;
+}
+
 /* transactions table */
-
-/*
 .transactions {
-  border-radius: 16px;
-  background-color: rgba(238,238,238,.5);
-  display: inline-block;
-  padding: 0 16px 16px 16px;
-  margin: 16px 0;
-}*/
-
-
-/*
-@media (max-width: 767px) {
-  .transactions {
-    color: red;
-    margin: 0;
-    border-radius: 0;
-  }
-  .transactions tr td {
-    padding: 5px;
-  }
-}*/
-
-.transactions {
+  font-family: sans-serif;
   border-radius: 0;
-  background-color: rgba(238,238,238,.5);
+  background-color: rgba(238, 238, 238, 0.5);
   display: inline-block;
   padding: 0;
   margin: 0;
   width: 100%;
+  /*min-width: 707px;*/
 }
 
 .transactions tr td {
   padding: 5px;
 }
 
+.transactions table {
+  margin: auto;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.transactions thead tr th {
+  color: #999;
+  padding-bottom: 12px;
+}
+
+.transactions tbody tr {
+  color: #999;
+  cursor: pointer;
+  font-size: 14px;
+}
+.transactions tbody tr:hover td {
+  background-color: #eee;
+}
+
 /* added media queries to expand layout/readability for tablet and above */
+@media (min-width: 600px) {
+  .transactions tr td {
+    font-size: 15px;
+  }
+}
 @media (min-width: 768px) {
   .transactions {
     margin: 16px 0;
@@ -85,106 +96,16 @@ pre {
     width: auto;
   }
   .transactions tr td {
-    
     padding: 10px 30px;
+    font-size: 16px;
   }
 }
-
-.transactions table {
-  /*border: 1px solid rgb(255, 203, 9);*/
-  margin: auto;
-  border-collapse: collapse;
-}
-
-/*
-.transactions tr td {
-  padding: 10px 30px;
-}*/
-
-.transactions thead tr th {
-  /*background-color: black;
-  color: white;*/
-  color: #999;
-  padding-bottom: 12px;
-}
-
-
-
-
-.transactions tbody tr {
-  color: #999;
-  cursor: pointer;
-  &:hover td {
-    background-color: #eee;
-  }
-}
-
-/*
-.transactions-table tbody tr:nth-child(even) {
-  background-color: rgba(255, 203, 9, .3);
-}
-
-.transactions-table tbody tr:nth-child(odd) {
-  background-color: rgba(16, 122, 204, .3); 
-}
-*/
-
-.modal-container {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(200, 200, 200, 0.9);
-}
-
-.modal-window {
-  background-color: #fff;
-  position: relative;
-  border-radius: 16px;
-} /* padding: 20px; */
-
-.modal-header {
-  margin: 16px 42px;
-  display: flex;
-  justify-content: space-between;
-} /* text-align: right; */
-
-.modal-exit {
-  /*background-color: rgba(0,255,255,.25);*/
-  border: 1px solid rgba(238,238,238,.5);
-  &:hover {
-    border: 1px solid rgb(238,238,238);
-    background-color: rgba(238,238,238,.4);
-  }
-  display: inline-block;
-  border-radius: 12px;
-  text-align: right;
-  padding: 8px 8px 2px 8px;
-  font-size: 24px;
-  color: red;
-}
-
-.modal-label {
-  font-size: 22px;
-  text-align: left;
-  margin: auto 0;
-}
-
-/*
-.transaction-detail {
-  color: red;
-}*/
-
 /* transaction detail */
 .transaction-detail hr {
   border-top: 1px solid #ddd;
 }
 
-.transaction-detail .body{
+.transaction-detail .body {
   margin: 24px 36px;
   border-radius: 16px;
   border: 1px solid #ddd;
@@ -210,16 +131,76 @@ pre {
   width: 30%;
   text-align: left;
 }
+
 .transaction-detail .item .value {
   width: 70%;
   text-align: right;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.modal-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(200, 200, 200, 0.9);
 }
+
+.modal-window {
+  background-color: white;
+  position: relative;
+  border-radius: 16px;
+}
+
+.modal-header {
+  margin: 16px 42px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-exit {
+  border: 1px solid rgba(238, 238, 238, 0.5);
+  display: inline-block;
+  border-radius: 12px;
+  text-align: right;
+  padding: 8px 8px 2px 8px;
+  font-size: 24px;
+  color: red;
+}
+.modal-exit:hover {
+  border: 1px solid rgb(238, 238, 238);
+  background-color: rgba(238, 238, 238, 0.5);
+}
+
+.modal-label {
+  font-size: 22px;
+  text-align: left;
+  margin: auto 0;
+}
+
+.droplist {
+  /* appearance: none; */
+  width: 300px;
+  height: 36px;
+  border: 1px solid #999;
+  font-size: 16px;
+  color: rgb(16, 122, 204);
+  background-color: rgb(255, 203, 9);
+  border-radius: 5px;
+  box-shadow: 1px 1px #ccc;
+  margin-bottom: 18px;
+  padding: 8px;
+}
+
+.loading {
+  color: rgb(16, 122, 204);
+}
+
+.spinner {
+  margin-top: 2px;
+}
+
+/*# sourceMappingURL=app.css.map */

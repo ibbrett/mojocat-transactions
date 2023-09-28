@@ -2581,5 +2581,70 @@
     "merchantState": "Idaho",
     "merchantCountry": "USA",
     "currency": "USD"
+  },
+  {
+    "transactionDate": "2017-01-01",
+    "description": "Big Foo Limited",
+    "category": "Random Stuff",
+    "debit": null,
+    "credit": 99.95,
+    "id": 500,
+    "merchantStreetAddress": "123 Happy Street",
+    "merchantCity": "Honolulu",
+    "merchantState": "Hawai'i",
+    "merchantCountry": "USA",
+    "currency": "USD"
+  },
+  {
+    "transactionDate": "2017-01-02",
+    "description": "Big Foo Limited",
+    "category": "Random Stuff",
+    "debit": null,
+    "credit": 107.23,
+    "id": 501,
+    "merchantStreetAddress": "123 Happy Street",
+    "merchantCity": "Honolulu",
+    "merchantState": "Hawai'i",
+    "merchantCountry": "USA",
+    "currency": "USD"
+  },
+  {
+    "transactionDate": "2017-01-03",
+    "description": "Big Foo Limited",
+    "category": "Payment/Credit",
+    "debit": null,
+    "credit": 205.64,
+    "id": 502,
+    "merchantStreetAddress": "123 Happy Street",
+    "merchantCity": "Honolulu",
+    "merchantState": "Hawai'i",
+    "merchantCountry": "USA",
+    "currency": "USD"
+  },
+  {
+    "transactionDate": "2017-01-04",
+    "description": "Low Bar Standards",
+    "category": "Payment/Credit",
+    "debit": null,
+    "credit": 300.43,
+    "id": 503,
+    "merchantStreetAddress": "456 Melancholy Lane",
+    "merchantCity": "Hilo",
+    "merchantState": "Hawai'i",
+    "merchantCountry": "USA",
+    "currency": "USD"
+  },
+  {
+    "transactionDate": "2017-01-04",
+    "description": "Low Bar Standards",
+    "category": "Merchandise",
+    "debit": null,
+    "credit": 45.99,
+    "id": 504,
+    "merchantStreetAddress": "456 Melancholy Lane",
+    "merchantCity": "Hilo",
+    "merchantState": "Hawai'i",
+    "merchantCountry": "USA",
+    "currency": "USD"
   }
 ]

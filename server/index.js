@@ -2,34 +2,43 @@ const express = require('express')
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
-const {getTopMerchants, getTopByAmount} = require('./utils');
+const {getTopMerchants, getTopByAmount, getTransactionsFromRankings} = require('./utils');
 
 const app = express()
 app.use(cors());
 const port = 3000
 
+// filter out transactions without transactionDates
+const getValidTransactions = ( transactions ) => {
+  return transactions.filter((transaction) => transaction.hasOwnProperty('transactionDate'));
+}
+
 const transactions = fs.readFileSync(path.resolve(__dirname, './transactions.json'), 'utf-8');
+const validTransactions = getValidTransactions(JSON.parse(transactions));
+
 const defaultCount = 10;
 const defaultDebitOrCredit = "debit";
 const defaultType = "description";
 
-// filter out transactions without transactionDates
-const getValidTransactions = ( transactions ) => {
-  return transactions.filter((transaction) => transaction.hasOwnProperty('transactionDate'))
-}
-
 // API Endpoints
 app.get('/transactions', (req, res) => {
-  // elected NOT to filter for "valid" transactions here
-  res.status(200).contentType('application/json').send(transactions);
+  res.status(200).contentType('application/json').send(validTransactions);
 })
 
 // based on frequence, not debit or credit amount
 app.get('/transactions/top-merchants/:count?', (req, res) => {
   const count = req.params.count || defaultCount;
-  const validTransactions = getValidTransactions(transactions);
-  const topMerchants = getTopMerchants(JSON.parse(validTransactions), count);
-  res.status(200).contentType('application/json').send(topMerchants);
+  const topItems = getTopMerchants(validTransactions, count);
+  const transactionsFromRankings = getTransactionsFromRankings(validTransactions, topItems, 'description');
+  //console.log('transactionsFromRankings[0]', transactionsFromRankings[0])
+  res.status(200).contentType('application/json').send(transactionsFromRankings);
+})
+
+// based on frequence, not debit or credit amount
+app.get('/rankings/top-merchants/:count?', (req, res) => {
+  const count = req.params.count || defaultCount;
+  const topItems = getTopMerchants(validTransactions, count);
+  res.status(200).contentType('application/json').send(topItems);
 })
 
 // handles merchants and categories for debits and credits with optional quantity 
@@ -37,9 +46,18 @@ app.get('/transactions/top-by-amount/:type?/:debitOrCredit?/:count?', (req, res)
   const debitOrCredit = req.params.debitOrCredit || defaultDebitOrCredit;
   const count = req.params.count || defaultCount;
   const type = req.params.type || defaultType;
-  const validTransactions = getValidTransactions(transactions);
-  const top = getTopByAmount(JSON.parse(validTransactions), type, debitOrCredit, count );
-  res.status(200).contentType('application/json').send(top);
+  const topItems = getTopByAmount(validTransactions, type, debitOrCredit, count );
+  const transactionsFromRankings = getTransactionsFromRankings(validTransactions, topItems, type, debitOrCredit);
+  res.status(200).contentType('application/json').send(transactionsFromRankings);
+})
+
+// handles merchants and categories for debits and credits with optional quantity 
+app.get('/rankings/top-by-amount/:type?/:debitOrCredit?/:count?', (req, res) => {
+  const debitOrCredit = req.params.debitOrCredit || defaultDebitOrCredit;
+  const count = req.params.count || defaultCount;
+  const type = req.params.type || defaultType;
+  const topItems = getTopByAmount(validTransactions, type, debitOrCredit, count );
+  res.status(200).contentType('application/json').send(topItems);
 })
 
 // Serve static files

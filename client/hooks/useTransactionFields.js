@@ -1,9 +1,47 @@
-const transactionFields = [
-  "transactionDate",
-  "description",
-  "debit",
-  "credit"
-];
+const views = {
+  "all": "/transactions", 
+  "top merchants by transactions": "/transactions/top-merchants", 
+  "top merchants by amount (debit)": "/transactions/top-by-amount/description", 
+  "top categories by amount (debit)": "/transactions/top-by-amount/category",
+  "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit", 
+  "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
+};
+
+const transactionFields = {
+  "all": [
+    "transactionDate",
+    "description",
+    "category",
+    "debit",
+    "credit"
+  ],
+  "top merchants by transactions": [
+    "transactionDate",
+    "description",
+    "debit",
+    "credit"
+  ],
+  "top merchants by amount (debit)": [
+    "transactionDate",
+    "description",
+    "debit",
+  ],
+  "top categories by amount (debit)": [
+    "transactionDate",
+    "category",
+    "debit",
+  ],
+  "top merchants by amount (credit)": [
+    "transactionDate",
+    "description",
+    "credit"
+  ],
+  "top categories by amount (credit)": [
+    "transactionDate",
+    "category",
+    "credit"
+  ],
+};
 
 /*
 const transactionFields = [
@@ -23,15 +61,20 @@ const transactionFields = [
 
 const useTransactionFields = () => {
 
-  const getFields = () => {
-    return transactionFields;
+  const getFields = (view) => {
+    return transactionFields[view];
   }
 
-  const getValidTransactions = ( transactions ) => {
-    return transactions.filter((transaction) => transaction.hasOwnProperty('transactionDate'))
+  const getViews = () => {
+    return views;
   }
 
-  return { getFields, getValidTransactions };
+  const getFieldAsLabel = (fieldName) => { 
+    if(fieldName === "transactionDate") return "Date"
+    else return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+  }
+
+  return { getFields, getViews, getFieldAsLabel };
 };
 
 export { useTransactionFields };

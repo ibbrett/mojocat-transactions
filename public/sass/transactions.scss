@@ -1,0 +1,54 @@
+/* transactions table */
+.transactions {
+  font-family: $font-primary;
+  border-radius: 0;
+  background-color: $gray-light-alpha;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  /*min-width: 707px;*/
+}
+
+.transactions tr td {
+  padding: 5px;
+}
+
+.transactions table {
+  margin: auto;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.transactions thead tr th {
+  color: $transaction-text-color;
+  padding-bottom: 12px;
+}
+
+.transactions tbody tr {
+  color: $transaction-text-color;
+  cursor: pointer;
+  &:hover td {
+    background-color: $hover-bg-color;
+  }
+  font-size: 14px;
+}
+
+/* added media queries to expand layout/readability for tablet and above */
+@media (min-width: 600px) {
+  .transactions tr td {
+    font-size: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .transactions {
+    margin: 16px 0;
+    border-radius: 16px;
+    padding: 0 16px 16px 16px;
+    width: auto;
+  }
+  .transactions tr td {
+    padding: 10px 30px;
+    font-size: 16px;
+  }
+}

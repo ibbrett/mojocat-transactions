@@ -19397,34 +19397,77 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
 
   // client/hooks/useTransactionFields.js
-  const transactionFields = [
-    "transactionDate",
-    "description",
-    "debit",
-    "credit"
-  ];
+  const views = {
+    all: "/transactions",
+    "top merchants by transactions": "/transactions/top-merchants",
+    "top merchants by amount (debit)": "/transactions/top-by-amount/description",
+    "top categories by amount (debit)": "/transactions/top-by-amount/category",
+    "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit",
+    "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
+  };
+  const transactionFields = {
+    all: [
+      "transactionDate",
+      "description",
+      "category",
+      "debit",
+      "credit"
+    ],
+    "top merchants by transactions": [
+      "transactionDate",
+      "description",
+      "debit",
+      "credit"
+    ],
+    "top merchants by amount (debit)": [
+      "transactionDate",
+      "description",
+      "debit"
+    ],
+    "top categories by amount (debit)": [
+      "transactionDate",
+      "category",
+      "debit"
+    ],
+    "top merchants by amount (credit)": [
+      "transactionDate",
+      "description",
+      "credit"
+    ],
+    "top categories by amount (credit)": [
+      "transactionDate",
+      "category",
+      "credit"
+    ]
+  };
   const useTransactionFields2 = () => {
-    const getFields = () => {
-      return transactionFields;
+    const getFields = (view) => {
+      return transactionFields[view];
     };
-    const getValidTransactions = (transactions) => {
-      return transactions.filter((transaction) => transaction.hasOwnProperty("transactionDate"));
+    const getViews = () => {
+      return views;
     };
-    return {getFields, getValidTransactions};
+    const getFieldAsLabel = (fieldName) => {
+      if (fieldName === "transactionDate")
+        return "Date";
+      else
+        return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+    };
+    return {getFields, getViews, getFieldAsLabel};
   };
 
   // client/components/utils/Spinner.jsx
   const react6 = __toModule(require_react());
-  const Spinner2 = ({color, margin}) => {
+  const Spinner2 = () => {
     return /* @__PURE__ */ react6.default.createElement("div", {
-      style: {marginTop: margin}
+      className: "spinner"
     }, /* @__PURE__ */ react6.default.createElement("div", null, /* @__PURE__ */ react6.default.createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg",
       width: "50",
       height: "50",
       viewBox: "0 0 200 200",
       fill: "none",
-      color
+      className: "loading"
     }, /* @__PURE__ */ react6.default.createElement("defs", null, /* @__PURE__ */ react6.default.createElement("linearGradient", {
       id: "spinner-secondHalf"
     }, /* @__PURE__ */ react6.default.createElement("stop", {
@@ -19469,13 +19512,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
 
   // client/components/utils/Loading.jsx
   const react4 = __toModule(require_react());
-  const Loading2 = ({msg, margin, color}) => {
+  const Loading2 = () => {
     return /* @__PURE__ */ react4.default.createElement(react4.default.Fragment, null, /* @__PURE__ */ react4.default.createElement("h3", {
-      style: {color}
-    }, msg), /* @__PURE__ */ react4.default.createElement(Spinner2, {
-      color,
-      margin
-    }));
+      className: "loading"
+    }, "Loading Transactions"), /* @__PURE__ */ react4.default.createElement(Spinner2, null));
   };
 
   // node_modules/react-icons/lib/esm/iconsManifest.js
@@ -19653,28 +19693,33 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   const react3 = __toModule(require_react());
   const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
   const TransactionList2 = () => {
+    const {fetchTransactions} = useFetch2();
+    const {getFields, getFieldAsLabel, getViews} = useTransactionFields2();
     const stateDefaults = {
       selectedId: 0,
       selectedTransaction: {},
       showModal: false,
-      transactions: []
+      transactions: [],
+      selectedOption: "all",
+      transactionFields: []
     };
+    const views2 = getViews();
     const [selectedId, setSelectedId] = react3.useState(stateDefaults.selectedId);
     const [selectedTransaction, setSelectedTransaction] = react3.useState(stateDefaults.selectedTransaction);
     const [showModal, setShowModal] = react3.useState(stateDefaults.showModal);
     const [transactions, setTransactions] = react3.useState(stateDefaults.transactions);
-    const {fetchTransactions} = useFetch2();
-    const {getFields, getValidTransactions} = useTransactionFields2();
-    const transactionFields2 = getFields();
+    const [selectedOption, setSelectedOption] = react3.useState(stateDefaults.selectedOption);
+    const [transactionFields2, setTransactionFields] = react3.useState(stateDefaults.transactionFields);
     react3.useEffect(() => {
+      console.log("useEffect", "doFetch");
       async function doFetch() {
         await sleep(1e3);
-        const fetchResults = await fetchTransactions("/transactions");
-        const validTransactions = getValidTransactions(fetchResults);
-        setTransactions(validTransactions);
+        const transactions2 = await fetchTransactions(views2[selectedOption]);
+        setTransactionFields(getFields(selectedOption));
+        setTransactions(transactions2);
       }
       doFetch();
-    }, []);
+    }, [selectedOption]);
     react3.useEffect(() => {
       if (selectedId === 0) {
         setSelectedTransaction(stateDefaults.selectedTransaction);
@@ -19690,55 +19735,31 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         setShowModal(false);
       }
     }, [selectedTransaction]);
-    react3.useEffect(() => {
-      if (transactions.length) {
-        getTopTenCategoriesByAmount("debit");
-        getTopTenCategoriesByAmount("credit");
-      }
-    }, [transactions]);
     const openModal = (id) => {
       setSelectedId(id);
     };
     const closeModal = () => {
       setSelectedId(stateDefaults.selectedId);
     };
-    const getTopTenCategoriesByAmount = (debitOrCredit) => {
-      console.log("getTopTenMerchantsByDebitAmount");
-      const merchants = new Map();
-      transactions.forEach((transaction) => {
-        let amount = transaction[debitOrCredit] === null ? 0 : transaction[debitOrCredit];
-        if (merchants.has(transaction.category)) {
-          const val = merchants.get(transaction.category);
-          amount = parseFloat((parseFloat(val) + parseFloat(amount)).toFixed(2));
-          merchants.set(transaction.category, amount);
-        } else {
-          merchants.set(transaction.category, amount);
-        }
-      });
-      const sortedEntries = [...merchants.entries()].sort((a, b) => b[1] - a[1]);
-      let topNList = sortedEntries.filter((entry) => entry[1] > 0);
-      if (topNList.length >= 10) {
-        const tenthPlaceValue = topNList[9][1];
-        topNList = topNList.filter((entry) => entry[1] >= tenthPlaceValue);
-      }
-      console.log(debitOrCredit, topNList);
-      return merchants;
-    };
-    return /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("pre", null, "state selectedId: ", selectedId, "showModal: ", showModal, "selectedTransaction: ", JSON.stringify(selectedTransaction), "## top 10 merchants"), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, {
-      msg: "Loading",
-      margin: "20px",
-      color: "#61dafb"
-    }) : /* @__PURE__ */ react3.default.createElement("div", {
+    return /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("div", {
       className: "transactions"
-    }, /* @__PURE__ */ react3.default.createElement("h2", null, "Card Transactions"), /* @__PURE__ */ react3.default.createElement("table", null, /* @__PURE__ */ react3.default.createElement("thead", null, /* @__PURE__ */ react3.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react3.default.createElement("th", {
+    }, /* @__PURE__ */ react3.default.createElement("h2", null, "Card Transactions"), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, null) : /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("select", {
+      name: "view",
+      value: selectedOption,
+      className: "droplist",
+      onChange: (e) => setSelectedOption(e.target.value)
+    }, Object.keys(views2).map((item, index) => /* @__PURE__ */ react3.default.createElement("option", {
+      key: index,
+      value: item
+    }, item))), /* @__PURE__ */ react3.default.createElement("table", null, /* @__PURE__ */ react3.default.createElement("thead", null, /* @__PURE__ */ react3.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react3.default.createElement("th", {
       key: field + 0
-    }, field)))), /* @__PURE__ */ react3.default.createElement("tbody", null, transactions.map((trans) => {
+    }, getFieldAsLabel(field))))), /* @__PURE__ */ react3.default.createElement("tbody", null, transactions.map((trans, i) => {
       return /* @__PURE__ */ react3.default.createElement("tr", {
         title: trans["description"],
-        key: trans["id"],
+        key: trans["description"] + i,
         onClick: () => openModal(trans["id"])
-      }, transactionFields2.map((field) => /* @__PURE__ */ react3.default.createElement("td", {
-        key: field + trans["id"]
+      }, transactionFields2.map((field, j) => /* @__PURE__ */ react3.default.createElement("td", {
+        key: trans[field] + j
       }, trans[field])));
     }))), /* @__PURE__ */ react3.default.createElement(Modal2, {
       showModal,
@@ -19746,7 +19767,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       label: "Transaction Detail"
     }, /* @__PURE__ */ react3.default.createElement(TransactionDetail, {
       transaction: selectedTransaction
-    }))));
+    })))));
   };
 
   // client/App.jsx

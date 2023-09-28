@@ -1,0 +1,43 @@
+.modal-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $modal-container-bg;
+}
+
+.modal-window {
+  background-color: $modal-window-bg;
+  position: relative;
+  border-radius: 16px;
+}
+
+.modal-header {
+  margin: 16px 42px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-exit {
+  border: 1px solid $gray-light-alpha;
+  &:hover {
+    border: 1px solid $gray-light;
+    background-color: $gray-light-alpha;
+  }
+  display: inline-block;
+  border-radius: 12px;
+  text-align: right;
+  padding: 8px 8px 2px 8px;
+  font-size: $modal-exit-font-size;
+  color: $modal-exit-icon;
+}
+
+.modal-label {
+  font-size: $modal-label-font-size;
+  text-align: left;
+  margin: auto 0;
+}

@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "esbuild ./client/App.jsx --sourcemap --loader:.js=jsx --bundle --define:process.env.NODE_ENV='\"development\"' --outfile=public/bundle.js",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "compile:sass": "sass public/sass/app.scss public/app.css -w",
+    "go": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-icons": "^4.11.0"
+    "react-icons": "^4.11.0",
+    "sass": "^1.68.0"
   }
 }

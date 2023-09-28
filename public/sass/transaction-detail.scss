@@ -1,0 +1,35 @@
+/* transaction detail */
+.transaction-detail hr {
+  border-top: $transaction-detail-border;
+}
+
+.transaction-detail .body{
+  margin: 24px 36px;
+  border-radius: 16px;
+  border: $transaction-detail-border;
+  background-color: $transaction-detail-bg;
+  min-width: 425px;
+}
+
+.transaction-detail .item {
+  display: flex;
+  color: $transaction-text-color;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.transaction-detail .body > *:nth-last-child(n+2) {
+  border-bottom: $transaction-detail-border;
+}
+
+.transaction-detail .item .label {
+  width: 30%;
+  text-align: left;
+}
+.transaction-detail .item .value {
+  width: 70%;
+  text-align: right;
+}
