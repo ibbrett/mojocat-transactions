@@ -34,6 +34,13 @@ app.get('/transactions/top-merchants/:count?', (req, res) => {
   res.status(200).contentType('application/json').send(transactionsFromRankings);
 })
 
+// based on frequence, not debit or credit amount
+app.get('/rankings/top-merchants/:count?', (req, res) => {
+  const count = req.params.count || defaultCount;
+  const topItems = getTopMerchants(validTransactions, count);
+  res.status(200).contentType('application/json').send(topItems);
+})
+
 // handles merchants and categories for debits and credits with optional quantity 
 app.get('/transactions/top-by-amount/:type?/:debitOrCredit?/:count?', (req, res) => {
   const debitOrCredit = req.params.debitOrCredit || defaultDebitOrCredit;
@@ -42,6 +49,15 @@ app.get('/transactions/top-by-amount/:type?/:debitOrCredit?/:count?', (req, res)
   const topItems = getTopByAmount(validTransactions, type, debitOrCredit, count );
   const transactionsFromRankings = getTransactionsFromRankings(validTransactions, topItems, type, debitOrCredit);
   res.status(200).contentType('application/json').send(transactionsFromRankings);
+})
+
+// handles merchants and categories for debits and credits with optional quantity 
+app.get('/rankings/top-by-amount/:type?/:debitOrCredit?/:count?', (req, res) => {
+  const debitOrCredit = req.params.debitOrCredit || defaultDebitOrCredit;
+  const count = req.params.count || defaultCount;
+  const type = req.params.type || defaultType;
+  const topItems = getTopByAmount(validTransactions, type, debitOrCredit, count );
+  res.status(200).contentType('application/json').send(topItems);
 })
 
 // Serve static files
