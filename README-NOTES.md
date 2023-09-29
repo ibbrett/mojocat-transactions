@@ -31,8 +31,8 @@ Wednesday - story 2
 - I added droplist to UI
 
 Thursday - long answer questions  
-- thought about security, performance and privacy 
-- cleaned up layout and style
+- Thought about security, performance and privacy 
+- Cleaned up layout and style
 
 ## long answer questions 
 

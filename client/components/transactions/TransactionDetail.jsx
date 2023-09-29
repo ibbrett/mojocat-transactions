@@ -54,7 +54,7 @@ const TransactionDetail = ({transaction}) => {
     <div className="transaction-detail">
       <hr />
       <div className="body">
-        <TransactionItem label="Transaction #" value={`000${id}`} />
+        <TransactionItem label="Transaction #" value={id.toString().padStart(3, "0")} />
         <TransactionItem label="Description" value={description} />
         <TransactionItem label="Category" value={category} />
         <TransactionType />

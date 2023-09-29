@@ -53,8 +53,8 @@ pre {
   padding: 0;
   margin: 0;
   width: 100%;
-  /*min-width: 707px;*/
   position: relative;
+  background-color: white;
 }
 
 .transactions tr td {

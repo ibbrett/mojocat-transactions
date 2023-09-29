@@ -19675,7 +19675,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       className: "body"
     }, /* @__PURE__ */ react2.default.createElement(TransactionItem, {
       label: "Transaction #",
-      value: `000${id}`
+      value: id.toString().padStart(3, "0")
     }), /* @__PURE__ */ react2.default.createElement(TransactionItem, {
       label: "Description",
       value: description

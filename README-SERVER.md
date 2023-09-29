@@ -43,7 +43,7 @@ http://localhost:3000/transactions/top-by-amount/description/credit/5
 
 ## server data source: Top categories by amount
 
-- interpreted this to mean top categoories by sum of debit or credit amounts 
+- interpreted this to mean top categories by sum of debit or credit amounts 
 - defaults to top 10
 - defaults to debit
 
