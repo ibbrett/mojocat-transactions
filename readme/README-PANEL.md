@@ -40,7 +40,7 @@ Panel Interview
 - What can I do to best help the team succeed?
 - What do each of you do on the team? Are you on separate teams?
 - Can you tell me about your PR (Peer Review) process? How many people typically review code and how does that spark changes in future development? IOW, how often will you see a different way to do something that you now want to make standard?
-- What equipment do you work on?
+- What equipment do you work on? Does the company supply equipment or do you use your own machines?
 
 ## Answers 
 
