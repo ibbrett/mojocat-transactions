@@ -24,6 +24,30 @@ const views = {
   "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
 };
 
+/* cache API-fetched data: this object will look like:
+{
+  "all": [], 
+  "top merchants by transactions": [], 
+  "top merchants by amount (debit)": [], 
+  "top categories by amount (debit)": [], 
+  "top merchants by amount (credit)": [],  
+  "top categories by amount (credit)": [], 
+};
+*/
+const cachedTransactions = {};
+Object.keys(views).forEach(key => {
+  cachedTransactions[key] = [];
+});
+
+const stateDefaults = {
+  selectedId: 0,
+  selectedTransaction: {},
+  showModal: false,
+  transactions: cachedTransactions, // [],
+  selectedOption: "all",
+  transactionFields: []
+};
+
 // used to control transaction field display
 const transactionFields = {
   "all": [
@@ -63,6 +87,15 @@ const transactionFields = {
 
 const useTransactionFields = () => {
 
+  const getAmountInDollars = ( num ) => {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+    return formatter.format(num);
+  }
+  
+
   const getFields = (view) => {
     return transactionFields[view];
   }
@@ -71,12 +104,17 @@ const useTransactionFields = () => {
     return views;
   }
 
+  const getStateDefaults = () => {
+    return stateDefaults
+  }
+
   const getFieldAsLabel = (fieldName) => { 
     if(fieldName === "transactionDate") return "Date"
+    else if(fieldName === "description") return "Merchant"
     else return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
   }
 
-  return { getFields, getViews, getFieldAsLabel };
+  return { getFields, getViews, getFieldAsLabel, getAmountInDollars, getStateDefaults };
 };
 
 export { useTransactionFields };

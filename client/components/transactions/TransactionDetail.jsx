@@ -1,14 +1,20 @@
 import React from "react";
+import { useTransactionFields } from "../../hooks/useTransactionFields";
 
 const TransactionDetail = ({transaction}) => {
+
+  // hooks
+  const { getAmountInDollars } = useTransactionFields();
 
   const {id, debit, credit, currency, transactionDate, description, category, merchantStreetAddress, merchantCity, merchantState} = transaction; // unused: id, merchantCountry
 
   // expand this with additional currencies
+  /*
   const getCurrencyChar = () => {
     if (currency === "USD") return "$";
     else return null;
   }
+  */
 
   const TransactionItem = ({label, value}) => {
     return (
@@ -23,7 +29,7 @@ const TransactionDetail = ({transaction}) => {
     return (
       <div className="item">
         <span className="label">Type: ({ debit !== null ? "debit" : "credit" })</span>
-        <span className="value">{getCurrencyChar()}{ debit !== null ? debit : credit }</span>
+        <span className="value">{ debit !== null ? getAmountInDollars(debit) : getAmountInDollars(credit) }</span>
       </div>
     )
   }

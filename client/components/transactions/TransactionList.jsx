@@ -6,22 +6,21 @@ import { Modal } from "../utils/Modal";
 import { TransactionDetail } from "./TransactionDetail";
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+const newDate = () => {
+  return new Date().toISOString();
+}
 
 const TransactionList = () => {
 
   // hooks
   const { fetchTransactions } = useFetch();
-  const { getFields, getFieldAsLabel, getViews } = useTransactionFields();
+  const { getFields, getFieldAsLabel, getViews, getAmountInDollars, getStateDefaults } = useTransactionFields();
 
-  // component state 
-  const stateDefaults = {
-    selectedId: 0,
-    selectedTransaction: {},
-    showModal: false,
-    transactions: [],
-    selectedOption: "all",
-    transactionFields: []
-  };
+  // views are used by the droplist as labels and API endpoint paths
+  const views = getViews();
+  const stateDefaults = getStateDefaults();
+
+  // state
   const [selectedId, setSelectedId] = useState(stateDefaults.selectedId);
   const [selectedTransaction, setSelectedTransaction] = useState(stateDefaults.selectedTransaction);
   const [showModal, setShowModal] = useState(stateDefaults.showModal);
@@ -29,23 +28,39 @@ const TransactionList = () => {
   const [selectedOption, setSelectedOption] = useState(stateDefaults.selectedOption);
   const [transactionFields, setTransactionFields] = useState(stateDefaults.transactionFields);
 
-  // views are used by the droplist as labels and API endpoint paths
-  const views = getViews();
+  useEffect(() => {
+    console.log("component mounted", newDate());
+    console.log("*".repeat(80));
+    return () => {
+      console.log("unmount")
+    };
+  },[]);
 
   // effect to manage fetching data on load and when the droplist option is changd
   useEffect(() => {
-    console.log('useEffect', 'doFetch')
+    console.log('useEffect', 'doFetch', `selectedOption: ${selectedOption}`, newDate());
+    
     async function doFetch() {
-      await sleep(1500);
-      const transactions = await fetchTransactions(views[selectedOption]);
+      if( stateDefaults.transactions[selectedOption].length ){
+        console.log("set transactions from cache");
+        setTransactions(stateDefaults.transactions[selectedOption]);
+      } else {
+        console.log("set transactions from API call");
+        await sleep(1500);
+        const transactions = await fetchTransactions(views[selectedOption]);
+        stateDefaults.transactions[selectedOption] = transactions;
+        setTransactions(transactions);
+      }
+      
       setTransactionFields(getFields(selectedOption));
-      setTransactions(transactions);
+      console.log("#".repeat(80));
     }
     doFetch();
   }, [selectedOption]);
 
   // effect to manage selected transaction record
   useEffect(() => {
+    console.log('useEffect', `selectedId: ${selectedId}` , newDate());
     if(selectedId === 0){
       setSelectedTransaction(stateDefaults.selectedTransaction);
     } else {
@@ -58,6 +73,7 @@ const TransactionList = () => {
   // effect to manage displaying/hiding transaction detail modal
   useEffect(() => {
     // has items
+    console.log('useEffect', 'selectedTransaction', selectedTransaction, newDate());
     if(selectedTransaction.id === selectedId){
       setShowModal(true);
     } else {
@@ -108,7 +124,9 @@ const TransactionList = () => {
               transactions.map((trans, i) => {
                 return <tr title={trans['description']} key={trans['description'] + i} onClick={() => openModal(trans['id'])}>
                   {transactionFields.map((field, j) => (
-                    <td key={trans[field] + j}>{trans[field]}</td>
+                    <td key={trans[field] + j}>{
+                      typeof trans[field] === "number" ? getAmountInDollars(trans[field]) : trans[field]
+                    }</td>
                   ))}
                 </tr>
               })

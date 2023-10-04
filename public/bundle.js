@@ -19405,6 +19405,18 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit",
     "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
   };
+  const transactionsDefault = {};
+  Object.keys(views).forEach((key) => {
+    transactionsDefault[key] = [];
+  });
+  const stateDefaults = {
+    selectedId: 0,
+    selectedTransaction: {},
+    showModal: false,
+    transactions: transactionsDefault,
+    selectedOption: "all",
+    transactionFields: []
+  };
   const transactionFields = {
     all: [
       "transactionDate",
@@ -19441,19 +19453,31 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     ]
   };
   const useTransactionFields2 = () => {
+    const getAmountInDollars = (num) => {
+      const formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+      });
+      return formatter.format(num);
+    };
     const getFields = (view) => {
       return transactionFields[view];
     };
     const getViews = () => {
       return views;
     };
+    const getStateDefaults = () => {
+      return stateDefaults;
+    };
     const getFieldAsLabel = (fieldName) => {
       if (fieldName === "transactionDate")
         return "Date";
+      else if (fieldName === "description")
+        return "Merchant";
       else
         return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
     };
-    return {getFields, getViews, getFieldAsLabel};
+    return {getFields, getViews, getFieldAsLabel, getAmountInDollars, getStateDefaults};
   };
 
   // client/components/utils/Spinner.jsx
@@ -19622,13 +19646,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   // client/components/transactions/TransactionDetail.jsx
   const react2 = __toModule(require_react());
   const TransactionDetail = ({transaction}) => {
+    const {getAmountInDollars} = useTransactionFields2();
     const {id, debit, credit, currency, transactionDate, description, category, merchantStreetAddress, merchantCity, merchantState} = transaction;
-    const getCurrencyChar = () => {
-      if (currency === "USD")
-        return "$";
-      else
-        return null;
-    };
     const TransactionItem = ({label, value}) => {
       return /* @__PURE__ */ react2.default.createElement("div", {
         className: "item"
@@ -19645,7 +19664,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         className: "label"
       }, "Type: (", debit !== null ? "debit" : "credit", ")"), /* @__PURE__ */ react2.default.createElement("span", {
         className: "value"
-      }, getCurrencyChar(), debit !== null ? debit : credit));
+      }, debit !== null ? getAmountInDollars(debit) : getAmountInDollars(credit)));
     };
     const TransactionDate = () => {
       const date = new Date(transactionDate);
@@ -19688,43 +19707,56 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   // client/components/transactions/TransactionList.jsx
   const react3 = __toModule(require_react());
   const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+  const newDate = () => {
+    return new Date().toISOString();
+  };
   const TransactionList2 = () => {
     const {fetchTransactions} = useFetch2();
-    const {getFields, getFieldAsLabel, getViews} = useTransactionFields2();
-    const stateDefaults = {
-      selectedId: 0,
-      selectedTransaction: {},
-      showModal: false,
-      transactions: [],
-      selectedOption: "all",
-      transactionFields: []
-    };
-    const [selectedId, setSelectedId] = react3.useState(stateDefaults.selectedId);
-    const [selectedTransaction, setSelectedTransaction] = react3.useState(stateDefaults.selectedTransaction);
-    const [showModal, setShowModal] = react3.useState(stateDefaults.showModal);
-    const [transactions, setTransactions] = react3.useState(stateDefaults.transactions);
-    const [selectedOption, setSelectedOption] = react3.useState(stateDefaults.selectedOption);
-    const [transactionFields2, setTransactionFields] = react3.useState(stateDefaults.transactionFields);
+    const {getFields, getFieldAsLabel, getViews, getAmountInDollars, getStateDefaults} = useTransactionFields2();
     const views2 = getViews();
+    const stateDefaults2 = getStateDefaults();
+    const [selectedId, setSelectedId] = react3.useState(stateDefaults2.selectedId);
+    const [selectedTransaction, setSelectedTransaction] = react3.useState(stateDefaults2.selectedTransaction);
+    const [showModal, setShowModal] = react3.useState(stateDefaults2.showModal);
+    const [transactions, setTransactions] = react3.useState(stateDefaults2.transactions);
+    const [selectedOption, setSelectedOption] = react3.useState(stateDefaults2.selectedOption);
+    const [transactionFields2, setTransactionFields] = react3.useState(stateDefaults2.transactionFields);
     react3.useEffect(() => {
-      console.log("useEffect", "doFetch");
+      console.log("component mounted", newDate());
+      console.log("*".repeat(80));
+      return () => {
+        console.log("unmount");
+      };
+    }, []);
+    react3.useEffect(() => {
+      console.log("useEffect", "doFetch", `selectedOption: ${selectedOption}`, newDate());
       async function doFetch() {
-        await sleep(1500);
-        const transactions2 = await fetchTransactions(views2[selectedOption]);
+        if (stateDefaults2.transactions[selectedOption].length) {
+          console.log("set transactions from cache");
+          setTransactions(stateDefaults2.transactions[selectedOption]);
+        } else {
+          console.log("set transactions from API call");
+          await sleep(1500);
+          const transactions2 = await fetchTransactions(views2[selectedOption]);
+          stateDefaults2.transactions[selectedOption] = transactions2;
+          setTransactions(transactions2);
+        }
         setTransactionFields(getFields(selectedOption));
-        setTransactions(transactions2);
+        console.log("#".repeat(80));
       }
       doFetch();
     }, [selectedOption]);
     react3.useEffect(() => {
+      console.log("useEffect", `selectedId: ${selectedId}`, newDate());
       if (selectedId === 0) {
-        setSelectedTransaction(stateDefaults.selectedTransaction);
+        setSelectedTransaction(stateDefaults2.selectedTransaction);
       } else {
         const transaction = transactions.find((item) => item.id === selectedId);
         setSelectedTransaction(transaction);
       }
     }, [selectedId]);
     react3.useEffect(() => {
+      console.log("useEffect", "selectedTransaction", selectedTransaction, newDate());
       if (selectedTransaction.id === selectedId) {
         setShowModal(true);
       } else {
@@ -19735,7 +19767,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       setSelectedId(id);
     };
     const closeModal = () => {
-      setSelectedId(stateDefaults.selectedId);
+      setSelectedId(stateDefaults2.selectedId);
     };
     return /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("div", {
       className: "transactions"
@@ -19747,7 +19779,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       value: selectedOption,
       className: "droplist",
       onChange: (e) => {
-        setTransactions(stateDefaults.transactions);
+        setTransactions(stateDefaults2.transactions);
         setSelectedOption(e.target.value);
       }
     }, Object.keys(views2).map((item, index) => /* @__PURE__ */ react3.default.createElement("option", {
@@ -19762,7 +19794,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         onClick: () => openModal(trans["id"])
       }, transactionFields2.map((field, j) => /* @__PURE__ */ react3.default.createElement("td", {
         key: trans[field] + j
-      }, trans[field])));
+      }, typeof trans[field] === "number" ? getAmountInDollars(trans[field]) : trans[field])));
     }))), /* @__PURE__ */ react3.default.createElement(Modal2, {
       showModal,
       closeModal,
