@@ -28,59 +28,55 @@ const TransactionList = () => {
   const [selectedOption, setSelectedOption] = useState(stateDefaults.selectedOption);
   const [transactionFields, setTransactionFields] = useState(stateDefaults.transactionFields);
 
+  async function doFetch(option = null) {
+
+    if( option === null) {
+      option = stateDefaults.selectedOption;
+    }
+    else {
+      setTransactions([]);
+      setSelectedOption(option)
+    }
+
+    if( stateDefaults.transactions[option].length ){
+      console.log("set transactions from cache", option);
+      setTransactions(stateDefaults.transactions[option]);
+    } else {
+      console.log("set transactions from API call", option);
+      await sleep(1500);
+      const transactions = await fetchTransactions(views[option]);
+      stateDefaults.transactions[option] = transactions;
+      setTransactions(transactions);
+    }
+    
+    setTransactionFields(getFields(option));
+    console.log("#".repeat(80));
+  }
+
   useEffect(() => {
     console.log("component mounted", newDate());
     console.log("*".repeat(80));
+
+    doFetch();
+
     return () => {
       console.log("unmount")
     };
   },[]);
-
-  // effect to manage fetching data on load and when the droplist option is changd
-  useEffect(() => {
-    console.log('useEffect', 'doFetch', `selectedOption: ${selectedOption}`, newDate());
-    
-    async function doFetch() {
-      if( stateDefaults.transactions[selectedOption].length ){
-        console.log("set transactions from cache");
-        setTransactions(stateDefaults.transactions[selectedOption]);
-      } else {
-        console.log("set transactions from API call");
-        await sleep(1500);
-        const transactions = await fetchTransactions(views[selectedOption]);
-        stateDefaults.transactions[selectedOption] = transactions;
-        setTransactions(transactions);
-      }
-      
-      setTransactionFields(getFields(selectedOption));
-      console.log("#".repeat(80));
-    }
-    doFetch();
-  }, [selectedOption]);
 
   // effect to manage selected transaction record
   useEffect(() => {
     console.log('useEffect', `selectedId: ${selectedId}` , newDate());
     if(selectedId === 0){
       setSelectedTransaction(stateDefaults.selectedTransaction);
+      setShowModal(false);
     } else {
       const transaction = transactions.find( item => item.id === selectedId)
       setSelectedTransaction(transaction)
+      setShowModal(true);
     }
 
   }, [selectedId]);
-
-  // effect to manage displaying/hiding transaction detail modal
-  useEffect(() => {
-    // has items
-    console.log('useEffect', 'selectedTransaction', selectedTransaction, newDate());
-    if(selectedTransaction.id === selectedId){
-      setShowModal(true);
-    } else {
-      setShowModal(false);
-    }
-
-  }, [selectedTransaction]);
 
   // these functions manage opening/closing modal by setting the selected transaction id
   // modal closes when this id is set to 0, otherwise it opens with detail data associated with the selected id
@@ -99,9 +95,8 @@ const TransactionList = () => {
           name="view"
           value={selectedOption}
           className="droplist"
-          onChange={e => { 
-            setTransactions(stateDefaults.transactions)
-            setSelectedOption(e.target.value)
+          onChange={e => {
+            doFetch(e.target.value)
           }
         }
         >

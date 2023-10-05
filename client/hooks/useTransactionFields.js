@@ -34,16 +34,16 @@ const views = {
   "top categories by amount (credit)": [], 
 };
 */
-const cachedTransactions = {};
+const cache = {};
 Object.keys(views).forEach(key => {
-  cachedTransactions[key] = [];
+  cache[key] = [];
 });
 
 const stateDefaults = {
   selectedId: 0,
   selectedTransaction: {},
   showModal: false,
-  transactions: cachedTransactions, // [],
+  transactions: cache, // [],
   selectedOption: "all",
   transactionFields: []
 };

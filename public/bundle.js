@@ -19405,15 +19405,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit",
     "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
   };
-  const transactionsDefault = {};
+  const cachedTransactions = {};
   Object.keys(views).forEach((key) => {
-    transactionsDefault[key] = [];
+    cachedTransactions[key] = [];
   });
   const stateDefaults = {
     selectedId: 0,
     selectedTransaction: {},
     showModal: false,
-    transactions: transactionsDefault,
+    transactions: cachedTransactions,
     selectedOption: "all",
     transactionFields: []
   };
@@ -19496,24 +19496,24 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       id: "spinner-secondHalf"
     }, /* @__PURE__ */ react6.default.createElement("stop", {
       offset: "0%",
-      "stop-opacity": "0",
-      "stop-color": "currentColor"
+      stopOpacity: "0",
+      stopColor: "currentColor"
     }), /* @__PURE__ */ react6.default.createElement("stop", {
       offset: "100%",
-      "stop-opacity": "0.5",
-      "stop-color": "currentColor"
+      stopOpacity: "0.5",
+      stopColor: "currentColor"
     })), /* @__PURE__ */ react6.default.createElement("linearGradient", {
       id: "spinner-firstHalf"
     }, /* @__PURE__ */ react6.default.createElement("stop", {
       offset: "0%",
-      "stop-opacity": "1",
-      "stop-color": "currentColor"
+      stopOpacity: "1",
+      stopColor: "currentColor"
     }), /* @__PURE__ */ react6.default.createElement("stop", {
       offset: "100%",
-      "stop-opacity": "0.5",
-      "stop-color": "currentColor"
+      stopOpacity: "0.5",
+      stopColor: "currentColor"
     }))), /* @__PURE__ */ react6.default.createElement("g", {
-      "stroke-width": "8"
+      strokeWidth: "8"
     }, /* @__PURE__ */ react6.default.createElement("path", {
       stroke: "url(#spinner-secondHalf)",
       d: "M 4 100 A 96 96 0 0 1 196 100"
@@ -19522,7 +19522,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       d: "M 196 100 A 96 96 0 0 1 4 100"
     }), /* @__PURE__ */ react6.default.createElement("path", {
       stroke: "currentColor",
-      "stroke-linecap": "round",
+      strokeLinecap: "round",
       d: "M 4 100 A 96 96 0 0 1 4 98"
     })), /* @__PURE__ */ react6.default.createElement("animateTransform", {
       from: "0 0 0",
@@ -19721,48 +19721,45 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const [transactions, setTransactions] = react3.useState(stateDefaults2.transactions);
     const [selectedOption, setSelectedOption] = react3.useState(stateDefaults2.selectedOption);
     const [transactionFields2, setTransactionFields] = react3.useState(stateDefaults2.transactionFields);
+    async function doFetch(option = null) {
+      if (option === null) {
+        option = stateDefaults2.selectedOption;
+      } else {
+        setTransactions([]);
+        setSelectedOption(option);
+      }
+      if (stateDefaults2.transactions[option].length) {
+        console.log("set transactions from cache", option);
+        setTransactions(stateDefaults2.transactions[option]);
+      } else {
+        console.log("set transactions from API call", option);
+        await sleep(1500);
+        const transactions2 = await fetchTransactions(views2[option]);
+        stateDefaults2.transactions[option] = transactions2;
+        setTransactions(transactions2);
+      }
+      setTransactionFields(getFields(option));
+      console.log("#".repeat(80));
+    }
     react3.useEffect(() => {
       console.log("component mounted", newDate());
       console.log("*".repeat(80));
+      doFetch();
       return () => {
         console.log("unmount");
       };
     }, []);
     react3.useEffect(() => {
-      console.log("useEffect", "doFetch", `selectedOption: ${selectedOption}`, newDate());
-      async function doFetch() {
-        if (stateDefaults2.transactions[selectedOption].length) {
-          console.log("set transactions from cache");
-          setTransactions(stateDefaults2.transactions[selectedOption]);
-        } else {
-          console.log("set transactions from API call");
-          await sleep(1500);
-          const transactions2 = await fetchTransactions(views2[selectedOption]);
-          stateDefaults2.transactions[selectedOption] = transactions2;
-          setTransactions(transactions2);
-        }
-        setTransactionFields(getFields(selectedOption));
-        console.log("#".repeat(80));
-      }
-      doFetch();
-    }, [selectedOption]);
-    react3.useEffect(() => {
       console.log("useEffect", `selectedId: ${selectedId}`, newDate());
       if (selectedId === 0) {
         setSelectedTransaction(stateDefaults2.selectedTransaction);
+        setShowModal(false);
       } else {
         const transaction = transactions.find((item) => item.id === selectedId);
         setSelectedTransaction(transaction);
+        setShowModal(true);
       }
     }, [selectedId]);
-    react3.useEffect(() => {
-      console.log("useEffect", "selectedTransaction", selectedTransaction, newDate());
-      if (selectedTransaction.id === selectedId) {
-        setShowModal(true);
-      } else {
-        setShowModal(false);
-      }
-    }, [selectedTransaction]);
     const openModal = (id) => {
       setSelectedId(id);
     };
@@ -19779,8 +19776,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       value: selectedOption,
       className: "droplist",
       onChange: (e) => {
-        setTransactions(stateDefaults2.transactions);
-        setSelectedOption(e.target.value);
+        doFetch(e.target.value);
       }
     }, Object.keys(views2).map((item, index) => /* @__PURE__ */ react3.default.createElement("option", {
       key: index,
