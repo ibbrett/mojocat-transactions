@@ -1,0 +1,185 @@
+<html>
+<body>
+  <pre id="ta"></pre>
+<script>
+const merchants = [
+  {
+    name: 'Uchiyama Sports',
+    category: 'Sporting Goods',
+    currency: 'JPY',
+    street: '2158 Dexter Ave N',
+    city: 'Seattle',
+    state: 'Washington',
+    zip: '98109'
+  },
+  {
+    name: 'Tillett Bank',
+    category: 'Bank',
+    currency: 'USD',
+    street: '20 Roadrunner Dr C',
+    city: 'Sedona',
+    state: 'Arizona',
+    zip: '86336'
+  },
+  {
+    name: 'Wohl Savings and Loan',
+    category: 'Bank',
+    currency: 'USD',
+    street: '400 Broad St',
+    city: 'Seattle',
+    state: 'Washington',
+    zip: '98109'
+  },
+  {
+    name: 'Shoji Sushi',
+    category: 'Restaurant',
+    currency: 'JPY',
+    street: '13119 Glen Brae Dr',
+    city: 'Saratoga',
+    state: 'California',
+    zip: '95070'
+  },
+  {
+    name: 'Tres Hombres Saloon',
+    category: 'Live Entertainment',
+    currency: 'USD',
+    street: '604 Brazos St',
+    city: 'Austin',
+    state: 'Texas',
+    zip: '78701'
+  },
+  {
+    name: 'Gish Music Company',
+    category: 'Live Entertainment',
+    currency: 'USD',
+    street: '111 S Michigan Ave',
+    city: 'Chicago',
+    state: 'Illinois',
+    zip: '60603'
+  },
+  {
+    name: 'Ehukai Surfboards',
+    category: 'Sporting Goods',
+    currency: 'USD',
+    street: '59-337 Ke Nui Rd',
+    city: 'Haleiwa',
+    state: "Hawai'i",
+    zip: '96712'
+  },
+  {
+    name: 'Four Mile Auto Parts',
+    category: 'Auto Parts',
+    currency: 'USD',
+    street: '3810 Coast Rd',
+    city: 'Santa Cruz',
+    state: 'California',
+    zip: '95060'
+  },
+  {
+    name: 'Adams Walsh Brothers',
+    category: 'Auto Parts',
+    currency: 'USD',
+    street: '1163 S Coast Hwy 101',
+    city: 'Encinita',
+    state: 'California',
+    zip: '92024'
+  },
+  {
+    name: 'Hotel California',
+    category: 'Hospitality',
+    currency: 'MXN',
+    street: '23300 C. Benito Juárez',
+    city: 'Todos Santos',
+    state: 'B.C.S',
+    zip: ''
+  },
+  {
+    name: 'Las Olas Condominiums',
+    category: 'Hospitality',
+    currency: 'MXN',
+    street: 'KM 31 Las Olas B502, 23400',
+    city: 'San José del Cabo',
+    state: 'B.C.S',
+    zip: ''
+  },
+  {
+    name: 'Rijksmuseum',
+    category: 'Museum',
+    currency: 'EUR',
+    street: 'Museumstraat 1, 1071',
+    city: 'Amsterdam',
+    state: 'Netherlands',
+    zip: ''
+  },
+  {
+    name: 'La Vaca',
+    category: 'Restaurant',
+    currency: 'USD',
+    street: '1429 1st Ave',
+    city: 'Seattle',
+    state: 'Washington',
+    zip: '98101'
+  },
+  {
+    name: 'Buca di Beppo',
+    category: 'Restaurant',
+    currency: 'USD',
+    street: '701 Westlake Ave N',
+    city: 'Seattle',
+    state: 'Washington',
+    zip: '98109'
+  },
+  {
+    name: 'Museum of Modern Art',
+    category: 'Museum',
+    currency: 'USD',
+    street: '11 W 53rd St',
+    city: 'New York',
+    state: 'New York',
+    zip: '10019'
+  }
+];
+
+const count = 300;
+const transactions = [];
+for ( let i = 0; i <= count; i++ ) {
+
+  const randomIndex = Math.floor(Math.random() * merchants.length);
+  const merchant = merchants[randomIndex];
+  // transactions.push(merchant);
+
+  const randomDebitCredit = Math.floor(Math.random() * 10); // 0-9
+  const randomDollar = Math.floor(Math.random() * 500);
+  const randomCents = Math.floor(Math.random() * 100);
+  const float = Number.parseFloat(randomDollar + "." + randomCents.toString().padStart(2, "0"));
+  let debit = null;
+  let credit = null;
+
+  if( randomDebitCredit <= 7 ){
+    debit = float;
+  } else {
+    credit = float;
+  }
+
+  const randomMonth = Math.floor(Math.random() * 12) + 1;
+  const randomDay = Math.floor(Math.random() * 28) + 1;
+
+
+  transactions.push(
+    {
+      "transactionDate": "2023-"+randomMonth.toString().padStart(2, "0")+"-"+randomDay.toString().padStart(2, "0"),
+      "description": merchant.name,
+      "category": merchant.category,
+      "debit": debit,
+      "credit": credit,
+      "id": (i+1),
+      "merchantStreetAddress": merchant.street,
+      "merchantCity": merchant.city,
+      "merchantState": merchant.state,
+      "currency": merchant.currency
+    },
+  );
+
+}
+document.getElementById('ta').innerText = JSON.stringify(transactions,null,2);
+</script>

@@ -77,19 +77,24 @@ pre {
 .transactions tbody tr {
   color: #999;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
 }
 .transactions tbody tr:hover td {
   background-color: #eee;
 }
 
 /* added media queries to expand layout/readability for tablet and above */
+@media (min-width: 525px) {
+  .transactions tr td {
+    font-size: 14px;
+  }
+}
 @media (min-width: 600px) {
   .transactions tr td {
     font-size: 15px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 915px) {
   .transactions {
     margin: 16px 0;
     border-radius: 16px;
@@ -97,8 +102,8 @@ pre {
     width: auto;
   }
   .transactions tr td {
-    padding: 10px 30px;
     font-size: 16px;
+    padding: 10px 30px;
   }
 }
 /* transaction detail */
@@ -193,7 +198,7 @@ pre {
   margin-bottom: 18px;
   padding: 8px;
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1em;
@@ -209,10 +214,42 @@ pre {
 
 /* client specific style */
 .client-icon {
-  width: 75px;
+  width: 52px;
   position: absolute;
   left: 25px;
   top: 10px;
+  transition: width 1s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .client-icon {
+    width: 64px;
+    transition: width 1s ease-in-out;
+  }
+}
+.table-header {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  /*
+  .label {
+    color: red;
+  }
+  */
+}
+.table-header .sort {
+  display: inline-block;
+}
+.table-header .sort .controls {
+  display: flex;
+  flex-direction: column;
+}
+.table-header .sort .controls .icon {
+  cursor: pointer;
+}
+.table-header .sort .controls .icon:hover {
+  color: brown;
 }
 
 /*# sourceMappingURL=app.css.map */

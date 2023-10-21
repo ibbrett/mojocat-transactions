@@ -19405,17 +19405,18 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit",
     "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
   };
-  const cachedTransactions = {};
+  const cache = {};
   Object.keys(views).forEach((key) => {
-    cachedTransactions[key] = [];
+    cache[key] = [];
   });
   const stateDefaults = {
     selectedId: 0,
     selectedTransaction: {},
     showModal: false,
-    transactions: cachedTransactions,
+    transactions: cache,
     selectedOption: "all",
-    transactionFields: []
+    transactionFields: [],
+    sorted: {}
   };
   const transactionFields = {
     all: [
@@ -19453,10 +19454,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     ]
   };
   const useTransactionFields2 = () => {
-    const getAmountInDollars = (num) => {
+    const getAmountInDollars = (num, currency) => {
       const formatter = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD"
+        currency
       });
       return formatter.format(num);
     };
@@ -19626,6 +19627,12 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   // node_modules/react-icons/lib/esm/index.js
 
   // node_modules/react-icons/ai/index.esm.js
+  function AiFillCaretDown(props) {
+    return GenIcon({tag: "svg", attr: {viewBox: "0 0 1024 1024"}, child: [{tag: "path", attr: {d: "M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"}}]})(props);
+  }
+  function AiFillCaretUp(props) {
+    return GenIcon({tag: "svg", attr: {viewBox: "0 0 1024 1024"}, child: [{tag: "path", attr: {d: "M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"}}]})(props);
+  }
   function AiFillCloseCircle(props) {
     return GenIcon({tag: "svg", attr: {viewBox: "0 0 1024 1024", fill: "currentColor", fillRule: "evenodd"}, child: [{tag: "path", attr: {d: "M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64Zm127.978 274.82-.034.006c-.023.007-.042.018-.083.059L512 466.745l-127.86-127.86c-.042-.041-.06-.052-.084-.059a.118.118 0 0 0-.07 0c-.022.007-.041.018-.082.059l-45.02 45.019c-.04.04-.05.06-.058.083a.118.118 0 0 0 0 .07l.01.022a.268.268 0 0 0 .049.06L466.745 512l-127.86 127.862c-.041.04-.052.06-.059.083a.118.118 0 0 0 0 .07c.007.022.018.041.059.082l45.019 45.02c.04.04.06.05.083.058a.118.118 0 0 0 .07 0c.022-.007.041-.018.082-.059L512 557.254l127.862 127.861c.04.041.06.052.083.059a.118.118 0 0 0 .07 0c.022-.007.041-.018.082-.059l45.02-45.019c.04-.04.05-.06.058-.083a.118.118 0 0 0 0-.07l-.01-.022a.268.268 0 0 0-.049-.06L557.254 512l127.861-127.86c.041-.042.052-.06.059-.084a.118.118 0 0 0 0-.07c-.007-.022-.018-.041-.059-.082l-45.019-45.02c-.04-.04-.06-.05-.083-.058a.118.118 0 0 0-.07 0Z"}}]})(props);
   }
@@ -19647,7 +19654,18 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   const react2 = __toModule(require_react());
   const TransactionDetail = ({transaction}) => {
     const {getAmountInDollars} = useTransactionFields2();
-    const {id, debit, credit, currency, transactionDate, description, category, merchantStreetAddress, merchantCity, merchantState} = transaction;
+    const {
+      category,
+      credit,
+      currency,
+      debit,
+      description,
+      id,
+      merchantCity,
+      merchantState,
+      merchantStreetAddress,
+      transactionDate
+    } = transaction;
     const TransactionItem = ({label, value}) => {
       return /* @__PURE__ */ react2.default.createElement("div", {
         className: "item"
@@ -19664,7 +19682,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         className: "label"
       }, "Type: (", debit !== null ? "debit" : "credit", ")"), /* @__PURE__ */ react2.default.createElement("span", {
         className: "value"
-      }, debit !== null ? getAmountInDollars(debit) : getAmountInDollars(credit)));
+      }, debit !== null ? getAmountInDollars(debit, currency) : getAmountInDollars(credit, currency)));
     };
     const TransactionDate = () => {
       const date = new Date(transactionDate);
@@ -19721,7 +19739,14 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const [transactions, setTransactions] = react3.useState(stateDefaults2.transactions);
     const [selectedOption, setSelectedOption] = react3.useState(stateDefaults2.selectedOption);
     const [transactionFields2, setTransactionFields] = react3.useState(stateDefaults2.transactionFields);
+    const [sortedField, setSortedField] = react3.useState(stateDefaults2.sorted);
     async function doFetch(option = null) {
+      if (Object.keys(sortedField).length) {
+        console.log("sortedField has key ... re-init");
+        setSortedField(stateDefaults2.sorted);
+      } else {
+        console.log("sortedField does not have key ... do nothing");
+      }
       if (option === null) {
         option = stateDefaults2.selectedOption;
       } else {
@@ -19766,12 +19791,53 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const closeModal = () => {
       setSelectedId(stateDefaults2.selectedId);
     };
+    const logo = /* @__PURE__ */ react3.default.createElement("img", {
+      src: "/logo.png",
+      className: "client-icon"
+    });
+    const HeaderSortHandler = (field, dir) => {
+      setSortedField({[field]: dir});
+      console.log("HeaderSortHandler", field, dir);
+      const greaterThanReturnValue = dir === "asc" ? 1 : -1;
+      const lessThanReturnValue = dir === "asc" ? -1 : 1;
+      setTransactions(transactions.toSorted((a, b) => {
+        if (a[field] > b[field]) {
+          return greaterThanReturnValue;
+        } else if (a[field] < b[field]) {
+          return lessThanReturnValue;
+        }
+        return 0;
+      }));
+      console.log(transactions[0]);
+    };
+    const HeaderWithSortControls = ({field}) => {
+      console.log("sortedField", sortedField);
+      const label = getFieldAsLabel(field);
+      const sortClassAsc = field in sortedField && sortedField[field] === "asc" ? "icon sorted" : "icon";
+      const sortClassDesc = field in sortedField && sortedField[field] === "desc" ? "icon sorted" : "icon";
+      return /* @__PURE__ */ react3.default.createElement("div", {
+        className: "table-header"
+      }, /* @__PURE__ */ react3.default.createElement("span", {
+        className: "label"
+      }, label), /* @__PURE__ */ react3.default.createElement("div", {
+        className: "sort"
+      }, /* @__PURE__ */ react3.default.createElement("div", {
+        className: "controls"
+      }, /* @__PURE__ */ react3.default.createElement(AiFillCaretUp, {
+        title: "sort descending",
+        className: sortClassDesc,
+        onClick: () => HeaderSortHandler(field, "desc")
+      }), /* @__PURE__ */ react3.default.createElement(AiFillCaretDown, {
+        title: "sort ascending",
+        className: sortClassAsc,
+        onClick: () => HeaderSortHandler(field, "asc")
+      }))));
+    };
     return /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("div", {
       className: "transactions"
-    }, transactions.length ? /* @__PURE__ */ react3.default.createElement("img", {
-      src: "/logo.jpg",
-      className: "client-icon"
-    }) : null, /* @__PURE__ */ react3.default.createElement("h2", null, "Card Transactions"), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, null) : /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("select", {
+    }, transactions.length ? logo : null, /* @__PURE__ */ react3.default.createElement("h2", {
+      title: "Mojocat Bank Transactions"
+    }, "Mojocat Transactions"), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, null) : /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("select", {
       name: "view",
       value: selectedOption,
       className: "droplist",
@@ -19783,14 +19849,16 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       value: item
     }, item))), /* @__PURE__ */ react3.default.createElement("table", null, /* @__PURE__ */ react3.default.createElement("thead", null, /* @__PURE__ */ react3.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react3.default.createElement("th", {
       key: field + 0
-    }, getFieldAsLabel(field))))), /* @__PURE__ */ react3.default.createElement("tbody", null, transactions.map((trans, i) => {
+    }, /* @__PURE__ */ react3.default.createElement(HeaderWithSortControls, {
+      field
+    }))))), /* @__PURE__ */ react3.default.createElement("tbody", null, transactions.map((trans, i) => {
       return /* @__PURE__ */ react3.default.createElement("tr", {
         title: trans["description"],
         key: trans["description"] + i,
         onClick: () => openModal(trans["id"])
       }, transactionFields2.map((field, j) => /* @__PURE__ */ react3.default.createElement("td", {
         key: trans[field] + j
-      }, typeof trans[field] === "number" ? getAmountInDollars(trans[field]) : trans[field])));
+      }, typeof trans[field] === "number" ? getAmountInDollars(trans[field], trans["currency"]) : trans[field])));
     }))), /* @__PURE__ */ react3.default.createElement(Modal2, {
       showModal,
       closeModal,

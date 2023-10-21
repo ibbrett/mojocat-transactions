@@ -1,7 +1,15 @@
 /* client specific style */
 .client-icon {
-  width: 75px;
+  width: 52px;
   position: absolute;
   left: 25px;
   top: 10px;
+  transition: width 1s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .client-icon {
+    width: 64px;
+    transition: width 1s ease-in-out;
+  }
 }

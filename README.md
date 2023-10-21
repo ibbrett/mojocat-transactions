@@ -1,8 +1,13 @@
-# README files
+# Mojocat Bank Transactions
 
-[Synctera Front End Challenge](./readme/README-CHALLENGE.md)  
-[Challenge Notes](./readme/README-NOTES.md)  
-[Challenge Server API Endpoints](./readme/README-SERVER.md)  
-[Panel](./readme/README-PANEL.md)  
-[React](./readme/README-REACT.md)  
-[ECMAScript](./readme/README-ECMASCRIPT.md)
+This is a simple React demonstration app of a user interface for bank transactions. 
+
+## What is this?
+
+The point of this is to display a list of transactions retrieved from an API server 
+
+### what's in here?
+
+- async API calls are made to an Express API server
+- an intentional delay is added with a loading indicator to highlight the async nature of the data retrieval
+- a modal is used to display individual transaction details

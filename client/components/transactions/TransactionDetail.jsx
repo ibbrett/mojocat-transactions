@@ -6,7 +6,18 @@ const TransactionDetail = ({transaction}) => {
   // hooks
   const { getAmountInDollars } = useTransactionFields();
 
-  const {id, debit, credit, currency, transactionDate, description, category, merchantStreetAddress, merchantCity, merchantState} = transaction; // unused: id, merchantCountry
+  const {
+    category, 
+    credit, 
+    currency, 
+    debit, 
+    description, 
+    id, 
+    merchantCity,
+    merchantState,
+    merchantStreetAddress, 
+    transactionDate 
+  } = transaction;
 
   // expand this with additional currencies
   /*
@@ -29,7 +40,7 @@ const TransactionDetail = ({transaction}) => {
     return (
       <div className="item">
         <span className="label">Type: ({ debit !== null ? "debit" : "credit" })</span>
-        <span className="value">{ debit !== null ? getAmountInDollars(debit) : getAmountInDollars(credit) }</span>
+        <span className="value">{ debit !== null ? getAmountInDollars(debit, currency) : getAmountInDollars(credit, currency) }</span>
       </div>
     )
   }

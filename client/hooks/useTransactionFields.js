@@ -27,13 +27,14 @@ const views = {
 /* cache API-fetched data: this object will look like:
 {
   "all": [], 
-  "top merchants by transactions": [], 
-  "top merchants by amount (debit)": [], 
-  "top categories by amount (debit)": [], 
-  "top merchants by amount (credit)": [],  
-  "top categories by amount (credit)": [], 
+  "top merchants by transactions": null, 
+  "top merchants by amount (debit)": null, 
+  "top categories by amount (debit)": null, 
+  "top merchants by amount (credit)": null,  
+  "top categories by amount (credit)": null, 
 };
 */
+
 const cache = {};
 Object.keys(views).forEach(key => {
   cache[key] = [];
@@ -45,7 +46,8 @@ const stateDefaults = {
   showModal: false,
   transactions: cache, // [],
   selectedOption: "all",
-  transactionFields: []
+  transactionFields: [],
+  sorted: {}
 };
 
 // used to control transaction field display
@@ -87,15 +89,14 @@ const transactionFields = {
 
 const useTransactionFields = () => {
 
-  const getAmountInDollars = ( num ) => {
+  const getAmountInDollars = ( num, currency ) => {
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: currency,
     });
     return formatter.format(num);
   }
   
-
   const getFields = (view) => {
     return transactionFields[view];
   }
