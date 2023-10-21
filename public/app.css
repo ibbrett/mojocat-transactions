@@ -248,6 +248,9 @@ pre {
 .table-header .sort .controls .icon {
   cursor: pointer;
 }
+.table-header .sort .controls .icon.sorted {
+  color: green;
+}
 .table-header .sort .controls .icon:hover {
   color: brown;
 }
