@@ -63,7 +63,6 @@ pre {
 
 .transactions table {
   margin: auto;
-  /* border-collapse: collapse;*/
   width: 100%;
   background-color: rgba(238, 238, 238, 0.5);
   border-radius: 8px;
@@ -71,7 +70,8 @@ pre {
 
 .transactions thead tr th {
   color: #666;
-  padding: 12px 0;
+  padding: 3px 1px;
+  background-color: rgb(238, 238, 238);
 }
 
 .transactions tbody tr {
@@ -232,11 +232,6 @@ pre {
   justify-content: space-around;
   flex-direction: row;
   align-items: center;
-  /*
-  .label {
-    color: red;
-  }
-  */
 }
 .table-header .sort {
   display: inline-block;
@@ -247,12 +242,17 @@ pre {
 }
 .table-header .sort .controls .icon {
   cursor: pointer;
+  border-radius: 50%;
+  padding: 3px;
+  margin: 1px;
 }
 .table-header .sort .controls .icon.sorted {
-  color: green;
+  color: rgb(16, 122, 204);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .table-header .sort .controls .icon:hover {
-  color: brown;
+  color: rgb(16, 122, 204);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /*# sourceMappingURL=app.css.map */
