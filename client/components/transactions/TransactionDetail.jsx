@@ -1,10 +1,9 @@
 import React from "react";
-import { useTransactionFields } from "../../hooks/useTransactionFields";
+import { useCurrencyApi } from "../../hooks/useCurrencyApi";
 
 const TransactionDetail = ({transaction}) => {
 
-  // hooks
-  const { getAmountInDollars } = useTransactionFields();
+  const { getCurrencyAmount, getCurrencyName, getCurrencyRate, getAmountInUSDollars } = useCurrencyApi();
 
   const {
     category, 
@@ -19,14 +18,6 @@ const TransactionDetail = ({transaction}) => {
     transactionDate 
   } = transaction;
 
-  // expand this with additional currencies
-  /*
-  const getCurrencyChar = () => {
-    if (currency === "USD") return "$";
-    else return null;
-  }
-  */
-
   const TransactionItem = ({label, value}) => {
     return (
       <div className="item">
@@ -37,10 +28,24 @@ const TransactionDetail = ({transaction}) => {
   }
 
   const TransactionType = () => {
+    const amount = debit !== null ? debit : credit;
+    const amountInUSDollars = getAmountInUSDollars(amount);
     return (
       <div className="item">
         <span className="label">Type: ({ debit !== null ? "debit" : "credit" })</span>
-        <span className="value">{ debit !== null ? getAmountInDollars(debit, currency) : getAmountInDollars(credit, currency) }</span>
+        <span className="value">{ amountInUSDollars }</span>
+      </div>
+    )
+  }
+
+  const TransactionCurrency = () => {
+    const amount = debit !== null ? debit : credit;
+    const convertedAmount = getCurrencyRate(currency)  * amount;
+    const currencyAmount = getCurrencyAmount( convertedAmount, currency) ;
+    return (
+      <div className="item">
+        <span title={`Transaction curreny used: ${getCurrencyName(currency)} (${currency})`} className="label">{getCurrencyName(currency)}</span>
+        <span title={`Conversion rate: ${getCurrencyRate(currency)} ${currency}/USD`} className="value">{ currencyAmount }</span>
       </div>
     )
   }
@@ -75,6 +80,7 @@ const TransactionDetail = ({transaction}) => {
         <TransactionItem label="Description" value={description} />
         <TransactionItem label="Category" value={category} />
         <TransactionType />
+        <TransactionCurrency />
         <TransactionDate />
         <TransactionAddress />
       </div>

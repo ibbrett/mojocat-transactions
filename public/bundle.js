@@ -19416,7 +19416,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     transactions: cache,
     selectedOption: "all",
     transactionFields: [],
-    sorted: {}
+    sorted: {},
+    conversionRates: []
   };
   const transactionFields = {
     all: [
@@ -19454,13 +19455,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     ]
   };
   const useTransactionFields2 = () => {
-    const getAmountInDollars = (num, currency) => {
-      const formatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency
-      });
-      return formatter.format(num);
-    };
     const getFields = (view) => {
       return transactionFields[view];
     };
@@ -19478,7 +19472,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       else
         return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
     };
-    return {getFields, getViews, getFieldAsLabel, getAmountInDollars, getStateDefaults};
+    return {getFields, getViews, getFieldAsLabel, getStateDefaults};
   };
 
   // client/components/utils/Spinner.jsx
@@ -19650,10 +19644,87 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }, /* @__PURE__ */ react5.default.createElement(AiFillCloseCircle, null))), children)) : null;
   };
 
+  // client/hooks/useCurrencyApi.js
+  const rates = {
+    data: {
+      EUR: 0.9437601439,
+      JPY: 149.9124275149,
+      MXN: 18.2435134238,
+      USD: 1
+    }
+  };
+  const currencies = {
+    data: {
+      EUR: {
+        symbol: "€",
+        name: "Euro",
+        symbol_native: "€",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "EUR",
+        name_plural: "Euros",
+        locale: "nl-NL"
+      },
+      USD: {
+        symbol: "$",
+        name: "US Dollar",
+        symbol_native: "$",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "USD",
+        name_plural: "US dollars",
+        locale: "en-US"
+      },
+      JPY: {
+        symbol: "¥",
+        name: "Japanese Yen",
+        symbol_native: "￥",
+        decimal_digits: 0,
+        rounding: 0,
+        code: "JPY",
+        name_plural: "Japanese yen",
+        locale: "ja-JP"
+      },
+      MXN: {
+        symbol: "MX$",
+        name: "Mexican Peso",
+        symbol_native: "$",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "MXN",
+        name_plural: "Mexican pesos",
+        locale: "es-MX"
+      }
+    }
+  };
+  const useCurrencyApi2 = () => {
+    const getAmountInUSDollars = (num) => {
+      const formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+      });
+      return formatter.format(num);
+    };
+    const getCurrencyAmount = (num, symbol) => {
+      const formatter = new Intl.NumberFormat(currencies.data[symbol].locale, {
+        style: "currency",
+        currency: symbol
+      });
+      return formatter.format(num);
+    };
+    const getCurrencyName = (symbol) => {
+      return currencies.data[symbol].name;
+    };
+    const getCurrencyRate = (symbol) => {
+      return rates.data[symbol];
+    };
+    return {getCurrencyAmount, getCurrencyName, getCurrencyRate, getAmountInUSDollars};
+  };
+
   // client/components/transactions/TransactionDetail.jsx
   const react2 = __toModule(require_react());
   const TransactionDetail = ({transaction}) => {
-    const {getAmountInDollars} = useTransactionFields2();
+    const {getCurrencyAmount, getCurrencyName, getCurrencyRate, getAmountInUSDollars} = useCurrencyApi2();
     const {
       category,
       credit,
@@ -19676,13 +19747,29 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       }, value));
     };
     const TransactionType = () => {
+      const amount = debit !== null ? debit : credit;
+      const amountInUSDollars = getAmountInUSDollars(amount);
       return /* @__PURE__ */ react2.default.createElement("div", {
         className: "item"
       }, /* @__PURE__ */ react2.default.createElement("span", {
         className: "label"
       }, "Type: (", debit !== null ? "debit" : "credit", ")"), /* @__PURE__ */ react2.default.createElement("span", {
         className: "value"
-      }, debit !== null ? getAmountInDollars(debit, currency) : getAmountInDollars(credit, currency)));
+      }, amountInUSDollars));
+    };
+    const TransactionCurrency = () => {
+      const amount = debit !== null ? debit : credit;
+      const convertedAmount = getCurrencyRate(currency) * amount;
+      const currencyAmount = getCurrencyAmount(convertedAmount, currency);
+      return /* @__PURE__ */ react2.default.createElement("div", {
+        className: "item"
+      }, /* @__PURE__ */ react2.default.createElement("span", {
+        title: `Transaction curreny used: ${getCurrencyName(currency)} (${currency})`,
+        className: "label"
+      }, getCurrencyName(currency)), /* @__PURE__ */ react2.default.createElement("span", {
+        title: `Conversion rate: ${getCurrencyRate(currency)} ${currency}/USD`,
+        className: "value"
+      }, currencyAmount));
     };
     const TransactionDate = () => {
       const date = new Date(transactionDate);
@@ -19719,7 +19806,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }), /* @__PURE__ */ react2.default.createElement(TransactionItem, {
       label: "Category",
       value: category
-    }), /* @__PURE__ */ react2.default.createElement(TransactionType, null), /* @__PURE__ */ react2.default.createElement(TransactionDate, null), /* @__PURE__ */ react2.default.createElement(TransactionAddress, null)));
+    }), /* @__PURE__ */ react2.default.createElement(TransactionType, null), /* @__PURE__ */ react2.default.createElement(TransactionCurrency, null), /* @__PURE__ */ react2.default.createElement(TransactionDate, null), /* @__PURE__ */ react2.default.createElement(TransactionAddress, null)));
   };
 
   // client/components/transactions/TransactionList.jsx
@@ -19730,7 +19817,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
   const TransactionList2 = () => {
     const {fetchTransactions} = useFetch2();
-    const {getFields, getFieldAsLabel, getViews, getAmountInDollars, getStateDefaults} = useTransactionFields2();
+    const {getFields, getFieldAsLabel, getViews, getStateDefaults} = useTransactionFields2();
+    const {getAmountInUSDollars} = useCurrencyApi2();
     const views2 = getViews();
     const stateDefaults2 = getStateDefaults();
     const [selectedId, setSelectedId] = react3.useState(stateDefaults2.selectedId);
@@ -19740,6 +19828,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const [selectedOption, setSelectedOption] = react3.useState(stateDefaults2.selectedOption);
     const [transactionFields2, setTransactionFields] = react3.useState(stateDefaults2.transactionFields);
     const [sortedField, setSortedField] = react3.useState(stateDefaults2.sorted);
+    const [conversionRates, setConversionRates] = react3.useState(stateDefaults2.transactions);
     async function doFetch(option = null) {
       if (Object.keys(sortedField).length) {
         console.log("sortedField has key ... re-init");
@@ -19858,7 +19947,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         onClick: () => openModal(trans["id"])
       }, transactionFields2.map((field, j) => /* @__PURE__ */ react3.default.createElement("td", {
         key: trans[field] + j
-      }, typeof trans[field] === "number" ? getAmountInDollars(trans[field], trans["currency"]) : trans[field])));
+      }, typeof trans[field] === "number" ? getAmountInUSDollars(trans[field]) : trans[field])));
     }))), /* @__PURE__ */ react3.default.createElement(Modal2, {
       showModal,
       closeModal,

@@ -5,6 +5,7 @@ import { Loading } from "../utils/Loading"
 import { Modal } from "../utils/Modal";
 import { TransactionDetail } from "./TransactionDetail";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
+import { useCurrencyApi } from "../../hooks/useCurrencyApi";
 
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
@@ -16,7 +17,8 @@ const TransactionList = () => {
 
   // hooks
   const { fetchTransactions } = useFetch();
-  const { getFields, getFieldAsLabel, getViews, getAmountInDollars, getStateDefaults } = useTransactionFields();
+  const { getFields, getFieldAsLabel, getViews, getStateDefaults } = useTransactionFields();
+  const { getAmountInUSDollars } = useCurrencyApi();
 
   // views are used by the droplist as labels and API endpoint paths
   const views = getViews();
@@ -30,6 +32,7 @@ const TransactionList = () => {
   const [selectedOption, setSelectedOption] = useState(stateDefaults.selectedOption);
   const [transactionFields, setTransactionFields] = useState(stateDefaults.transactionFields);
   const [sortedField, setSortedField] = useState(stateDefaults.sorted);
+  const [conversionRates, setConversionRates] = useState(stateDefaults.transactions);
 
   async function doFetch(option = null) {
 
@@ -185,7 +188,7 @@ const TransactionList = () => {
                 return <tr title={trans['description']} key={trans['description'] + i} onClick={() => openModal(trans['id'])}>
                   {transactionFields.map((field, j) => (
                     <td key={trans[field] + j}>{
-                      typeof trans[field] === "number" ? getAmountInDollars(trans[field], trans['currency']) : trans[field]
+                      typeof trans[field] === "number" ? getAmountInUSDollars(trans[field]) : trans[field]
                     }</td>
                   ))}
                 </tr>

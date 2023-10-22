@@ -47,7 +47,8 @@ const stateDefaults = {
   transactions: cache, // [],
   selectedOption: "all",
   transactionFields: [],
-  sorted: {}
+  sorted: {},
+  conversionRates: []
 };
 
 // used to control transaction field display
@@ -89,14 +90,6 @@ const transactionFields = {
 
 const useTransactionFields = () => {
 
-  const getAmountInDollars = ( num, currency ) => {
-    const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-    });
-    return formatter.format(num);
-  }
-  
   const getFields = (view) => {
     return transactionFields[view];
   }
@@ -115,7 +108,7 @@ const useTransactionFields = () => {
     else return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
   }
 
-  return { getFields, getViews, getFieldAsLabel, getAmountInDollars, getStateDefaults };
+  return { getFields, getViews, getFieldAsLabel, getStateDefaults };
 };
 
 export { useTransactionFields };
