@@ -2375,12 +2375,12 @@
     if (true) {
       (function() {
         "use strict";
-        var React9 = require_react();
+        var React11 = require_react();
         var _assign = require_object_assign();
         var Scheduler = require_scheduler();
         var checkPropTypes = require_checkPropTypes();
         var tracing = require_tracing();
-        var ReactSharedInternals = React9.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React11.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         if (!ReactSharedInternals.hasOwnProperty("ReactCurrentDispatcher")) {
           ReactSharedInternals.ReactCurrentDispatcher = {
             current: null
@@ -2433,7 +2433,7 @@
             }
           }
         }
-        if (!React9) {
+        if (!React11) {
           {
             throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
           }
@@ -3778,7 +3778,7 @@
         var didWarnInvalidChild = false;
         function flattenChildren(children) {
           var content = "";
-          React9.Children.forEach(children, function(child) {
+          React11.Children.forEach(children, function(child) {
             if (child == null) {
               return;
             }
@@ -3789,7 +3789,7 @@
         function validateProps(element, props) {
           {
             if (typeof props.children === "object" && props.children !== null) {
-              React9.Children.forEach(props.children, function(child) {
+              React11.Children.forEach(props.children, function(child) {
                 if (child == null) {
                   return;
                 }
@@ -10836,7 +10836,7 @@
         }
         var fakeInternalInstance = {};
         var isArray = Array.isArray;
-        var emptyRefsObject = new React9.Component().refs;
+        var emptyRefsObject = new React11.Component().refs;
         var didWarnAboutStateAssignmentForComponent;
         var didWarnAboutUninitializedState;
         var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -19476,50 +19476,50 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
 
   // client/components/utils/Spinner.jsx
-  const react6 = __toModule(require_react());
+  const react8 = __toModule(require_react());
   const Spinner2 = () => {
-    return /* @__PURE__ */ react6.default.createElement("div", {
+    return /* @__PURE__ */ react8.default.createElement("div", {
       className: "spinner"
-    }, /* @__PURE__ */ react6.default.createElement("div", null, /* @__PURE__ */ react6.default.createElement("svg", {
+    }, /* @__PURE__ */ react8.default.createElement("div", null, /* @__PURE__ */ react8.default.createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg",
       width: "50",
       height: "50",
       viewBox: "0 0 200 200",
       fill: "none",
       className: "loading"
-    }, /* @__PURE__ */ react6.default.createElement("defs", null, /* @__PURE__ */ react6.default.createElement("linearGradient", {
+    }, /* @__PURE__ */ react8.default.createElement("defs", null, /* @__PURE__ */ react8.default.createElement("linearGradient", {
       id: "spinner-secondHalf"
-    }, /* @__PURE__ */ react6.default.createElement("stop", {
+    }, /* @__PURE__ */ react8.default.createElement("stop", {
       offset: "0%",
       stopOpacity: "0",
       stopColor: "currentColor"
-    }), /* @__PURE__ */ react6.default.createElement("stop", {
+    }), /* @__PURE__ */ react8.default.createElement("stop", {
       offset: "100%",
       stopOpacity: "0.5",
       stopColor: "currentColor"
-    })), /* @__PURE__ */ react6.default.createElement("linearGradient", {
+    })), /* @__PURE__ */ react8.default.createElement("linearGradient", {
       id: "spinner-firstHalf"
-    }, /* @__PURE__ */ react6.default.createElement("stop", {
+    }, /* @__PURE__ */ react8.default.createElement("stop", {
       offset: "0%",
       stopOpacity: "1",
       stopColor: "currentColor"
-    }), /* @__PURE__ */ react6.default.createElement("stop", {
+    }), /* @__PURE__ */ react8.default.createElement("stop", {
       offset: "100%",
       stopOpacity: "0.5",
       stopColor: "currentColor"
-    }))), /* @__PURE__ */ react6.default.createElement("g", {
+    }))), /* @__PURE__ */ react8.default.createElement("g", {
       strokeWidth: "8"
-    }, /* @__PURE__ */ react6.default.createElement("path", {
+    }, /* @__PURE__ */ react8.default.createElement("path", {
       stroke: "url(#spinner-secondHalf)",
       d: "M 4 100 A 96 96 0 0 1 196 100"
-    }), /* @__PURE__ */ react6.default.createElement("path", {
+    }), /* @__PURE__ */ react8.default.createElement("path", {
       stroke: "url(#spinner-firstHalf)",
       d: "M 196 100 A 96 96 0 0 1 4 100"
-    }), /* @__PURE__ */ react6.default.createElement("path", {
+    }), /* @__PURE__ */ react8.default.createElement("path", {
       stroke: "currentColor",
       strokeLinecap: "round",
       d: "M 4 100 A 96 96 0 0 1 4 98"
-    })), /* @__PURE__ */ react6.default.createElement("animateTransform", {
+    })), /* @__PURE__ */ react8.default.createElement("animateTransform", {
       from: "0 0 0",
       to: "360 0 0",
       attributeName: "transform",
@@ -19530,17 +19530,17 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
 
   // client/components/utils/Loading.jsx
-  const react4 = __toModule(require_react());
+  const react6 = __toModule(require_react());
   const Loading2 = () => {
-    return /* @__PURE__ */ react4.default.createElement(react4.default.Fragment, null, /* @__PURE__ */ react4.default.createElement("h3", {
+    return /* @__PURE__ */ react6.default.createElement(react6.default.Fragment, null, /* @__PURE__ */ react6.default.createElement("h3", {
       className: "loading"
-    }, "Loading Transactions"), /* @__PURE__ */ react4.default.createElement(Spinner2, null));
+    }, "Loading Transactions"), /* @__PURE__ */ react6.default.createElement(Spinner2, null));
   };
 
   // node_modules/react-icons/lib/esm/iconsManifest.js
 
   // node_modules/react-icons/lib/esm/iconContext.js
-  const react8 = __toModule(require_react());
+  const react10 = __toModule(require_react());
   var DefaultContext = {
     color: void 0,
     size: void 0,
@@ -19548,10 +19548,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     style: void 0,
     attr: void 0
   };
-  var IconContext = react8.default.createContext && react8.default.createContext(DefaultContext);
+  var IconContext = react10.default.createContext && react10.default.createContext(DefaultContext);
 
   // node_modules/react-icons/lib/esm/iconBase.js
-  const react7 = __toModule(require_react());
+  const react9 = __toModule(require_react());
   var __assign = function() {
     __assign = Object.assign || function(t) {
       for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -19578,14 +19578,14 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
   function Tree2Element(tree) {
     return tree && tree.map(function(node, i) {
-      return react7.default.createElement(node.tag, __assign({
+      return react9.default.createElement(node.tag, __assign({
         key: i
       }, node.attr), Tree2Element(node.child));
     });
   }
   function GenIcon(data) {
     return function(props) {
-      return react7.default.createElement(IconBase, __assign({
+      return react9.default.createElement(IconBase, __assign({
         attr: __assign({}, data.attr)
       }, props), Tree2Element(data.child));
     };
@@ -19599,7 +19599,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         className = conf.className;
       if (props.className)
         className = (className ? className + " " : "") + props.className;
-      return react7.default.createElement("svg", __assign({
+      return react9.default.createElement("svg", __assign({
         stroke: "currentColor",
         fill: "currentColor",
         strokeWidth: "0"
@@ -19611,9 +19611,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         height: computedSize,
         width: computedSize,
         xmlns: "http://www.w3.org/2000/svg"
-      }), title && react7.default.createElement("title", null, title), props.children);
+      }), title && react9.default.createElement("title", null, title), props.children);
     };
-    return IconContext !== void 0 ? react7.default.createElement(IconContext.Consumer, null, function(conf) {
+    return IconContext !== void 0 ? react9.default.createElement(IconContext.Consumer, null, function(conf) {
       return elem(conf);
     }) : elem(DefaultContext);
   }
@@ -19632,16 +19632,16 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   }
 
   // client/components/utils/Modal.jsx
-  const react5 = __toModule(require_react());
+  const react7 = __toModule(require_react());
   const Modal2 = ({children, showModal, closeModal, label}) => {
-    return showModal ? /* @__PURE__ */ react5.default.createElement("div", {
+    return showModal ? /* @__PURE__ */ react7.default.createElement("div", {
       className: "modal"
-    }, /* @__PURE__ */ react5.default.createElement("div", {
+    }, /* @__PURE__ */ react7.default.createElement("div", {
       className: "window"
-    }, /* @__PURE__ */ react5.default.createElement("header", null, /* @__PURE__ */ react5.default.createElement("label", null, label), /* @__PURE__ */ react5.default.createElement("div", {
+    }, /* @__PURE__ */ react7.default.createElement("header", null, /* @__PURE__ */ react7.default.createElement("label", null, label), /* @__PURE__ */ react7.default.createElement("div", {
       className: "exit",
       onClick: closeModal
-    }, /* @__PURE__ */ react5.default.createElement(AiFillCloseCircle, null))), children)) : null;
+    }, /* @__PURE__ */ react7.default.createElement(AiFillCloseCircle, null))), children)) : null;
   };
 
   // client/hooks/useCurrencyApi.js
@@ -19650,7 +19650,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       EUR: 0.9437601439,
       JPY: 149.9124275149,
       MXN: 18.2435134238,
-      USD: 1
+      USD: 1,
+      CRC: 531.56
     }
   };
   const currencies = {
@@ -19694,6 +19695,16 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         code: "MXN",
         name_plural: "Mexican pesos",
         locale: "es-MX"
+      },
+      CRC: {
+        symbol: "CR₡",
+        name: "Costa Rican Colón",
+        symbol_native: "₡",
+        decimal_digits: 2,
+        rounding: 0,
+        code: "CRC",
+        name_plural: "Costa Rican colóns",
+        locale: "es-CR"
       }
     }
   };
@@ -19809,26 +19820,93 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }), /* @__PURE__ */ react2.default.createElement(TransactionType, null), /* @__PURE__ */ react2.default.createElement(TransactionCurrency, null), /* @__PURE__ */ react2.default.createElement(TransactionDate, null), /* @__PURE__ */ react2.default.createElement(TransactionAddress, null)));
   };
 
-  // client/components/transactions/TransactionList.jsx
+  // client/components/transactions/TransactionTable.jsx
+  const react5 = __toModule(require_react());
+  const TransactionTable2 = ({sortedField, transactions, transactionFields: transactionFields2, openModal, HeaderSortHandler}) => {
+    const {getAmountInUSDollars} = useCurrencyApi2();
+    const {getFieldAsLabel} = useTransactionFields2();
+    const HeaderWithSortControls = ({field}) => {
+      console.log("sortedField", sortedField);
+      const label = getFieldAsLabel(field);
+      const sortClassAsc = field in sortedField && sortedField[field] === "asc" ? "icon sorted" : "icon";
+      const sortClassDesc = field in sortedField && sortedField[field] === "desc" ? "icon sorted" : "icon";
+      return /* @__PURE__ */ react5.default.createElement("div", {
+        className: "table-header"
+      }, /* @__PURE__ */ react5.default.createElement("span", {
+        className: "label"
+      }, label), /* @__PURE__ */ react5.default.createElement("div", {
+        className: "sort"
+      }, /* @__PURE__ */ react5.default.createElement("div", {
+        className: "controls"
+      }, /* @__PURE__ */ react5.default.createElement(AiFillCaretUp, {
+        title: "sort descending",
+        className: sortClassDesc,
+        onClick: (e) => {
+          e.stopPropagation();
+          return HeaderSortHandler(field, "desc");
+        }
+      }), /* @__PURE__ */ react5.default.createElement(AiFillCaretDown, {
+        title: "sort ascending",
+        className: sortClassAsc,
+        onClick: (e) => {
+          e.stopPropagation();
+          return HeaderSortHandler(field, "asc");
+        }
+      }))));
+    };
+    return /* @__PURE__ */ react5.default.createElement("table", null, /* @__PURE__ */ react5.default.createElement("thead", null, /* @__PURE__ */ react5.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react5.default.createElement("th", {
+      key: field + 0
+    }, /* @__PURE__ */ react5.default.createElement(HeaderWithSortControls, {
+      field
+    }))))), /* @__PURE__ */ react5.default.createElement("tbody", null, transactions.map((trans, i) => {
+      return /* @__PURE__ */ react5.default.createElement("tr", {
+        title: trans["description"],
+        key: trans["description"] + i,
+        onClick: (e) => {
+          e.stopPropagation();
+          return openModal(trans["id"]);
+        }
+      }, transactionFields2.map((field, j) => /* @__PURE__ */ react5.default.createElement("td", {
+        key: trans[field] + j
+      }, typeof trans[field] === "number" ? getAmountInUSDollars(trans[field]) : trans[field])));
+    })));
+  };
+
+  // client/components/transactions/TransactionDropList.jsx
   const react3 = __toModule(require_react());
+  const TransactionDropList = ({selectedOption, doFetch, views: views2}) => {
+    return /* @__PURE__ */ react3.default.createElement("select", {
+      name: "view",
+      value: selectedOption,
+      className: "droplist",
+      onChange: (e) => {
+        e.stopPropagation();
+        doFetch(e.target.value);
+      }
+    }, Object.keys(views2).map((item, index) => /* @__PURE__ */ react3.default.createElement("option", {
+      key: index,
+      value: item
+    }, item)));
+  };
+
+  // client/components/transactions/TransactionList.jsx
+  const react4 = __toModule(require_react());
   const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
   const newDate = () => {
     return new Date().toISOString();
   };
   const TransactionList2 = () => {
     const {fetchTransactions} = useFetch2();
-    const {getFields, getFieldAsLabel, getViews, getStateDefaults} = useTransactionFields2();
-    const {getAmountInUSDollars} = useCurrencyApi2();
+    const {getFields, getViews, getStateDefaults} = useTransactionFields2();
     const views2 = getViews();
     const stateDefaults2 = getStateDefaults();
-    const [selectedId, setSelectedId] = react3.useState(stateDefaults2.selectedId);
-    const [selectedTransaction, setSelectedTransaction] = react3.useState(stateDefaults2.selectedTransaction);
-    const [showModal, setShowModal] = react3.useState(stateDefaults2.showModal);
-    const [transactions, setTransactions] = react3.useState(stateDefaults2.transactions);
-    const [selectedOption, setSelectedOption] = react3.useState(stateDefaults2.selectedOption);
-    const [transactionFields2, setTransactionFields] = react3.useState(stateDefaults2.transactionFields);
-    const [sortedField, setSortedField] = react3.useState(stateDefaults2.sorted);
-    const [conversionRates, setConversionRates] = react3.useState(stateDefaults2.transactions);
+    const [selectedId, setSelectedId] = react4.useState(stateDefaults2.selectedId);
+    const [selectedTransaction, setSelectedTransaction] = react4.useState(stateDefaults2.selectedTransaction);
+    const [showModal, setShowModal] = react4.useState(stateDefaults2.showModal);
+    const [transactions, setTransactions] = react4.useState(stateDefaults2.transactions);
+    const [selectedOption, setSelectedOption] = react4.useState(stateDefaults2.selectedOption);
+    const [transactionFields2, setTransactionFields] = react4.useState(stateDefaults2.transactionFields);
+    const [sortedField, setSortedField] = react4.useState(stateDefaults2.sorted);
     async function doFetch(option = null) {
       if (Object.keys(sortedField).length) {
         console.log("sortedField has key ... re-init");
@@ -19855,7 +19933,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       setTransactionFields(getFields(option));
       console.log("#".repeat(80));
     }
-    react3.useEffect(() => {
+    react4.useEffect(() => {
       console.log("component mounted", newDate());
       console.log("*".repeat(80));
       doFetch();
@@ -19863,7 +19941,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         console.log("unmount");
       };
     }, []);
-    react3.useEffect(() => {
+    react4.useEffect(() => {
       console.log("useEffect", `selectedId: ${selectedId}`, newDate());
       if (selectedId === 0) {
         setSelectedTransaction(stateDefaults2.selectedTransaction);
@@ -19880,7 +19958,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const closeModal = () => {
       setSelectedId(stateDefaults2.selectedId);
     };
-    const logo = /* @__PURE__ */ react3.default.createElement("img", {
+    const logo = /* @__PURE__ */ react4.default.createElement("img", {
       src: "/logo.png",
       className: "client-icon"
     });
@@ -19897,62 +19975,26 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         }
         return 0;
       }));
-      console.log(transactions[0]);
     };
-    const HeaderWithSortControls = ({field}) => {
-      console.log("sortedField", sortedField);
-      const label = getFieldAsLabel(field);
-      const sortClassAsc = field in sortedField && sortedField[field] === "asc" ? "icon sorted" : "icon";
-      const sortClassDesc = field in sortedField && sortedField[field] === "desc" ? "icon sorted" : "icon";
-      return /* @__PURE__ */ react3.default.createElement("div", {
-        className: "table-header"
-      }, /* @__PURE__ */ react3.default.createElement("span", {
-        className: "label"
-      }, label), /* @__PURE__ */ react3.default.createElement("div", {
-        className: "sort"
-      }, /* @__PURE__ */ react3.default.createElement("div", {
-        className: "controls"
-      }, /* @__PURE__ */ react3.default.createElement(AiFillCaretUp, {
-        title: "sort descending",
-        className: sortClassDesc,
-        onClick: () => HeaderSortHandler(field, "desc")
-      }), /* @__PURE__ */ react3.default.createElement(AiFillCaretDown, {
-        title: "sort ascending",
-        className: sortClassAsc,
-        onClick: () => HeaderSortHandler(field, "asc")
-      }))));
-    };
-    return /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("div", {
+    return /* @__PURE__ */ react4.default.createElement(react4.default.Fragment, null, /* @__PURE__ */ react4.default.createElement("div", {
       className: "transactions"
-    }, transactions.length ? logo : null, /* @__PURE__ */ react3.default.createElement("h2", {
+    }, transactions.length ? logo : null, /* @__PURE__ */ react4.default.createElement("h2", {
       title: "Mojocat Bank Transactions"
-    }, "Mojocat Transactions"), !transactions.length ? /* @__PURE__ */ react3.default.createElement(Loading2, null) : /* @__PURE__ */ react3.default.createElement(react3.default.Fragment, null, /* @__PURE__ */ react3.default.createElement("select", {
-      name: "view",
-      value: selectedOption,
-      className: "droplist",
-      onChange: (e) => {
-        doFetch(e.target.value);
-      }
-    }, Object.keys(views2).map((item, index) => /* @__PURE__ */ react3.default.createElement("option", {
-      key: index,
-      value: item
-    }, item))), /* @__PURE__ */ react3.default.createElement("table", null, /* @__PURE__ */ react3.default.createElement("thead", null, /* @__PURE__ */ react3.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react3.default.createElement("th", {
-      key: field + 0
-    }, /* @__PURE__ */ react3.default.createElement(HeaderWithSortControls, {
-      field
-    }))))), /* @__PURE__ */ react3.default.createElement("tbody", null, transactions.map((trans, i) => {
-      return /* @__PURE__ */ react3.default.createElement("tr", {
-        title: trans["description"],
-        key: trans["description"] + i,
-        onClick: () => openModal(trans["id"])
-      }, transactionFields2.map((field, j) => /* @__PURE__ */ react3.default.createElement("td", {
-        key: trans[field] + j
-      }, typeof trans[field] === "number" ? getAmountInUSDollars(trans[field]) : trans[field])));
-    }))), /* @__PURE__ */ react3.default.createElement(Modal2, {
+    }, "Mojocat Transactions"), !transactions.length ? /* @__PURE__ */ react4.default.createElement(Loading2, null) : /* @__PURE__ */ react4.default.createElement(react4.default.Fragment, null, /* @__PURE__ */ react4.default.createElement(TransactionDropList, {
+      selectedOption,
+      doFetch,
+      views: views2
+    }), /* @__PURE__ */ react4.default.createElement(TransactionTable2, {
+      HeaderSortHandler,
+      sortedField,
+      transactions,
+      transactionFields: transactionFields2,
+      openModal
+    }), /* @__PURE__ */ react4.default.createElement(Modal2, {
       showModal,
       closeModal,
       label: "Transaction Detail"
-    }, /* @__PURE__ */ react3.default.createElement(TransactionDetail, {
+    }, /* @__PURE__ */ react4.default.createElement(TransactionDetail, {
       transaction: selectedTransaction
     })))));
   };

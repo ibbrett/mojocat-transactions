@@ -17,6 +17,7 @@ const getTopList = ( merchants, count ) => {
 };
 
 const getTopMerchants = ( transactions, count ) => {
+
   const merchants = new Map();
   transactions.forEach((transaction) => {
     if(merchants.has(transaction.description)){
@@ -45,6 +46,8 @@ const getTopByAmount = ( transactions, type, debitOrCredit, count ) => {
      merchants.set(transaction[type], amount);
     }
   })
+
+  console.log('merchants Map', merchants, type);
 
   return getTopList(merchants, count);
 }

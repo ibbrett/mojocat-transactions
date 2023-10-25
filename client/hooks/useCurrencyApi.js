@@ -3,7 +3,8 @@ const rates = {
     "EUR": 0.9437601439,
     "JPY": 149.9124275149,
     "MXN": 18.2435134238,
-    "USD": 1
+    "USD": 1,
+    "CRC": 531.56
   }
 };
 
@@ -48,6 +49,16 @@ const currencies = {
       "code": "MXN",
       "name_plural": "Mexican pesos",
       "locale": "es-MX"
+    },
+    "CRC": {
+      "symbol": "CR₡",
+      "name": "Costa Rican Colón",
+      "symbol_native": "₡",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "code": "CRC",
+      "name_plural": "Costa Rican colóns",
+      "locale": "es-CR"
     }
   }
 };
