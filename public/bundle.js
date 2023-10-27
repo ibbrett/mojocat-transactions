@@ -2375,12 +2375,12 @@
     if (true) {
       (function() {
         "use strict";
-        var React11 = require_react();
+        var React13 = require_react();
         var _assign = require_object_assign();
         var Scheduler = require_scheduler();
         var checkPropTypes = require_checkPropTypes();
         var tracing = require_tracing();
-        var ReactSharedInternals = React11.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        var ReactSharedInternals = React13.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
         if (!ReactSharedInternals.hasOwnProperty("ReactCurrentDispatcher")) {
           ReactSharedInternals.ReactCurrentDispatcher = {
             current: null
@@ -2433,7 +2433,7 @@
             }
           }
         }
-        if (!React11) {
+        if (!React13) {
           {
             throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
           }
@@ -3778,7 +3778,7 @@
         var didWarnInvalidChild = false;
         function flattenChildren(children) {
           var content = "";
-          React11.Children.forEach(children, function(child) {
+          React13.Children.forEach(children, function(child) {
             if (child == null) {
               return;
             }
@@ -3789,7 +3789,7 @@
         function validateProps(element, props) {
           {
             if (typeof props.children === "object" && props.children !== null) {
-              React11.Children.forEach(props.children, function(child) {
+              React13.Children.forEach(props.children, function(child) {
                 if (child == null) {
                   return;
                 }
@@ -10836,7 +10836,7 @@
         }
         var fakeInternalInstance = {};
         var isArray = Array.isArray;
-        var emptyRefsObject = new React11.Component().refs;
+        var emptyRefsObject = new React13.Component().refs;
         var didWarnAboutStateAssignmentForComponent;
         var didWarnAboutUninitializedState;
         var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -19382,144 +19382,51 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // client/hooks/useFetch.js
-  const useFetch2 = () => {
-    const fetchTransactions = async (url) => {
-      const result = await fetch(`${url}`).then((response) => response.json()).then((result2) => {
-        return result2;
-      }).catch((err) => {
-        console.log("fetch error", err);
-        return [];
-      });
-      return result;
-    };
-    return {fetchTransactions};
-  };
-
-  // client/hooks/useTransactionFields.js
-  const views = {
-    all: "/transactions",
-    "top merchants by transactions": "/transactions/top-merchants",
-    "top merchants by amount (debit)": "/transactions/top-by-amount/description",
-    "top categories by amount (debit)": "/transactions/top-by-amount/category",
-    "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit",
-    "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
-  };
-  const cache = {};
-  Object.keys(views).forEach((key) => {
-    cache[key] = [];
-  });
-  const stateDefaults = {
-    selectedId: 0,
-    selectedTransaction: {},
-    showModal: false,
-    transactions: cache,
-    selectedOption: "all",
-    transactionFields: [],
-    sorted: {},
-    conversionRates: []
-  };
-  const transactionFields = {
-    all: [
-      "transactionDate",
-      "description",
-      "category",
-      "debit",
-      "credit"
-    ],
-    "top merchants by transactions": [
-      "transactionDate",
-      "description",
-      "debit",
-      "credit"
-    ],
-    "top merchants by amount (debit)": [
-      "transactionDate",
-      "description",
-      "debit"
-    ],
-    "top categories by amount (debit)": [
-      "transactionDate",
-      "category",
-      "debit"
-    ],
-    "top merchants by amount (credit)": [
-      "transactionDate",
-      "description",
-      "credit"
-    ],
-    "top categories by amount (credit)": [
-      "transactionDate",
-      "category",
-      "credit"
-    ]
-  };
-  const useTransactionFields2 = () => {
-    const getFields = (view) => {
-      return transactionFields[view];
-    };
-    const getViews = () => {
-      return views;
-    };
-    const getStateDefaults = () => {
-      return stateDefaults;
-    };
-    const getFieldAsLabel = (fieldName) => {
-      if (fieldName === "transactionDate")
-        return "Date";
-      else if (fieldName === "description")
-        return "Merchant";
-      else
-        return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
-    };
-    return {getFields, getViews, getFieldAsLabel, getStateDefaults};
-  };
-
   // client/components/utils/Spinner.jsx
-  const react8 = __toModule(require_react());
+  const react10 = __toModule(require_react());
   const Spinner2 = () => {
-    return /* @__PURE__ */ react8.default.createElement("div", {
+    return /* @__PURE__ */ react10.default.createElement("div", {
       className: "spinner"
-    }, /* @__PURE__ */ react8.default.createElement("div", null, /* @__PURE__ */ react8.default.createElement("svg", {
+    }, /* @__PURE__ */ react10.default.createElement("div", null, /* @__PURE__ */ react10.default.createElement("svg", {
       xmlns: "http://www.w3.org/2000/svg",
       width: "50",
       height: "50",
       viewBox: "0 0 200 200",
       fill: "none",
       className: "loading"
-    }, /* @__PURE__ */ react8.default.createElement("defs", null, /* @__PURE__ */ react8.default.createElement("linearGradient", {
+    }, /* @__PURE__ */ react10.default.createElement("defs", null, /* @__PURE__ */ react10.default.createElement("linearGradient", {
       id: "spinner-secondHalf"
-    }, /* @__PURE__ */ react8.default.createElement("stop", {
+    }, /* @__PURE__ */ react10.default.createElement("stop", {
       offset: "0%",
       stopOpacity: "0",
       stopColor: "currentColor"
-    }), /* @__PURE__ */ react8.default.createElement("stop", {
+    }), /* @__PURE__ */ react10.default.createElement("stop", {
       offset: "100%",
       stopOpacity: "0.5",
       stopColor: "currentColor"
-    })), /* @__PURE__ */ react8.default.createElement("linearGradient", {
+    })), /* @__PURE__ */ react10.default.createElement("linearGradient", {
       id: "spinner-firstHalf"
-    }, /* @__PURE__ */ react8.default.createElement("stop", {
+    }, /* @__PURE__ */ react10.default.createElement("stop", {
       offset: "0%",
       stopOpacity: "1",
       stopColor: "currentColor"
-    }), /* @__PURE__ */ react8.default.createElement("stop", {
+    }), /* @__PURE__ */ react10.default.createElement("stop", {
       offset: "100%",
       stopOpacity: "0.5",
       stopColor: "currentColor"
-    }))), /* @__PURE__ */ react8.default.createElement("g", {
+    }))), /* @__PURE__ */ react10.default.createElement("g", {
       strokeWidth: "8"
-    }, /* @__PURE__ */ react8.default.createElement("path", {
+    }, /* @__PURE__ */ react10.default.createElement("path", {
       stroke: "url(#spinner-secondHalf)",
       d: "M 4 100 A 96 96 0 0 1 196 100"
-    }), /* @__PURE__ */ react8.default.createElement("path", {
+    }), /* @__PURE__ */ react10.default.createElement("path", {
       stroke: "url(#spinner-firstHalf)",
       d: "M 196 100 A 96 96 0 0 1 4 100"
-    }), /* @__PURE__ */ react8.default.createElement("path", {
+    }), /* @__PURE__ */ react10.default.createElement("path", {
       stroke: "currentColor",
       strokeLinecap: "round",
       d: "M 4 100 A 96 96 0 0 1 4 98"
-    })), /* @__PURE__ */ react8.default.createElement("animateTransform", {
+    })), /* @__PURE__ */ react10.default.createElement("animateTransform", {
       from: "0 0 0",
       to: "360 0 0",
       attributeName: "transform",
@@ -19530,17 +19437,17 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
 
   // client/components/utils/Loading.jsx
-  const react6 = __toModule(require_react());
+  const react8 = __toModule(require_react());
   const Loading2 = () => {
-    return /* @__PURE__ */ react6.default.createElement(react6.default.Fragment, null, /* @__PURE__ */ react6.default.createElement("h3", {
+    return /* @__PURE__ */ react8.default.createElement(react8.default.Fragment, null, /* @__PURE__ */ react8.default.createElement("h3", {
       className: "loading"
-    }, "Loading Transactions"), /* @__PURE__ */ react6.default.createElement(Spinner2, null));
+    }, "Loading Transactions"), /* @__PURE__ */ react8.default.createElement(Spinner2, null));
   };
 
   // node_modules/react-icons/lib/esm/iconsManifest.js
 
   // node_modules/react-icons/lib/esm/iconContext.js
-  const react10 = __toModule(require_react());
+  const react13 = __toModule(require_react());
   var DefaultContext = {
     color: void 0,
     size: void 0,
@@ -19548,10 +19455,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     style: void 0,
     attr: void 0
   };
-  var IconContext = react10.default.createContext && react10.default.createContext(DefaultContext);
+  var IconContext = react13.default.createContext && react13.default.createContext(DefaultContext);
 
   // node_modules/react-icons/lib/esm/iconBase.js
-  const react9 = __toModule(require_react());
+  const react12 = __toModule(require_react());
   var __assign = function() {
     __assign = Object.assign || function(t) {
       for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -19578,14 +19485,14 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
   function Tree2Element(tree) {
     return tree && tree.map(function(node, i) {
-      return react9.default.createElement(node.tag, __assign({
+      return react12.default.createElement(node.tag, __assign({
         key: i
       }, node.attr), Tree2Element(node.child));
     });
   }
   function GenIcon(data) {
     return function(props) {
-      return react9.default.createElement(IconBase, __assign({
+      return react12.default.createElement(IconBase, __assign({
         attr: __assign({}, data.attr)
       }, props), Tree2Element(data.child));
     };
@@ -19599,7 +19506,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         className = conf.className;
       if (props.className)
         className = (className ? className + " " : "") + props.className;
-      return react9.default.createElement("svg", __assign({
+      return react12.default.createElement("svg", __assign({
         stroke: "currentColor",
         fill: "currentColor",
         strokeWidth: "0"
@@ -19611,9 +19518,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         height: computedSize,
         width: computedSize,
         xmlns: "http://www.w3.org/2000/svg"
-      }), title && react9.default.createElement("title", null, title), props.children);
+      }), title && react12.default.createElement("title", null, title), props.children);
     };
-    return IconContext !== void 0 ? react9.default.createElement(IconContext.Consumer, null, function(conf) {
+    return IconContext !== void 0 ? react12.default.createElement(IconContext.Consumer, null, function(conf) {
       return elem(conf);
     }) : elem(DefaultContext);
   }
@@ -19632,16 +19539,16 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   }
 
   // client/components/utils/Modal.jsx
-  const react7 = __toModule(require_react());
+  const react9 = __toModule(require_react());
   const Modal2 = ({children, showModal, closeModal, label}) => {
-    return showModal ? /* @__PURE__ */ react7.default.createElement("div", {
+    return showModal ? /* @__PURE__ */ react9.default.createElement("div", {
       className: "modal"
-    }, /* @__PURE__ */ react7.default.createElement("div", {
+    }, /* @__PURE__ */ react9.default.createElement("div", {
       className: "window"
-    }, /* @__PURE__ */ react7.default.createElement("header", null, /* @__PURE__ */ react7.default.createElement("label", null, label), /* @__PURE__ */ react7.default.createElement("div", {
+    }, /* @__PURE__ */ react9.default.createElement("header", null, /* @__PURE__ */ react9.default.createElement("label", null, label), /* @__PURE__ */ react9.default.createElement("div", {
       className: "exit",
       onClick: closeModal
-    }, /* @__PURE__ */ react7.default.createElement(AiFillCloseCircle, null))), children)) : null;
+    }, /* @__PURE__ */ react9.default.createElement(AiFillCloseCircle, null))), children)) : null;
   };
 
   // client/hooks/useCurrencyApi.js
@@ -19733,7 +19640,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
 
   // client/components/transactions/TransactionDetail.jsx
-  const react2 = __toModule(require_react());
+  const react4 = __toModule(require_react());
   const TransactionDetail = ({transaction}) => {
     const {getCurrencyAmount, getCurrencyName, getCurrencyRate, getAmountInUSDollars} = useCurrencyApi2();
     const {
@@ -19749,22 +19656,22 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       transactionDate
     } = transaction;
     const TransactionItem = ({label, value}) => {
-      return /* @__PURE__ */ react2.default.createElement("div", {
+      return /* @__PURE__ */ react4.default.createElement("div", {
         className: "item"
-      }, /* @__PURE__ */ react2.default.createElement("span", {
+      }, /* @__PURE__ */ react4.default.createElement("span", {
         className: "label"
-      }, label, ":"), /* @__PURE__ */ react2.default.createElement("span", {
+      }, label, ":"), /* @__PURE__ */ react4.default.createElement("span", {
         className: "value"
       }, value));
     };
     const TransactionType = () => {
       const amount = debit !== null ? debit : credit;
       const amountInUSDollars = getAmountInUSDollars(amount);
-      return /* @__PURE__ */ react2.default.createElement("div", {
+      return /* @__PURE__ */ react4.default.createElement("div", {
         className: "item"
-      }, /* @__PURE__ */ react2.default.createElement("span", {
+      }, /* @__PURE__ */ react4.default.createElement("span", {
         className: "label"
-      }, "Type: (", debit !== null ? "debit" : "credit", ")"), /* @__PURE__ */ react2.default.createElement("span", {
+      }, "Type: (", debit !== null ? "debit" : "credit", ")"), /* @__PURE__ */ react4.default.createElement("span", {
         className: "value"
       }, amountInUSDollars));
     };
@@ -19772,57 +19679,143 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       const amount = debit !== null ? debit : credit;
       const convertedAmount = getCurrencyRate(currency) * amount;
       const currencyAmount = getCurrencyAmount(convertedAmount, currency);
-      return /* @__PURE__ */ react2.default.createElement("div", {
+      return /* @__PURE__ */ react4.default.createElement("div", {
         className: "item"
-      }, /* @__PURE__ */ react2.default.createElement("span", {
+      }, /* @__PURE__ */ react4.default.createElement("span", {
         title: `Transaction curreny used: ${getCurrencyName(currency)} (${currency})`,
         className: "label"
-      }, getCurrencyName(currency)), /* @__PURE__ */ react2.default.createElement("span", {
+      }, getCurrencyName(currency)), /* @__PURE__ */ react4.default.createElement("span", {
         title: `Conversion rate: ${getCurrencyRate(currency)} ${currency}/USD`,
         className: "value"
       }, currencyAmount));
     };
     const TransactionDate = () => {
       const date = new Date(transactionDate);
-      return /* @__PURE__ */ react2.default.createElement("div", {
+      return /* @__PURE__ */ react4.default.createElement("div", {
         className: "item"
-      }, /* @__PURE__ */ react2.default.createElement("span", {
+      }, /* @__PURE__ */ react4.default.createElement("span", {
         className: "label"
-      }, "Date:"), /* @__PURE__ */ react2.default.createElement("span", {
+      }, "Date:"), /* @__PURE__ */ react4.default.createElement("span", {
         className: "value"
       }, date.toDateString()));
     };
     const TransactionAddress = () => {
       const address = merchantStreetAddress + "\n" + merchantCity + ", " + merchantState;
-      return /* @__PURE__ */ react2.default.createElement("div", {
+      return /* @__PURE__ */ react4.default.createElement("div", {
         className: "item"
-      }, /* @__PURE__ */ react2.default.createElement("span", {
+      }, /* @__PURE__ */ react4.default.createElement("span", {
         className: "label"
-      }, "Address:"), /* @__PURE__ */ react2.default.createElement("span", {
+      }, "Address:"), /* @__PURE__ */ react4.default.createElement("span", {
         className: "value"
-      }, /* @__PURE__ */ react2.default.createElement("pre", null, address)));
+      }, /* @__PURE__ */ react4.default.createElement("pre", null, address)));
     };
     if (!transaction.id)
       return null;
-    return /* @__PURE__ */ react2.default.createElement("div", {
+    return /* @__PURE__ */ react4.default.createElement("div", {
       className: "transaction-detail"
-    }, /* @__PURE__ */ react2.default.createElement("hr", null), /* @__PURE__ */ react2.default.createElement("div", {
+    }, /* @__PURE__ */ react4.default.createElement("hr", null), /* @__PURE__ */ react4.default.createElement("div", {
       className: "body"
-    }, /* @__PURE__ */ react2.default.createElement(TransactionItem, {
+    }, /* @__PURE__ */ react4.default.createElement(TransactionItem, {
       label: "Transaction #",
       value: id.toString().padStart(3, "0")
-    }), /* @__PURE__ */ react2.default.createElement(TransactionItem, {
+    }), /* @__PURE__ */ react4.default.createElement(TransactionItem, {
       label: "Description",
       value: description
-    }), /* @__PURE__ */ react2.default.createElement(TransactionItem, {
+    }), /* @__PURE__ */ react4.default.createElement(TransactionItem, {
       label: "Category",
       value: category
-    }), /* @__PURE__ */ react2.default.createElement(TransactionType, null), /* @__PURE__ */ react2.default.createElement(TransactionCurrency, null), /* @__PURE__ */ react2.default.createElement(TransactionDate, null), /* @__PURE__ */ react2.default.createElement(TransactionAddress, null)));
+    }), /* @__PURE__ */ react4.default.createElement(TransactionType, null), /* @__PURE__ */ react4.default.createElement(TransactionCurrency, null), /* @__PURE__ */ react4.default.createElement(TransactionDate, null), /* @__PURE__ */ react4.default.createElement(TransactionAddress, null)));
+  };
+
+  // client/hooks/useTransactionFields.js
+  const views2 = {
+    all: "/transactions",
+    "top merchants by transactions": "/transactions/top-merchants",
+    "top merchants by amount (debit)": "/transactions/top-by-amount/description",
+    "top categories by amount (debit)": "/transactions/top-by-amount/category",
+    "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit",
+    "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
+  };
+  const cache = {};
+  Object.keys(views2).forEach((key) => {
+    cache[key] = [];
+  });
+  const stateDefaults = {
+    selectedId: 0,
+    selectedTransaction: {},
+    showModal: false,
+    transactions: [],
+    selectedOption: "all",
+    transactionFields: [],
+    sorted: {},
+    conversionRates: [],
+    fetchDate: new Date(),
+    aggregatorChecked: false,
+    aggregatedTransactions: []
+  };
+  const transactionFields = {
+    all: [
+      "transactionDate",
+      "description",
+      "category",
+      "debit",
+      "credit"
+    ],
+    "top merchants by transactions": [
+      "transactionDate",
+      "description",
+      "debit",
+      "credit"
+    ],
+    "top merchants by amount (debit)": [
+      "transactionDate",
+      "description",
+      "debit"
+    ],
+    "top categories by amount (debit)": [
+      "transactionDate",
+      "category",
+      "debit"
+    ],
+    "top merchants by amount (credit)": [
+      "transactionDate",
+      "description",
+      "credit"
+    ],
+    "top categories by amount (credit)": [
+      "transactionDate",
+      "category",
+      "credit"
+    ]
+  };
+  const useTransactionFields2 = () => {
+    const getCache2 = () => {
+      return cache;
+    };
+    const getFields2 = (view) => {
+      return transactionFields[view];
+    };
+    const getViews3 = () => {
+      return views2;
+    };
+    const getStateDefaults2 = () => {
+      return stateDefaults;
+    };
+    const getFieldAsLabel = (fieldName) => {
+      if (fieldName === "transactionDate")
+        return "Date";
+      else if (fieldName === "description")
+        return "Merchant";
+      else
+        return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+    };
+    return {getFields: getFields2, getViews: getViews3, getFieldAsLabel, getStateDefaults: getStateDefaults2, getCache: getCache2};
   };
 
   // client/components/transactions/TransactionTable.jsx
-  const react5 = __toModule(require_react());
+  const react7 = __toModule(require_react());
   const TransactionTable2 = ({sortedField, transactions, transactionFields: transactionFields2, openModal, HeaderSortHandler}) => {
+    console.log("RENDER: TransactionTable", transactions);
     const {getAmountInUSDollars} = useCurrencyApi2();
     const {getFieldAsLabel} = useTransactionFields2();
     const HeaderWithSortControls = ({field}) => {
@@ -19830,22 +19823,22 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       const label = getFieldAsLabel(field);
       const sortClassAsc = field in sortedField && sortedField[field] === "asc" ? "icon sorted" : "icon";
       const sortClassDesc = field in sortedField && sortedField[field] === "desc" ? "icon sorted" : "icon";
-      return /* @__PURE__ */ react5.default.createElement("div", {
+      return /* @__PURE__ */ react7.default.createElement("div", {
         className: "table-header"
-      }, /* @__PURE__ */ react5.default.createElement("span", {
+      }, /* @__PURE__ */ react7.default.createElement("span", {
         className: "label"
-      }, label), /* @__PURE__ */ react5.default.createElement("div", {
+      }, label), /* @__PURE__ */ react7.default.createElement("div", {
         className: "sort"
-      }, /* @__PURE__ */ react5.default.createElement("div", {
+      }, /* @__PURE__ */ react7.default.createElement("div", {
         className: "controls"
-      }, /* @__PURE__ */ react5.default.createElement(AiFillCaretUp, {
+      }, /* @__PURE__ */ react7.default.createElement(AiFillCaretUp, {
         title: "sort descending",
         className: sortClassDesc,
         onClick: (e) => {
           e.stopPropagation();
           return HeaderSortHandler(field, "desc");
         }
-      }), /* @__PURE__ */ react5.default.createElement(AiFillCaretDown, {
+      }), /* @__PURE__ */ react7.default.createElement(AiFillCaretDown, {
         title: "sort ascending",
         className: sortClassAsc,
         onClick: (e) => {
@@ -19854,28 +19847,43 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         }
       }))));
     };
-    return /* @__PURE__ */ react5.default.createElement("table", null, /* @__PURE__ */ react5.default.createElement("thead", null, /* @__PURE__ */ react5.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react5.default.createElement("th", {
-      key: field + 0
-    }, /* @__PURE__ */ react5.default.createElement(HeaderWithSortControls, {
+    return /* @__PURE__ */ react7.default.createElement("table", null, /* @__PURE__ */ react7.default.createElement("thead", null, /* @__PURE__ */ react7.default.createElement("tr", null, transactionFields2.map((field) => /* @__PURE__ */ react7.default.createElement("th", {
+      key: "table-header-" + field
+    }, /* @__PURE__ */ react7.default.createElement(HeaderWithSortControls, {
       field
-    }))))), /* @__PURE__ */ react5.default.createElement("tbody", null, transactions.map((trans, i) => {
-      return /* @__PURE__ */ react5.default.createElement("tr", {
+    }))))), /* @__PURE__ */ react7.default.createElement("tbody", null, transactions.map((trans, i) => {
+      return /* @__PURE__ */ react7.default.createElement("tr", {
         title: trans["description"],
-        key: trans["description"] + i,
+        key: "table-row-" + i,
         onClick: (e) => {
           e.stopPropagation();
           return openModal(trans["id"]);
         }
-      }, transactionFields2.map((field, j) => /* @__PURE__ */ react5.default.createElement("td", {
-        key: trans[field] + j
+      }, transactionFields2.map((field, j) => /* @__PURE__ */ react7.default.createElement("td", {
+        key: "table-row-" + i + "-" + j
       }, typeof trans[field] === "number" ? getAmountInUSDollars(trans[field]) : trans[field])));
     })));
   };
+  function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTable) {
+    const prevFetchDate = prevTransactionTable.fetchDate;
+    const nextFetchDate = nextTransactionTable.fetchDate;
+    console.log("prev/next FetchDate", prevFetchDate, nextFetchDate);
+    if (prevFetchDate === nextFetchDate) {
+      console.log("prev/next match - do nothing");
+      return true;
+    } else {
+      console.log("prev/nextdo not match - re-render");
+      return false;
+    }
+  }
+  const memoizedTransactionTable = react7.default.memo(TransactionTable2, checkPrevAndNextPropsAreEqual);
 
   // client/components/transactions/TransactionDropList.jsx
-  const react3 = __toModule(require_react());
-  const TransactionDropList = ({selectedOption, doFetch, views: views2}) => {
-    return /* @__PURE__ */ react3.default.createElement("select", {
+  const react5 = __toModule(require_react());
+  const {getViews} = useTransactionFields2();
+  const views = getViews();
+  const TransactionDropList = ({selectedOption, doFetch}) => {
+    return /* @__PURE__ */ react5.default.createElement("select", {
       name: "view",
       value: selectedOption,
       className: "droplist",
@@ -19883,30 +19891,62 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         e.stopPropagation();
         doFetch(e.target.value);
       }
-    }, Object.keys(views2).map((item, index) => /* @__PURE__ */ react3.default.createElement("option", {
-      key: index,
+    }, Object.keys(views).map((item, index) => /* @__PURE__ */ react5.default.createElement("option", {
+      key: "drop-list-item-" + index,
       value: item
     }, item)));
   };
 
-  // client/components/transactions/TransactionList.jsx
-  const react4 = __toModule(require_react());
+  // client/components/controls/Checkbox.jsx
+  const react2 = __toModule(require_react());
+
+  // client/components/transactions/TransactionAggregator.jsx
+  const react3 = __toModule(require_react());
+  const TransactionAggregator = ({checked, toggleAggregator, count}) => {
+    const countMessage = checked ? "aggregated transaction items" : "total transactions";
+    return /* @__PURE__ */ react3.default.createElement("div", {
+      className: "aggregator"
+    }, /* @__PURE__ */ react3.default.createElement("div", {
+      className: "count"
+    }, countMessage, ": ", count));
+  };
+
+  // client/hooks/useFetch.js
+  const useFetch = () => {
+    const fetchTransactions2 = async (url) => {
+      const result = await fetch(`${url}`).then((response) => response.json()).then((result2) => {
+        return result2;
+      }).catch((err) => {
+        console.log("fetch error", err);
+        return [];
+      });
+      return result;
+    };
+    return {fetchTransactions: fetchTransactions2};
+  };
+
+  // client/hooks/useTransactionList.js
+  const react11 = __toModule(require_react());
+  const {getViews: getViews2, getStateDefaults, getFields, getCache} = useTransactionFields2();
+  const views3 = getViews2();
+  const stateDefaults2 = getStateDefaults();
+  const cache2 = getCache();
   const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+  const {fetchTransactions} = useFetch();
   const newDate = () => {
     return new Date().toISOString();
   };
-  const TransactionList2 = () => {
-    const {fetchTransactions} = useFetch2();
-    const {getFields, getViews, getStateDefaults} = useTransactionFields2();
-    const views2 = getViews();
-    const stateDefaults2 = getStateDefaults();
-    const [selectedId, setSelectedId] = react4.useState(stateDefaults2.selectedId);
-    const [selectedTransaction, setSelectedTransaction] = react4.useState(stateDefaults2.selectedTransaction);
-    const [showModal, setShowModal] = react4.useState(stateDefaults2.showModal);
-    const [transactions, setTransactions] = react4.useState(stateDefaults2.transactions);
-    const [selectedOption, setSelectedOption] = react4.useState(stateDefaults2.selectedOption);
-    const [transactionFields2, setTransactionFields] = react4.useState(stateDefaults2.transactionFields);
-    const [sortedField, setSortedField] = react4.useState(stateDefaults2.sorted);
+  const useTransactionList2 = () => {
+    const [selectedId, setSelectedId] = react11.useState(stateDefaults2.selectedId);
+    const [selectedTransaction, setSelectedTransaction] = react11.useState(stateDefaults2.selectedTransaction);
+    const [showModal, setShowModal] = react11.useState(stateDefaults2.showModal);
+    const [transactions, setTransactions] = react11.useState(stateDefaults2.transactions);
+    const [selectedOption, setSelectedOption] = react11.useState(stateDefaults2.selectedOption);
+    const [transactionFields2, setTransactionFields] = react11.useState(stateDefaults2.transactionFields);
+    const [sortedField, setSortedField] = react11.useState(stateDefaults2.sorted);
+    const [fetchDate, setFetchDate] = react11.useState(stateDefaults2.fetchDate);
+    const [aggregatorChecked, setAggregatorChecked] = react11.useState(stateDefaults2.aggregatorChecked);
+    const [aggregatedTransactions, setAggregatedTransactions] = react11.useState(stateDefaults2.aggregatedTransactions);
     async function doFetch(option = null) {
       if (Object.keys(sortedField).length) {
         console.log("sortedField has key ... re-init");
@@ -19920,48 +19960,31 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         setTransactions([]);
         setSelectedOption(option);
       }
-      if (stateDefaults2.transactions[option].length) {
+      if (cache2[option].length) {
         console.log("set transactions from cache", option);
-        setTransactions(stateDefaults2.transactions[option]);
+        setTransactions(cache2[option]);
       } else {
         console.log("set transactions from API call", option);
         await sleep(1500);
-        const transactions2 = await fetchTransactions(views2[option]);
-        stateDefaults2.transactions[option] = transactions2;
+        const transactions2 = await fetchTransactions(views3[option]);
+        cache2[option] = transactions2;
         setTransactions(transactions2);
       }
       setTransactionFields(getFields(option));
       console.log("#".repeat(80));
+      const now = new Date();
+      setFetchDate(now);
     }
-    react4.useEffect(() => {
-      console.log("component mounted", newDate());
-      console.log("*".repeat(80));
-      doFetch();
-      return () => {
-        console.log("unmount");
-      };
-    }, []);
-    react4.useEffect(() => {
-      console.log("useEffect", `selectedId: ${selectedId}`, newDate());
-      if (selectedId === 0) {
-        setSelectedTransaction(stateDefaults2.selectedTransaction);
-        setShowModal(false);
-      } else {
-        const transaction = transactions.find((item) => item.id === selectedId);
-        setSelectedTransaction(transaction);
-        setShowModal(true);
-      }
-    }, [selectedId]);
     const openModal = (id) => {
       setSelectedId(id);
     };
     const closeModal = () => {
       setSelectedId(stateDefaults2.selectedId);
     };
-    const logo = /* @__PURE__ */ react4.default.createElement("img", {
-      src: "/logo.png",
-      className: "client-icon"
-    });
+    const toggleAggregator = () => {
+      console.log("aggregator checkbox clicked", selectedOption);
+      setAggregatorChecked(!aggregatorChecked);
+    };
     const HeaderSortHandler = (field, dir) => {
       setSortedField({[field]: dir});
       console.log("HeaderSortHandler", field, dir);
@@ -19975,26 +19998,103 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         }
         return 0;
       }));
+      const now = new Date();
+      setFetchDate(now);
     };
-    return /* @__PURE__ */ react4.default.createElement(react4.default.Fragment, null, /* @__PURE__ */ react4.default.createElement("div", {
-      className: "transactions"
-    }, transactions.length ? logo : null, /* @__PURE__ */ react4.default.createElement("h2", {
-      title: "Mojocat Bank Transactions"
-    }, "Mojocat Transactions"), !transactions.length ? /* @__PURE__ */ react4.default.createElement(Loading2, null) : /* @__PURE__ */ react4.default.createElement(react4.default.Fragment, null, /* @__PURE__ */ react4.default.createElement(TransactionDropList, {
+    const changeSelectedTransaction = () => {
+      console.log("useEffect", `selectedId: ${selectedId}`, newDate());
+      if (selectedId === 0) {
+        setSelectedTransaction(stateDefaults2.selectedTransaction);
+        setShowModal(false);
+      } else {
+        const transaction = transactions.find((item) => item.id === selectedId);
+        setSelectedTransaction(transaction);
+        setShowModal(true);
+      }
+    };
+    const onMount = () => {
+      console.log("component mounted", newDate());
+      console.log("*".repeat(80));
+      doFetch();
+    };
+    return {
+      selectedId,
+      selectedTransaction,
+      showModal,
+      transactions,
       selectedOption,
+      transactionFields: transactionFields2,
+      sortedField,
+      fetchDate,
+      aggregatorChecked,
+      aggregatedTransactions,
       doFetch,
-      views: views2
-    }), /* @__PURE__ */ react4.default.createElement(TransactionTable2, {
+      openModal,
+      closeModal,
+      toggleAggregator,
+      HeaderSortHandler,
+      changeSelectedTransaction,
+      onMount
+    };
+  };
+
+  // client/components/transactions/TransactionList.jsx
+  const react6 = __toModule(require_react());
+  const logo = /* @__PURE__ */ react6.default.createElement("img", {
+    src: "/logo.png",
+    className: "client-icon"
+  });
+  const TransactionList2 = () => {
+    const {
+      selectedId,
+      selectedTransaction,
+      showModal,
+      transactions,
+      selectedOption,
+      transactionFields: transactionFields2,
+      sortedField,
+      fetchDate,
+      aggregatorChecked,
+      doFetch,
+      openModal,
+      closeModal,
+      toggleAggregator,
+      HeaderSortHandler,
+      changeSelectedTransaction,
+      onMount
+    } = useTransactionList2();
+    react6.useEffect(() => {
+      onMount();
+      return () => {
+        console.log("unmount");
+      };
+    }, []);
+    react6.useEffect(() => {
+      changeSelectedTransaction();
+    }, [selectedId]);
+    return /* @__PURE__ */ react6.default.createElement(react6.default.Fragment, null, /* @__PURE__ */ react6.default.createElement("div", {
+      className: "transactions"
+    }, transactions.length ? logo : null, /* @__PURE__ */ react6.default.createElement("h2", {
+      title: "Mojocat Bank Transactions"
+    }, "Mojocat Transactions"), !transactions.length ? /* @__PURE__ */ react6.default.createElement(Loading2, null) : /* @__PURE__ */ react6.default.createElement(react6.default.Fragment, null, /* @__PURE__ */ react6.default.createElement(TransactionDropList, {
+      selectedOption,
+      doFetch
+    }), /* @__PURE__ */ react6.default.createElement(TransactionAggregator, {
+      checked: aggregatorChecked,
+      toggleAggregator,
+      count: transactions.length
+    }), /* @__PURE__ */ react6.default.createElement(memoizedTransactionTable, {
+      fetchDate,
       HeaderSortHandler,
       sortedField,
       transactions,
       transactionFields: transactionFields2,
       openModal
-    }), /* @__PURE__ */ react4.default.createElement(Modal2, {
+    }), /* @__PURE__ */ react6.default.createElement(Modal2, {
       showModal,
       closeModal,
       label: "Transaction Detail"
-    }, /* @__PURE__ */ react4.default.createElement(TransactionDetail, {
+    }, /* @__PURE__ */ react6.default.createElement(TransactionDetail, {
       transaction: selectedTransaction
     })))));
   };

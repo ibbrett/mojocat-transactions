@@ -137,12 +137,93 @@ const merchants = [
     city: 'New York',
     state: 'New York',
     zip: '10019'
+  },
+  {
+    name: 'Agua Tibia',
+    category: 'Adventure',
+    currency: 'CRC',
+    street: 'Punta Guiones, Nosara',
+    city: 'Guanacaste',
+    state: 'Costa Rica',
+    zip: ''
+  },
+  {
+    name: 'Eddie\'s Collision Center',
+    category: 'Auto Repair',
+    currency: 'USD',
+    street: '909 North Pacific Coast Highway',
+    city: 'El Segundo',
+    state: 'CA',
+    zip: '90245'
+  },
+  {
+    name: 'The Spot',
+    category: 'Computer Repair',
+    currency: 'USD',
+    street: '110 2nd St',
+    city: 'Hermosa Beach',
+    state: 'CA',
+    zip: '90254'
+  },
+  {
+    name: 'Premiere Design',
+    category: 'Home Furnishings',
+    currency: 'USD',
+    street: '2575 AZ-89A',
+    city: 'Sedona',
+    state: 'AZ',
+    zip: '86336'
+  },
+  {
+    name: 'Premiere Design',
+    category: 'Home Furnishings',
+    currency: 'USD',
+    street: '2575 AZ-89A',
+    city: 'Sedona',
+    state: 'AZ',
+    zip: '86336'
+  },
+  {
+    name: 'Jet City Woman',
+    category: 'Vocal Instruction',
+    currency: 'USD',
+    street: '64 Geoff Tate Ave',
+    city: 'Sedona',
+    state: 'AZ',
+    zip: '86336'
+  },
+  {
+    name: 'Left Handed Cigarette',
+    category: 'Dance Instruction',
+    currency: 'USD',
+    street: '611 SW Kingston Ave',
+    city: 'Portland',
+    state: 'OR',
+    zip: '97205'
+  },
+  {
+    name: 'She\'s not for You',
+    category: 'Dating Services',
+    currency: 'USD',
+    street: '1219 SW Park Ave',
+    city: 'Portland',
+    state: 'OR',
+    zip: '97205'
+  },
+  {
+    name: '¿Por Qué No?',
+    category: 'Restaurant',
+    currency: 'USD',
+    street: '3524 N Mississippi Ave',
+    city: 'Portland',
+    state: 'OR',
+    zip: '97227'
   }
 ];
 
-const count = 300;
+const count = 100;
 const transactions = [];
-for ( let i = 0; i <= count; i++ ) {
+for ( let i = 0; i < count; i++ ) {
 
   const randomIndex = Math.floor(Math.random() * merchants.length);
   const merchant = merchants[randomIndex];

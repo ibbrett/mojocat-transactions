@@ -44,11 +44,14 @@ const stateDefaults = {
   selectedId: 0,
   selectedTransaction: {},
   showModal: false,
-  transactions: cache, // [],
+  transactions: [], // cache, // [],
   selectedOption: "all",
   transactionFields: [],
   sorted: {},
-  conversionRates: []
+  conversionRates: [],
+  fetchDate: new Date(),
+  aggregatorChecked: false,
+  aggregatedTransactions: []
 };
 
 // used to control transaction field display
@@ -90,6 +93,10 @@ const transactionFields = {
 
 const useTransactionFields = () => {
 
+  const getCache = () => {
+    return cache
+  }
+
   const getFields = (view) => {
     return transactionFields[view];
   }
@@ -108,7 +115,7 @@ const useTransactionFields = () => {
     else return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
   }
 
-  return { getFields, getViews, getFieldAsLabel, getStateDefaults };
+  return { getFields, getViews, getFieldAsLabel, getStateDefaults, getCache };
 };
 
 export { useTransactionFields };

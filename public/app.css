@@ -204,6 +204,15 @@ pre {
   background-size: 1em;
 }
 
+.aggregator {
+  /*background-color: yellow;
+  border: 1px solid green;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 18px;
+}
+
 .loading {
   color: rgb(16, 122, 204);
 }

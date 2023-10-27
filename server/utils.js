@@ -47,7 +47,7 @@ const getTopByAmount = ( transactions, type, debitOrCredit, count ) => {
     }
   })
 
-  console.log('merchants Map', merchants, type);
+  // console.log('merchants Map', merchants, type);
 
   return getTopList(merchants, count);
 }

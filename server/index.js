@@ -30,7 +30,6 @@ app.get('/transactions/top-merchants/:count?', (req, res) => {
   const count = req.params.count || defaultCount;
   const topItems = getTopMerchants(validTransactions, count);
   const transactionsFromRankings = getTransactionsFromRankings(validTransactions, topItems, 'description');
-  //console.log('transactionsFromRankings[0]', transactionsFromRankings[0])
   res.status(200).contentType('application/json').send(transactionsFromRankings);
 })
 
