@@ -39,9 +39,13 @@ const TransactionDetail = ({transaction}) => {
   }
 
   const TransactionCurrency = () => {
+
+    // do not display USD, no need for conversion
+    if( currency === 'USD' ) return null;
+
     const amount = debit !== null ? debit : credit;
-    const convertedAmount = getCurrencyRate(currency)  * amount;
-    const currencyAmount = getCurrencyAmount( convertedAmount, currency) ;
+    const convertedAmount = getCurrencyRate(currency) * amount;
+    const currencyAmount = getCurrencyAmount( convertedAmount, currency);
     return (
       <div className="item">
         <span title={`Transaction curreny used: ${getCurrencyName(currency)} (${currency})`} className="label">{getCurrencyName(currency)}</span>
@@ -61,11 +65,17 @@ const TransactionDetail = ({transaction}) => {
   }
 
   const TransactionAddress = () => {
-    const address = merchantStreetAddress + "\n" + merchantCity + ", " + merchantState;
+
+    const address = merchantStreetAddress + " " + merchantCity + " " + merchantState;
+    const addressLabel = merchantStreetAddress + "\n" + merchantCity + ", " + merchantState;
+    const encodedAddress = encodeURI(address);
+    const GoogleUri = "https://www.google.com/maps/place/" + encodedAddress;
+    const GoogleMapAddress = <a target="_blank" href={GoogleUri} className="value"><pre>{addressLabel}</pre></a>;
+
     return (
       <div className="item">
         <span className="label">Address:</span>
-        <span className="value"><pre>{address}</pre></span>
+        {GoogleMapAddress}
       </div>
     )
   }

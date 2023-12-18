@@ -137,10 +137,17 @@ pre {
   width: 30%;
   text-align: left;
 }
-
 .transaction-detail .item .value {
   width: 70%;
   text-align: right;
+}
+.transaction-detail .item a {
+  text-decoration: none;
+  color: #999;
+}
+.transaction-detail .item a:hover {
+  cursor: pointer;
+  color: rgb(16, 122, 204);
 }
 
 .modal {

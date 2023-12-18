@@ -19676,6 +19676,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       }, amountInUSDollars));
     };
     const TransactionCurrency = () => {
+      if (currency === "USD")
+        return null;
       const amount = debit !== null ? debit : credit;
       const convertedAmount = getCurrencyRate(currency) * amount;
       const currencyAmount = getCurrencyAmount(convertedAmount, currency);
@@ -19700,14 +19702,20 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       }, date.toDateString()));
     };
     const TransactionAddress = () => {
-      const address = merchantStreetAddress + "\n" + merchantCity + ", " + merchantState;
+      const address = merchantStreetAddress + " " + merchantCity + " " + merchantState;
+      const addressLabel = merchantStreetAddress + "\n" + merchantCity + ", " + merchantState;
+      const encodedAddress = encodeURI(address);
+      const GoogleUri = "https://www.google.com/maps/place/" + encodedAddress;
+      const GoogleMapAddress = /* @__PURE__ */ react4.default.createElement("a", {
+        target: "_blank",
+        href: GoogleUri,
+        className: "value"
+      }, /* @__PURE__ */ react4.default.createElement("pre", null, addressLabel));
       return /* @__PURE__ */ react4.default.createElement("div", {
         className: "item"
       }, /* @__PURE__ */ react4.default.createElement("span", {
         className: "label"
-      }, "Address:"), /* @__PURE__ */ react4.default.createElement("span", {
-        className: "value"
-      }, /* @__PURE__ */ react4.default.createElement("pre", null, address)));
+      }, "Address:"), GoogleMapAddress);
     };
     if (!transaction.id)
       return null;

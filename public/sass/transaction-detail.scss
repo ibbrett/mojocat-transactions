@@ -25,11 +25,26 @@
   border-bottom: $transaction-detail-border;
 }
 
-.transaction-detail .item .label {
-  width: 30%;
-  text-align: left;
-}
-.transaction-detail .item .value {
-  width: 70%;
-  text-align: right;
+.transaction-detail .item {
+
+  .label {
+    width: 30%;
+    text-align: left;
+  }
+
+  .value {
+    width: 70%;
+    text-align: right;
+  }
+  
+  a {
+    text-decoration: none;
+    color: $transaction-text-color;
+
+    &:hover{
+      cursor: pointer;
+      color: $loading-color;
+    }
+  }
+
 }
