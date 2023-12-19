@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useTransactionFields } from "./useTransactionFields";
 import { useFetch } from "./useFetch";
 
@@ -66,8 +66,8 @@ const useTransactionList = () => {
 
   // these functions manage opening/closing modal by setting the selected transaction id
   // modal closes when this id is set to 0, otherwise it opens with detail data associated with the selected id
-  const openModal = (id) => { setSelectedId(id);};
-  const closeModal = () => { setSelectedId(stateDefaults.selectedId);};
+  const openModal = useCallback( (id) => { setSelectedId( id )} );
+  const closeModal = useCallback( () => { setSelectedId( stateDefaults.selectedId )});
 
   const toggleAggregator = () => {
     // const aggregatedMap = new Map();

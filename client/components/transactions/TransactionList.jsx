@@ -52,7 +52,14 @@ const TransactionList = () => {
         <>
           <TransactionDropList selectedOption={selectedOption} doFetch={doFetch} />
           <TransactionAggregator checked={aggregatorChecked} toggleAggregator={toggleAggregator} count={transactions.length}/>
-          <TransactionTable fetchDate={fetchDate} HeaderSortHandler={HeaderSortHandler} sortedField={sortedField} transactions={transactions} transactionFields={transactionFields} openModal={openModal} />
+          <TransactionTable 
+            fetchDate={fetchDate} 
+            HeaderSortHandler={HeaderSortHandler} 
+            sortedField={sortedField} 
+            transactions={transactions} 
+            transactionFields={transactionFields} 
+            openModal={openModal} 
+          />
           <Modal showModal={showModal} closeModal={closeModal} label="Transaction Detail">
             <TransactionDetail transaction={selectedTransaction} />
           </Modal>

@@ -1107,7 +1107,7 @@
           var dispatcher = resolveDispatcher();
           return dispatcher.useLayoutEffect(create, deps);
         }
-        function useCallback(callback, deps) {
+        function useCallback2(callback, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useCallback(callback, deps);
         }
@@ -1369,7 +1369,7 @@
         exports.isValidElement = isValidElement;
         exports.lazy = lazy;
         exports.memo = memo;
-        exports.useCallback = useCallback;
+        exports.useCallback = useCallback2;
         exports.useContext = useContext;
         exports.useDebugValue = useDebugValue;
         exports.useEffect = useEffect2;
@@ -19823,6 +19823,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   // client/components/transactions/TransactionTable.jsx
   const react7 = __toModule(require_react());
   const TransactionTable2 = ({sortedField, transactions, transactionFields: transactionFields2, openModal, HeaderSortHandler}) => {
+    if (transactionFields2.length === 0)
+      return null;
     console.log("RENDER: TransactionTable", transactions);
     const {getAmountInUSDollars} = useCurrencyApi2();
     const {getFieldAsLabel} = useTransactionFields2();
@@ -19877,9 +19879,12 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTable) {
     const prevFetchDate = prevTransactionTable.fetchDate;
     const nextFetchDate = nextTransactionTable.fetchDate;
+    if (prevFetchDate.toString() !== nextFetchDate.toString())
+      console.log("prev/next FetchDate", prevFetchDate, nextFetchDate);
     if (prevFetchDate === nextFetchDate) {
       return true;
     } else {
+      console.log("Re-render TransactionTable");
       return false;
     }
   }
@@ -19976,12 +19981,12 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       const now = new Date();
       setFetchDate(now);
     }
-    const openModal = (id) => {
+    const openModal = react11.useCallback((id) => {
       setSelectedId(id);
-    };
-    const closeModal = () => {
+    });
+    const closeModal = react11.useCallback(() => {
       setSelectedId(stateDefaults2.selectedId);
-    };
+    });
     const toggleAggregator = () => {
       console.log("aggregator checkbox clicked", selectedOption);
       setAggregatorChecked(!aggregatorChecked);

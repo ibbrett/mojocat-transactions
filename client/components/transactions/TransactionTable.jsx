@@ -5,7 +5,8 @@ import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 
 const TransactionTable = ( {sortedField, transactions, transactionFields, openModal, HeaderSortHandler} ) => {
 
-  console.log('RENDER: TransactionTable', transactions);
+  if ( transactionFields.length === 0 ) return null;
+  console.log('Render TransactionTable component', transactions);
 
   const { getAmountInUSDollars } = useCurrencyApi();
   const { getFieldAsLabel } = useTransactionFields();
@@ -30,8 +31,6 @@ const TransactionTable = ( {sortedField, transactions, transactionFields, openMo
       </div>
     )
   };
-
-  // console.log('TransactionsTable', 'transactions',  transactions);
 
   return (
     <table>
@@ -62,8 +61,6 @@ const TransactionTable = ( {sortedField, transactions, transactionFields, openMo
 
 };
 
-
-
 /*
 function transactionTablePropsAreEqual(prevTransactionTable, nextTransactionTable) {
   const propsToCompare = ['transactions'];
@@ -74,14 +71,18 @@ const memoizedTransactionTable = React.memo(Topic, transactionTablePropsAreEqual
 */
 
 function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTable){
+
+  // console.log('prev/next TransactionTable', prevTransactionTable, nextTransactionTable);
   const prevFetchDate = prevTransactionTable.fetchDate;
   const nextFetchDate = nextTransactionTable.fetchDate;
-  // console.log('prev/next FetchDate', prevFetchDate, nextFetchDate);
+  if( prevFetchDate.toString() !== nextFetchDate.toString() ) console.log('prev/next FetchDate', prevFetchDate, nextFetchDate);
+
   if (prevFetchDate === nextFetchDate){
     // console.log('prev/next match - do nothing');
     return true;
   } else {
-    // console.log('prev/nextdo not match - re-render');
+    // console.log('prev/next do not match - re-render');
+    console.log('Re-render TransactionTable component');
     return false;
   }
 }
