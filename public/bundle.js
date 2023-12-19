@@ -19827,7 +19827,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const {getAmountInUSDollars} = useCurrencyApi2();
     const {getFieldAsLabel} = useTransactionFields2();
     const HeaderWithSortControls = ({field}) => {
-      console.log("sortedField", sortedField);
+      if (Object.keys(sortedField).length) {
+        console.log("sortedField", sortedField);
+      }
       const label = getFieldAsLabel(field);
       const sortClassAsc = field in sortedField && sortedField[field] === "asc" ? "icon sorted" : "icon";
       const sortClassDesc = field in sortedField && sortedField[field] === "desc" ? "icon sorted" : "icon";
@@ -19875,12 +19877,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTable) {
     const prevFetchDate = prevTransactionTable.fetchDate;
     const nextFetchDate = nextTransactionTable.fetchDate;
-    console.log("prev/next FetchDate", prevFetchDate, nextFetchDate);
     if (prevFetchDate === nextFetchDate) {
-      console.log("prev/next match - do nothing");
       return true;
     } else {
-      console.log("prev/nextdo not match - re-render");
       return false;
     }
   }
@@ -19941,9 +19940,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   const cache2 = getCache();
   const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
   const {fetchTransactions} = useFetch();
-  const newDate = () => {
-    return new Date().toISOString();
-  };
   const useTransactionList2 = () => {
     const [selectedId, setSelectedId] = react11.useState(stateDefaults2.selectedId);
     const [selectedTransaction, setSelectedTransaction] = react11.useState(stateDefaults2.selectedTransaction);
@@ -19957,10 +19953,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const [aggregatedTransactions, setAggregatedTransactions] = react11.useState(stateDefaults2.aggregatedTransactions);
     async function doFetch(option = null) {
       if (Object.keys(sortedField).length) {
-        console.log("sortedField has key ... re-init");
         setSortedField(stateDefaults2.sorted);
-      } else {
-        console.log("sortedField does not have key ... do nothing");
       }
       if (option === null) {
         option = stateDefaults2.selectedOption;
@@ -20010,7 +20003,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       setFetchDate(now);
     };
     const changeSelectedTransaction = () => {
-      console.log("useEffect", `selectedId: ${selectedId}`, newDate());
+      if (selectedId) {
+        console.log(`transaction id: ${selectedId}`);
+      }
       if (selectedId === 0) {
         setSelectedTransaction(stateDefaults2.selectedTransaction);
         setShowModal(false);
@@ -20021,8 +20016,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       }
     };
     const onMount = () => {
-      console.log("component mounted", newDate());
-      console.log("*".repeat(80));
+      console.log("component mounted, fetch data");
       doFetch();
     };
     return {

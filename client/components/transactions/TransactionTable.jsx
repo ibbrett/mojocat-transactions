@@ -11,7 +11,7 @@ const TransactionTable = ( {sortedField, transactions, transactionFields, openMo
   const { getFieldAsLabel } = useTransactionFields();
 
   const HeaderWithSortControls = ({field}) => {
-    console.log('sortedField', sortedField);
+    if( Object.keys(sortedField).length ) { console.log('sortedField', sortedField); }
     const label = getFieldAsLabel(field);
 
     const sortClassAsc = field in sortedField && sortedField[field] === 'asc' ? "icon sorted" : "icon";
@@ -76,12 +76,12 @@ const memoizedTransactionTable = React.memo(Topic, transactionTablePropsAreEqual
 function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTable){
   const prevFetchDate = prevTransactionTable.fetchDate;
   const nextFetchDate = nextTransactionTable.fetchDate;
-  console.log('prev/next FetchDate', prevFetchDate, nextFetchDate);
+  // console.log('prev/next FetchDate', prevFetchDate, nextFetchDate);
   if (prevFetchDate === nextFetchDate){
-    console.log('prev/next match - do nothing');
+    // console.log('prev/next match - do nothing');
     return true;
   } else {
-    console.log('prev/nextdo not match - re-render');
+    // console.log('prev/nextdo not match - re-render');
     return false;
   }
 }

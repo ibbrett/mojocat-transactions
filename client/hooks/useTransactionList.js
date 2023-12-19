@@ -26,11 +26,17 @@ const useTransactionList = () => {
   async function doFetch(option = null) {
 
     if ( Object.keys(sortedField).length ) {
+      setSortedField(stateDefaults.sorted);
+    }
+
+    /*
+    if ( Object.keys(sortedField).length ) {
       console.log("sortedField has key ... re-init");
       setSortedField(stateDefaults.sorted);
     } else {
       console.log("sortedField does not have key ... do nothing");
     }
+    */
 
     if( option === null) {
       option = stateDefaults.selectedOption;
@@ -94,7 +100,9 @@ const useTransactionList = () => {
   };
 
   const changeSelectedTransaction = () => {
-    console.log('useEffect', `selectedId: ${selectedId}` , newDate());
+    // console.log('useEffect', `selectedId: ${selectedId}` , newDate());
+    if ( selectedId ) { console.log(`transaction id: ${selectedId}`) }
+
     if(selectedId === 0){
       setSelectedTransaction(stateDefaults.selectedTransaction);
       setShowModal(false);
@@ -106,8 +114,8 @@ const useTransactionList = () => {
   };
 
   const onMount = () => {
-    console.log("component mounted", newDate());
-    console.log("*".repeat(80));
+    console.log("component mounted, fetch data");
+    // console.log("*".repeat(80));
     doFetch();
   };
 
