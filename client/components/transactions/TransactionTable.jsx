@@ -75,7 +75,9 @@ function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTabl
   // console.log('prev/next TransactionTable', prevTransactionTable, nextTransactionTable);
   const prevFetchDate = prevTransactionTable.fetchDate;
   const nextFetchDate = nextTransactionTable.fetchDate;
-  if( prevFetchDate.toString() !== nextFetchDate.toString() ) console.log('prev/next FetchDate', prevFetchDate, nextFetchDate);
+  if( prevFetchDate.toString() !== nextFetchDate.toString() ) {
+    console.log('TransactionTable prev/next FetchDate', prevFetchDate.toL, nextFetchDate);
+  }
 
   if (prevFetchDate === nextFetchDate){
     // console.log('prev/next match - do nothing');

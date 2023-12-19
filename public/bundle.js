@@ -19825,7 +19825,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   const TransactionTable2 = ({sortedField, transactions, transactionFields: transactionFields2, openModal, HeaderSortHandler}) => {
     if (transactionFields2.length === 0)
       return null;
-    console.log("RENDER: TransactionTable", transactions);
+    console.log("Render TransactionTable component", transactions);
     const {getAmountInUSDollars} = useCurrencyApi2();
     const {getFieldAsLabel} = useTransactionFields2();
     const HeaderWithSortControls = ({field}) => {
@@ -19879,12 +19879,13 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTable) {
     const prevFetchDate = prevTransactionTable.fetchDate;
     const nextFetchDate = nextTransactionTable.fetchDate;
-    if (prevFetchDate.toString() !== nextFetchDate.toString())
-      console.log("prev/next FetchDate", prevFetchDate, nextFetchDate);
+    if (prevFetchDate.toString() !== nextFetchDate.toString()) {
+      console.log("TransactionTable prev/next FetchDate", prevFetchDate.toL, nextFetchDate);
+    }
     if (prevFetchDate === nextFetchDate) {
       return true;
     } else {
-      console.log("Re-render TransactionTable");
+      console.log("Re-render TransactionTable component");
       return false;
     }
   }
@@ -19967,17 +19968,16 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         setSelectedOption(option);
       }
       if (cache2[option].length) {
-        console.log("set transactions from cache", option);
+        console.log("set transactions from cache, data already fetched and cached", option);
         setTransactions(cache2[option]);
       } else {
-        console.log("set transactions from API call", option);
+        console.log("set transactions from API fetch call", option);
         await sleep(1500);
         const transactions2 = await fetchTransactions(views3[option]);
         cache2[option] = transactions2;
         setTransactions(transactions2);
       }
       setTransactionFields(getFields(option));
-      console.log("#".repeat(80));
       const now = new Date();
       setFetchDate(now);
     }

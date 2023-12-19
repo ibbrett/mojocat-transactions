@@ -47,10 +47,10 @@ const useTransactionList = () => {
     }
 
     if( cache[option].length ){
-      console.log("set transactions from cache", option);
+      console.log("set transactions from cache, data already fetched and cached", option);
       setTransactions(cache[option]);
     } else {
-      console.log("set transactions from API call", option);
+      console.log("set transactions from API fetch call", option);
       await sleep(1500);
       const transactions = await fetchTransactions(views[option]);
       cache[option] = transactions;
@@ -58,7 +58,7 @@ const useTransactionList = () => {
     }
     
     setTransactionFields(getFields(option));
-    console.log("#".repeat(80));
+    // console.log("#".repeat(80));
 
     const now = new Date();
     setFetchDate(now);
