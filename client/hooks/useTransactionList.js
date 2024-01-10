@@ -8,20 +8,18 @@ const stateDefaults = getStateDefaults();
 const cache = getCache();
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 const { fetchTransactions } = useFetch();
-const newDate = () => { return new Date().toISOString();}
 
 const useTransactionList = () => {
 
   const [selectedId, setSelectedId] = useState(stateDefaults.selectedId);
   const [selectedTransaction, setSelectedTransaction] = useState(stateDefaults.selectedTransaction);
   const [showModal, setShowModal] = useState(stateDefaults.showModal);
-  const [transactions, setTransactions] = useState(stateDefaults.transactions); // stateDefaults.transactions
+  const [transactions, setTransactions] = useState(stateDefaults.transactions);
   const [selectedOption, setSelectedOption] = useState(stateDefaults.selectedOption);
   const [transactionFields, setTransactionFields] = useState(stateDefaults.transactionFields);
   const [sortedField, setSortedField] = useState(stateDefaults.sorted);
   const [fetchDate, setFetchDate] = useState(stateDefaults.fetchDate);
   const [aggregatorChecked, setAggregatorChecked] = useState(stateDefaults.aggregatorChecked);
-  const [aggregatedTransactions, setAggregatedTransactions] = useState(stateDefaults.aggregatedTransactions);
 
   async function doFetch(option = null) {
 
@@ -100,7 +98,6 @@ const useTransactionList = () => {
   };
 
   const changeSelectedTransaction = () => {
-    // console.log('useEffect', `selectedId: ${selectedId}` , newDate());
     if ( selectedId ) { console.log(`transaction id: ${selectedId}`) }
 
     if(selectedId === 0){
@@ -115,7 +112,6 @@ const useTransactionList = () => {
 
   const onMount = () => {
     console.log("component mounted, fetch data");
-    // console.log("*".repeat(80));
     doFetch();
   };
 
@@ -129,7 +125,6 @@ const useTransactionList = () => {
     sortedField, 
     fetchDate, 
     aggregatorChecked,
-    aggregatedTransactions,
     doFetch,
     openModal,
     closeModal,

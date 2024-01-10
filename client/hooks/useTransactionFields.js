@@ -51,7 +51,6 @@ const stateDefaults = {
   conversionRates: [],
   fetchDate: new Date(),
   aggregatorChecked: false,
-  aggregatedTransactions: []
 };
 
 // used to control transaction field display
