@@ -12,8 +12,7 @@ const logo = <img src="/logo.png" className="client-icon" />;
 const TransactionList = () => {
 
   const {
-    selectedId, 
-    selectedTransaction, 
+    selectedId,
     showModal, 
     transactions, 
     selectedOption, 
@@ -61,7 +60,9 @@ const TransactionList = () => {
             openModal={openModal} 
           />
           <Modal showModal={showModal} closeModal={closeModal} label="Transaction Detail">
-            <TransactionDetail transaction={selectedTransaction} />
+            <TransactionDetail transaction={
+              selectedId === 0 ? {} : transactions.find( item => item.id === selectedId)
+            }/>
           </Modal>
         </>
       }

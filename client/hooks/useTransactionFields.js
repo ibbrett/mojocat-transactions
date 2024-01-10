@@ -42,7 +42,6 @@ Object.keys(views).forEach(key => {
 
 const stateDefaults = {
   selectedId: 0,
-  selectedTransaction: {},
   showModal: false,
   transactions: [], // cache, // [],
   selectedOption: "all",

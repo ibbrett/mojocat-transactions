@@ -12,7 +12,6 @@ const { fetchTransactions } = useFetch();
 const useTransactionList = () => {
 
   const [selectedId, setSelectedId] = useState(stateDefaults.selectedId);
-  const [selectedTransaction, setSelectedTransaction] = useState(stateDefaults.selectedTransaction);
   const [showModal, setShowModal] = useState(stateDefaults.showModal);
   const [transactions, setTransactions] = useState(stateDefaults.transactions);
   const [selectedOption, setSelectedOption] = useState(stateDefaults.selectedOption);
@@ -98,16 +97,7 @@ const useTransactionList = () => {
   };
 
   const changeSelectedTransaction = () => {
-    if ( selectedId ) { console.log(`transaction id: ${selectedId}`) }
-
-    if(selectedId === 0){
-      setSelectedTransaction(stateDefaults.selectedTransaction);
-      setShowModal(false);
-    } else {
-      const transaction = transactions.find( item => item.id === selectedId)
-      setSelectedTransaction(transaction)
-      setShowModal(true);
-    }
+    setShowModal(selectedId === 0 ? false : true);
   };
 
   const onMount = () => {
@@ -116,8 +106,7 @@ const useTransactionList = () => {
   };
 
   return { 
-    selectedId, 
-    selectedTransaction, 
+    selectedId,
     showModal, 
     transactions, 
     selectedOption, 
