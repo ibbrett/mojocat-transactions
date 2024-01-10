@@ -43,7 +43,7 @@ const TransactionList = () => {
       :
         <>
           <TransactionDropList selectedOption={selectedOption} doFetch={doFetch} />
-          <TransactionAggregator checked={aggregatorChecked} toggleAggregator={toggleAggregator} count={transactions.length}/>
+          {/*<TransactionAggregator checked={aggregatorChecked} toggleAggregator={toggleAggregator} count={transactions.length}/>*/}
           <TransactionTable 
             fetchDate={fetchDate} 
             HeaderSortHandler={HeaderSortHandler} 
