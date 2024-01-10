@@ -76,7 +76,7 @@ function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTabl
   const prevFetchDate = prevTransactionTable.fetchDate;
   const nextFetchDate = nextTransactionTable.fetchDate;
   if( prevFetchDate.toString() !== nextFetchDate.toString() ) {
-    console.log('TransactionTable prev/next FetchDate', prevFetchDate.toL, nextFetchDate);
+    console.log('TransactionTable prev/next FetchDate', prevFetchDate, nextFetchDate);
   }
 
   if (prevFetchDate === nextFetchDate){
@@ -84,7 +84,7 @@ function checkPrevAndNextPropsAreEqual(prevTransactionTable, nextTransactionTabl
     return true;
   } else {
     // console.log('prev/next do not match - re-render');
-    console.log('Re-render TransactionTable component');
+    console.log('re-render memoized TransactionTable component');
     return false;
   }
 }
