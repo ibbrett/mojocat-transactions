@@ -19736,10 +19736,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
 
   // client/hooks/useTransactionFields.js
-  const cache = {};
-  Object.keys(views2).forEach((key) => {
-    cache[key] = [];
-  });
   const views2 = {
     all: "/transactions",
     "top merchants by transactions": "/transactions/top-merchants",
@@ -19748,6 +19744,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit",
     "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
   };
+  const cache = {};
+  Object.keys(views2).forEach((key) => {
+    cache[key] = [];
+  });
   const stateDefaults = {
     selectedId: 0,
     transactions: [],
@@ -19974,12 +19974,12 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       const now = new Date();
       setFetchDate(now);
     }
-    const openModal = react11.useCallback((id) => {
+    const openModal = (id) => {
       setSelectedId(id);
-    });
-    const closeModal = react11.useCallback(() => {
+    };
+    const closeModal = () => {
       setSelectedId(stateDefaults2.selectedId);
-    });
+    };
     const toggleAggregator = () => {
       console.log("aggregator checkbox clicked", selectedOption);
       setAggregatorChecked(!aggregatorChecked);
