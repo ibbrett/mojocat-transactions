@@ -1,3 +1,10 @@
+// this is a very effective, simple cache 
+// alt option: useMemo() 
+const cache = {};
+Object.keys(views).forEach(key => {
+  cache[key] = [];
+});
+
 // used by droplist - object of droplist labels and API endpoint paths
 const views = {
   "all": "/transactions", 
@@ -8,23 +15,14 @@ const views = {
   "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
 };
 
-const cache = {};
-Object.keys(views).forEach(key => {
-  cache[key] = [];
-});
-
 const stateDefaults = {
   selectedId: 0,
-  selectedTransaction: {},
-  showModal: false,
   transactions: [],
   selectedOption: "all",
   transactionFields: [],
   sorted: {},
-  conversionRates: [],
   fetchDate: new Date(),
-  aggregatorChecked: false,
-  aggregatedTransactions: []
+  aggregatorChecked: false
 };
 
 // used to control transaction field display

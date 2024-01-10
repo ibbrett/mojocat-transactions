@@ -38,7 +38,7 @@ const TransactionList = () => {
     <>
       <div className="transactions">
       { transactions.length ? logo : null }
-        <h2 title="Mojocat Bank Transactions">Mojocat Transactions</h2>
+        <h2 title="Mojocat Bank Transactions">Transactions</h2>
       { !transactions.length ? <Loading />
       :
         <>

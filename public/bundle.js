@@ -19736,6 +19736,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   };
 
   // client/hooks/useTransactionFields.js
+  const cache = {};
+  Object.keys(views2).forEach((key) => {
+    cache[key] = [];
+  });
   const views2 = {
     all: "/transactions",
     "top merchants by transactions": "/transactions/top-merchants",
@@ -19744,22 +19748,14 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     "top merchants by amount (credit)": "/transactions/top-by-amount/description/credit",
     "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
   };
-  const cache = {};
-  Object.keys(views2).forEach((key) => {
-    cache[key] = [];
-  });
   const stateDefaults = {
     selectedId: 0,
-    selectedTransaction: {},
-    showModal: false,
     transactions: [],
     selectedOption: "all",
     transactionFields: [],
     sorted: {},
-    conversionRates: [],
     fetchDate: new Date(),
-    aggregatorChecked: false,
-    aggregatedTransactions: []
+    aggregatorChecked: false
   };
   const transactionFields = {
     all: [
@@ -20057,7 +20053,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       className: "transactions"
     }, transactions.length ? logo : null, /* @__PURE__ */ react6.default.createElement("h2", {
       title: "Mojocat Bank Transactions"
-    }, "Mojocat Transactions"), !transactions.length ? /* @__PURE__ */ react6.default.createElement(Loading2, null) : /* @__PURE__ */ react6.default.createElement(react6.default.Fragment, null, /* @__PURE__ */ react6.default.createElement(TransactionDropList, {
+    }, "Transactions"), !transactions.length ? /* @__PURE__ */ react6.default.createElement(Loading2, null) : /* @__PURE__ */ react6.default.createElement(react6.default.Fragment, null, /* @__PURE__ */ react6.default.createElement(TransactionDropList, {
       selectedOption,
       doFetch
     }), /* @__PURE__ */ react6.default.createElement(TransactionAggregator, {

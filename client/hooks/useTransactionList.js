@@ -11,8 +11,7 @@ const { fetchTransactions } = useFetch();
 
 const useTransactionList = () => {
 
-  // state 
-  const [selectedId, setSelectedId] = useState(stateDefaults.selectedId);
+  const [selectedId, setSelectedId] = useState(stateDefaults.selectedId); 
   const [transactions, setTransactions] = useState(stateDefaults.transactions);
   const [selectedOption, setSelectedOption] = useState(stateDefaults.selectedOption);
   const [transactionFields, setTransactionFields] = useState(stateDefaults.transactionFields);
@@ -25,15 +24,6 @@ const useTransactionList = () => {
     if ( Object.keys(sortedField).length ) {
       setSortedField(stateDefaults.sorted);
     }
-
-    /*
-    if ( Object.keys(sortedField).length ) {
-      console.log("sortedField has key ... re-init");
-      setSortedField(stateDefaults.sorted);
-    } else {
-      console.log("sortedField does not have key ... do nothing");
-    }
-    */
 
     if( option === null) {
       option = stateDefaults.selectedOption;
