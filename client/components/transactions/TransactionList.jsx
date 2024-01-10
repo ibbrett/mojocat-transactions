@@ -13,7 +13,6 @@ const TransactionList = () => {
 
   const {
     selectedId,
-    showModal, 
     transactions, 
     selectedOption, 
     transactionFields, 
@@ -59,7 +58,7 @@ const TransactionList = () => {
             transactionFields={transactionFields} 
             openModal={openModal} 
           />
-          <Modal showModal={showModal} closeModal={closeModal} label="Transaction Detail">
+          <Modal showModal={selectedId === 0 ? false : true} closeModal={closeModal} label="Transaction Detail">
             <TransactionDetail transaction={
               selectedId === 0 ? {} : transactions.find( item => item.id === selectedId)
             }/>

@@ -1,19 +1,3 @@
-/* all transaction fields
-const allTransactionFields = [
-  "id",
-  "transactionDate",
-  "description",
-  "category",
-  "debit",
-  "credit",
-  "merchantStreetAddress",
-  "merchantCity",
-  "merchantState",
-  "merchantCountry",
-  "currency"
-];
-*/
-
 // used by droplist - object of droplist labels and API endpoint paths
 const views = {
   "all": "/transactions", 
@@ -24,17 +8,6 @@ const views = {
   "top categories by amount (credit)": "/transactions/top-by-amount/category/credit"
 };
 
-/* cache API-fetched data: this object will look like:
-{
-  "all": [], 
-  "top merchants by transactions": null, 
-  "top merchants by amount (debit)": null, 
-  "top categories by amount (debit)": null, 
-  "top merchants by amount (credit)": null,  
-  "top categories by amount (credit)": null, 
-};
-*/
-
 const cache = {};
 Object.keys(views).forEach(key => {
   cache[key] = [];
@@ -42,14 +15,16 @@ Object.keys(views).forEach(key => {
 
 const stateDefaults = {
   selectedId: 0,
+  selectedTransaction: {},
   showModal: false,
-  transactions: [], // cache, // [],
+  transactions: [],
   selectedOption: "all",
   transactionFields: [],
   sorted: {},
   conversionRates: [],
   fetchDate: new Date(),
   aggregatorChecked: false,
+  aggregatedTransactions: []
 };
 
 // used to control transaction field display

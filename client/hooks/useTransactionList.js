@@ -11,8 +11,8 @@ const { fetchTransactions } = useFetch();
 
 const useTransactionList = () => {
 
+  // state 
   const [selectedId, setSelectedId] = useState(stateDefaults.selectedId);
-  const [showModal, setShowModal] = useState(stateDefaults.showModal);
   const [transactions, setTransactions] = useState(stateDefaults.transactions);
   const [selectedOption, setSelectedOption] = useState(stateDefaults.selectedOption);
   const [transactionFields, setTransactionFields] = useState(stateDefaults.transactionFields);
@@ -55,7 +55,6 @@ const useTransactionList = () => {
     }
     
     setTransactionFields(getFields(option));
-    // console.log("#".repeat(80));
 
     const now = new Date();
     setFetchDate(now);
@@ -96,10 +95,6 @@ const useTransactionList = () => {
 
   };
 
-  const changeSelectedTransaction = () => {
-    setShowModal(selectedId === 0 ? false : true);
-  };
-
   const onMount = () => {
     console.log("component mounted, fetch data");
     doFetch();
@@ -107,7 +102,6 @@ const useTransactionList = () => {
 
   return { 
     selectedId,
-    showModal, 
     transactions, 
     selectedOption, 
     transactionFields,

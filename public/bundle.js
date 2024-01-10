@@ -19750,7 +19750,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   });
   const stateDefaults = {
     selectedId: 0,
-    selectedTransaction: {},
     showModal: false,
     transactions: [],
     selectedOption: "all",
@@ -20039,7 +20038,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   const TransactionList2 = () => {
     const {
       selectedId,
-      showModal,
       transactions,
       selectedOption,
       transactionFields: transactionFields2,
@@ -20082,7 +20080,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       transactionFields: transactionFields2,
       openModal
     }), /* @__PURE__ */ react6.default.createElement(Modal2, {
-      showModal,
+      showModal: selectedId === 0 ? false : true,
       closeModal,
       label: "Transaction Detail"
     }, /* @__PURE__ */ react6.default.createElement(TransactionDetail, {
