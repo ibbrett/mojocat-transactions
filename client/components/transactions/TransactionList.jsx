@@ -24,7 +24,6 @@ const TransactionList = () => {
     closeModal,
     toggleAggregator,
     HeaderSortHandler,
-    changeSelectedTransaction,
     onMount
   } = useTransactionList();
 
@@ -34,11 +33,6 @@ const TransactionList = () => {
       console.log("unmount")
     };
   },[]);
-
-  // effect to manage selected transaction record
-  useEffect(() => {
-    changeSelectedTransaction();
-  }, [selectedId]);
 
   return (
     <>

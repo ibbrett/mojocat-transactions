@@ -113,7 +113,6 @@ const useTransactionList = () => {
     closeModal,
     toggleAggregator,
     HeaderSortHandler,
-    changeSelectedTransaction,
     onMount
   };
 };

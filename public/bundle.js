@@ -19750,6 +19750,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   });
   const stateDefaults = {
     selectedId: 0,
+    selectedTransaction: {},
     showModal: false,
     transactions: [],
     selectedOption: "all",
@@ -19757,7 +19758,8 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     sorted: {},
     conversionRates: [],
     fetchDate: new Date(),
-    aggregatorChecked: false
+    aggregatorChecked: false,
+    aggregatedTransactions: []
   };
   const transactionFields = {
     all: [
@@ -19878,12 +19880,12 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     const prevFetchDate = prevTransactionTable.fetchDate;
     const nextFetchDate = nextTransactionTable.fetchDate;
     if (prevFetchDate.toString() !== nextFetchDate.toString()) {
-      console.log("TransactionTable prev/next FetchDate", prevFetchDate.toL, nextFetchDate);
+      console.log("TransactionTable prev/next FetchDate", prevFetchDate, nextFetchDate);
     }
     if (prevFetchDate === nextFetchDate) {
       return true;
     } else {
-      console.log("Re-render TransactionTable component");
+      console.log("re-render memoized TransactionTable component");
       return false;
     }
   }
@@ -19946,7 +19948,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   const {fetchTransactions} = useFetch();
   const useTransactionList2 = () => {
     const [selectedId, setSelectedId] = react11.useState(stateDefaults2.selectedId);
-    const [showModal, setShowModal] = react11.useState(stateDefaults2.showModal);
     const [transactions, setTransactions] = react11.useState(stateDefaults2.transactions);
     const [selectedOption, setSelectedOption] = react11.useState(stateDefaults2.selectedOption);
     const [transactionFields2, setTransactionFields] = react11.useState(stateDefaults2.transactionFields);
@@ -20003,16 +20004,12 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       const now = new Date();
       setFetchDate(now);
     };
-    const changeSelectedTransaction = () => {
-      setShowModal(selectedId === 0 ? false : true);
-    };
     const onMount = () => {
       console.log("component mounted, fetch data");
       doFetch();
     };
     return {
       selectedId,
-      showModal,
       transactions,
       selectedOption,
       transactionFields: transactionFields2,
@@ -20024,7 +20021,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       closeModal,
       toggleAggregator,
       HeaderSortHandler,
-      changeSelectedTransaction,
       onMount
     };
   };
@@ -20049,7 +20045,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       closeModal,
       toggleAggregator,
       HeaderSortHandler,
-      changeSelectedTransaction,
       onMount
     } = useTransactionList2();
     react6.useEffect(() => {
@@ -20058,9 +20053,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         console.log("unmount");
       };
     }, []);
-    react6.useEffect(() => {
-      changeSelectedTransaction();
-    }, [selectedId]);
     return /* @__PURE__ */ react6.default.createElement(react6.default.Fragment, null, /* @__PURE__ */ react6.default.createElement("div", {
       className: "transactions"
     }, transactions.length ? logo : null, /* @__PURE__ */ react6.default.createElement("h2", {
