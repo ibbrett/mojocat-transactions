@@ -121,7 +121,7 @@ const useTransactionList = () => {
     showModal, 
     transactions, 
     selectedOption, 
-    transactionFields, 
+    transactionFields,
     sortedField, 
     fetchDate, 
     aggregatorChecked,
