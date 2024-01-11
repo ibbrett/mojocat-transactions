@@ -251,17 +251,26 @@ for ( let i = 0; i < randomCount; i++ ) {
     credit = float;
   }
 
+  const randomDate = new Date(); // init to current date
+  const maxDaysBack = 400;
+  const daysBack = Math.floor(Math.random() * ( maxDaysBack + 1 ));
+  randomDate.setDate(randomDate.getDate() - daysBack);
+
+  const randomYear = randomDate.getFullYear();
+  const randomMonth = randomDate.getMonth()+1;
+  const randomDay = randomDate.getDate();
+
+  /*
   const randomMonth = Math.floor(Math.random() * 12) + 1;
   const randomDay = Math.floor(Math.random() * 28) + 1;
-
-  let year = "2023";
+  let randomYear = "2023";
   if(randomMonth === 1 && randomDay <= 10 )
-    year = "2024";
-
+    randomYear = "2024";
+  */
 
   transactions.push(
     {
-      "transactionDate": year+"-"+randomMonth.toString().padStart(2, "0")+"-"+randomDay.toString().padStart(2, "0"),
+      "transactionDate": randomYear.toString()+"-"+randomMonth.toString().padStart(2, "0")+"-"+randomDay.toString().padStart(2, "0"),
       "description": merchant.name,
       "category": merchant.category,
       "debit": debit,
