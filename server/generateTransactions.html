@@ -76,7 +76,7 @@ const merchants = [
     zip: '95060'
   },
   {
-    name: 'Adams Walsh Brothers',
+    name: 'Adams & Walsh',
     category: 'Auto Parts',
     currency: 'USD',
     street: '1163 S Coast Hwy 101',
@@ -151,7 +151,7 @@ const merchants = [
     name: 'Eddie\'s Collision Center',
     category: 'Auto Repair',
     currency: 'USD',
-    street: '909 North Pacific Coast Highway',
+    street: '430 E Grand Ave A',
     city: 'El Segundo',
     state: 'CA',
     zip: '90245'
@@ -221,9 +221,18 @@ const merchants = [
   }
 ];
 
-const count = 100;
+
+/*
+const count = 3001;
+const countMin = 101;
+let randomCount = Math.floor(Math.random() * count + 1); // 0-count
+randomCount = randomCount >= countMin ? randomCount : countMin;
+*/
+
+const randomCount = 999;
+
 const transactions = [];
-for ( let i = 0; i < count; i++ ) {
+for ( let i = 0; i < randomCount; i++ ) {
 
   const randomIndex = Math.floor(Math.random() * merchants.length);
   const merchant = merchants[randomIndex];
@@ -245,10 +254,14 @@ for ( let i = 0; i < count; i++ ) {
   const randomMonth = Math.floor(Math.random() * 12) + 1;
   const randomDay = Math.floor(Math.random() * 28) + 1;
 
+  let year = "2023";
+  if(randomMonth === 1 && randomDay <= 10 )
+    year = "2024";
+
 
   transactions.push(
     {
-      "transactionDate": "2023-"+randomMonth.toString().padStart(2, "0")+"-"+randomDay.toString().padStart(2, "0"),
+      "transactionDate": year+"-"+randomMonth.toString().padStart(2, "0")+"-"+randomDay.toString().padStart(2, "0"),
       "description": merchant.name,
       "category": merchant.category,
       "debit": debit,

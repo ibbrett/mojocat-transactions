@@ -19554,11 +19554,11 @@ For more info, visit https://fb.me/react-mock-scheduler`);
   // client/hooks/useCurrencyApi.js
   const rates = {
     data: {
-      EUR: 0.9437601439,
-      JPY: 149.9124275149,
-      MXN: 18.2435134238,
+      EUR: 0.9112301684,
+      JPY: 145.7399146449,
+      MXN: 16.9753123942,
       USD: 1,
-      CRC: 531.56
+      CRC: 522.74909
     }
   };
   const currencies = {
@@ -19911,6 +19911,14 @@ For more info, visit https://fb.me/react-mock-scheduler`);
 
   // client/components/transactions/TransactionAggregator.jsx
   const react3 = __toModule(require_react());
+  const TransactionAggregator = ({checked, toggleAggregator, count}) => {
+    const countMessage = checked ? "aggregated transaction items" : "total transactions";
+    return /* @__PURE__ */ react3.default.createElement("div", {
+      className: "aggregator"
+    }, /* @__PURE__ */ react3.default.createElement("div", {
+      className: "count"
+    }, countMessage, ": ", count));
+  };
 
   // client/hooks/useFetch.js
   const useFetch = () => {
@@ -20048,6 +20056,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }, "Transactions"), !transactions.length ? /* @__PURE__ */ react6.default.createElement(Loading2, null) : /* @__PURE__ */ react6.default.createElement(react6.default.Fragment, null, /* @__PURE__ */ react6.default.createElement(TransactionDropList, {
       selectedOption,
       doFetch
+    }), /* @__PURE__ */ react6.default.createElement(TransactionAggregator, {
+      checked: aggregatorChecked,
+      toggleAggregator,
+      count: transactions.length
     }), /* @__PURE__ */ react6.default.createElement(memoizedTransactionTable, {
       fetchDate,
       HeaderSortHandler,
